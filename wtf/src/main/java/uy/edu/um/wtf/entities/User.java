@@ -2,15 +2,14 @@ package uy.edu.um.wtf.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
-
 import java.io.Serializable;
 import java.util.Date;
-
 import static jakarta.persistence.GenerationType.IDENTITY;
 
 @Entity
 @Table(name = "USUARIO")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "USER_TYPE", discriminatorType = DiscriminatorType.STRING)
 @Getter
 @Setter
 @Builder
