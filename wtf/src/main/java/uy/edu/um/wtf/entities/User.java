@@ -21,19 +21,19 @@ public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = IDENTITY)
     @Column(name = "ID")
-    private Long Id;
+    private Long id;
 
     @Column(name = "IDENTITY")
-    private long Identity;
+    private long identity;
 
     @Column(name = "NAME")
-    private String Name;
+    private String name;
 
     @Column(name = "SURNAME")
-    private String Surname;
+    private String surname;
 
     @Temporal(TemporalType.DATE)
     @Column(name = "BIRTH_DATE")
-    private Date Birth_date;
+    private Date birthDate;
 
 }

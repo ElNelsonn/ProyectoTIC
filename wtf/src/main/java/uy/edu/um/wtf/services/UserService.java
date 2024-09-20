@@ -26,10 +26,10 @@ public class UserService {
         }
 
         User userAux = User.builder()
-                .Identity(Id)
-                .Name(Name)
-                .Surname(Surname)
-                .Birth_date(Birth_date)
+                .identity(Id)
+                .name(Name)
+                .surname(Surname)
+                .birthDate(Birth_date)
                 .build();
         return userRepository.save(userAux);
     }
