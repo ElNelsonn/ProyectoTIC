@@ -13,7 +13,7 @@ import java.util.List;
 public class UserService {
 
     @Autowired
-    public static UserRepository userRepository;
+    private UserRepository userRepo;
 
     public User addUser(String Name, String Surname, Long Id, Date Birth_date) throws InvalidDataException {
         if (Name == null || Surname == null || Birth_date == null)
@@ -26,13 +26,16 @@ public class UserService {
         }
 
         User userAux = User.builder()
-                .identity(Id)
+                .identityCard(Id)
                 .name(Name)
                 .surname(Surname)
                 .birthDate(Birth_date)
                 .build();
-        return userRepository.save(userAux);
+        return userRepo.save(userAux);
     }
 
-    public static List<User> allUsers(){return userRepository.findAll();}
+    public List<User> allUsers(){
+        return userRepo.findAll();
+    }
+
 }
