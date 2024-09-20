@@ -7,7 +7,6 @@ import jakarta.persistence.Table;
 import lombok.*;
 
 @Entity
-@Table(name = "CLIENT")
 @DiscriminatorValue("CLIENT")
 @Getter
 @Setter
