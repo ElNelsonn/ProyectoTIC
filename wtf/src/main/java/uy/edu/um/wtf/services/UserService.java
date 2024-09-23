@@ -22,7 +22,7 @@ public class UserService {
         }
         if(Name.trim().equals("") || Surname.trim().equals(""))
         {
-            throw new InvalidDataException("The data values in name and surname must the completed");
+            throw new InvalidDataException("The data values in name and surname must be completed");
         }
 
         User userAux = User.builder()
