@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.*;
 import java.io.Serializable;
 import java.util.Date;
-import static jakarta.persistence.GenerationType.IDENTITY;
 
 @Entity
 @Table(name = "USUARIO")
@@ -19,7 +18,7 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 public abstract class User implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
     private Long id;
 
