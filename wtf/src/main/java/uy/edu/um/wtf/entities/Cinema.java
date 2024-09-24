@@ -28,7 +28,7 @@ public class Cinema {
     @Column(name = "PHONE_NUMBER")
     private List<Long> phoneNumber;
 
-    @Column(name = "LOCATION", unique = false, nullable = false)
+    @Column(name = "LOCATION", nullable = false)
     private String location;
 
     @Column(name = "MAIL", unique = true, nullable = false)

@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import java.io.Serializable;
 import java.sql.Time;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -28,9 +29,9 @@ public class Movie implements Serializable {
     @Column(name = "TITLE", nullable = false)
     private String title;
 
-    @Temporal(TemporalType.DATE)
+    // @Temporal(TemporalType.DATE)
     @Column(name = "RELEASE_DATE", nullable = false)
-    private Date releaseDate;
+    private LocalDate releaseDate;
 
     @ElementCollection
     @CollectionTable(name = "MOVIE_DIRECTORS",joinColumns = @JoinColumn(name="MOVIE_ID"))
@@ -51,12 +52,11 @@ public class Movie implements Serializable {
     @Column(name = "ACTORS", nullable = false)
     private List<String> actors;
 
-    @Temporal(TemporalType.TIME)
     @Column(name = "DURATION", nullable = false)
-    private Time duration;
+    private Long duration;
 
-    @Column(name = "CLASIFICATION", nullable = false)
-    private String clasification;
+    @Column(name = "CLASSIFICATION", nullable = false)
+    private String classification;
 
     @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @Builder.Default

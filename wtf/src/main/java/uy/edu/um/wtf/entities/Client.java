@@ -1,9 +1,10 @@
 package uy.edu.um.wtf.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.DiscriminatorValue;
-import jakarta.persistence.Entity;
+import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.LinkedList;
+import java.util.List;
 
 @Entity
 @DiscriminatorValue("CLIENT")
@@ -17,5 +18,9 @@ public class Client extends User {
 
     @Column(name = "CARD_NUMBER")
     private Long cardNumber;
+
+    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @Builder.Default
+    private List<TicketPurchase> ticketPurchaseList = new LinkedList<>();
 
 }
