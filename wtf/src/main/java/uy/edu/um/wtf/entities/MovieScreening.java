@@ -3,6 +3,7 @@ package uy.edu.um.wtf.entities;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -35,7 +36,7 @@ public class MovieScreening {
     private Screen screen;
 
     @Column(name = "SEATS", nullable = false)
-    private boolean[] seats;
+    private ArrayList<Boolean> seats; /*en creador hacer de 10*15*/
 
     @OneToMany(mappedBy = "movieScreening", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @Builder.Default

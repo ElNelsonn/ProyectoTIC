@@ -10,7 +10,7 @@ import java.util.List;
 @DiscriminatorValue("CLIENT")
 @Getter
 @Setter
-@Builder
+//@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 

@@ -7,7 +7,7 @@ import lombok.*;
 @DiscriminatorValue("ADMINISTRATOR")
 @Getter
 @Setter
-@Builder
+//@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 
