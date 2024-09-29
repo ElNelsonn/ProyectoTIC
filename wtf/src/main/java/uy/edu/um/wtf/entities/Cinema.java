@@ -34,7 +34,6 @@ public class Cinema {
     @Column(name = "MAIL", unique = true, nullable = false)
     private String mail;
 
-
     @OneToMany(mappedBy = "cinema", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @Builder.Default
     private List<Screen> screenList = new LinkedList<>();

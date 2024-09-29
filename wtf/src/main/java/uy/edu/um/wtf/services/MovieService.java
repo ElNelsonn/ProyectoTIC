@@ -17,10 +17,8 @@ public class MovieService {
     @Autowired
     private MovieRepository movieRepository;
 
-    public Movie addMovie(String Title, Date ReleaseDate, List<String> Directors, String Synopsis
-            , List<String> Categories, List<String> Actors, Time Duration,String Clasification) throws InvalidDataException {
-        if (Title==null||ReleaseDate==null||Directors==null||Synopsis==null||
-        Categories==null||Actors==null||Duration==null||Clasification==null){
+    public Movie addMovie(String title, Date releaseDate, List<String> directors, String Synopsis, List<String> Categories, List<String> Actors, Time Duration,String Clasification) throws InvalidDataException {
+        if (title == null || releaseDate == null || directors == null||Synopsis==null|| Categories==null||Actors==null||Duration==null||Clasification==null){
             throw new InvalidDataException("The data in the new movie is incorrect");
         }
         if (Title.trim().equals("")||Clasification.trim().equals("")||Synopsis.trim().equals("")){
@@ -33,7 +31,7 @@ public class MovieService {
         Movie movieAux = Movie.builder()
                 .title(Title)
                 .actors(Actors)
-                .clasification(Clasification)
+                .classification(Clasification)
                 .synopsis(Synopsis)
                 .directors(Directors)
                 .categories(Categories)
