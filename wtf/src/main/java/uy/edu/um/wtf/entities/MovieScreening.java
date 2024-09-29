@@ -23,7 +23,6 @@ public class MovieScreening {
     @Column(name = "ID")
     private Long id;
 
-    // @Temporal(TemporalType.DATE)
     @Column(name = "DATE", nullable = false)
     private LocalDateTime date;
 
@@ -36,11 +35,14 @@ public class MovieScreening {
     private Screen screen;
 
     @Column(name = "SEATS", nullable = false)
-    private ArrayList<Boolean> seats; /*en creador hacer de 10*15*/
+    private boolean[] seats;
 
     @OneToMany(mappedBy = "movieScreening", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @Builder.Default
     private List<TicketPurchase> ticketPurchaseList = new LinkedList<>();
+
+
+
 
 
 

@@ -3,9 +3,7 @@ package uy.edu.um.wtf.entities;
 import jakarta.persistence.*;
 import lombok.*;
 import java.io.Serializable;
-import java.sql.Time;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import static jakarta.persistence.GenerationType.IDENTITY;
@@ -29,13 +27,12 @@ public class Movie implements Serializable {
     @Column(name = "TITLE", nullable = false)
     private String title;
 
-    // @Temporal(TemporalType.DATE)
     @Column(name = "RELEASE_DATE", nullable = false)
     private LocalDate releaseDate;
 
     @ElementCollection
     @CollectionTable(name = "MOVIE_DIRECTORS",joinColumns = @JoinColumn(name="MOVIE_ID"))
-    @Column(name = "DIRECTORS", nullable = false) /*no se si funciona con el @Column*/
+    @Column(name = "DIRECTORS", nullable = false)
     private List<String> directors;
 
     @Column(name = "SYNOPSIS")
@@ -45,7 +42,6 @@ public class Movie implements Serializable {
     @CollectionTable(name = "MOVIE_CATEGORIES",joinColumns=@JoinColumn(name="MOVIE_ID"))
     @Column(name = "CATEGORIES", nullable = false)
     private List<String> categories;
-
 
     @ElementCollection
     @CollectionTable(name = "MOVIE_ACTORS",joinColumns = @JoinColumn(name="MOVIE_ID"))

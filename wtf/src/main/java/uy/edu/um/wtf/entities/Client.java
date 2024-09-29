@@ -10,17 +10,15 @@ import java.util.List;
 @DiscriminatorValue("CLIENT")
 @Getter
 @Setter
-//@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 
 public class Client extends User {
 
-    @Column(name = "CARD_NUMBER")
+    @Column(name = "CARD_NUMBER", unique = true)
     private Long cardNumber;
 
     @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @Builder.Default
     private List<TicketPurchase> ticketPurchaseList = new LinkedList<>();
 
 }
