@@ -20,7 +20,6 @@ import java.util.Optional;
 @Service
 public class MovieScreeningService {
 
-
     @Autowired
     private MovieScreeningRepository movieScreeningRepo;
 

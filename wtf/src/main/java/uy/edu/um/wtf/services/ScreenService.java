@@ -8,10 +8,7 @@ import uy.edu.um.wtf.exceptions.EntityAlreadyExistsException;
 import uy.edu.um.wtf.exceptions.EntityNotFoundException;
 import uy.edu.um.wtf.exceptions.InvalidDataException;
 import uy.edu.um.wtf.repository.CinemaRepository;
-import uy.edu.um.wtf.repository.MovieRepository;
 import uy.edu.um.wtf.repository.ScreenRepository;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Optional;
 
 @Service

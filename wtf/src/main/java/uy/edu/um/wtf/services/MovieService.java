@@ -7,10 +7,7 @@ import uy.edu.um.wtf.entities.Movie;
 import uy.edu.um.wtf.exceptions.EntityAlreadyExistsException;
 import uy.edu.um.wtf.exceptions.InvalidDataException;
 import uy.edu.um.wtf.repository.MovieRepository;
-
-import java.sql.Time;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -52,13 +49,20 @@ public class MovieService {
             throw new EntityAlreadyExistsException("Ya existe una pelicula con ese nombre.");
         }
 
+        // Crear nueva Movie
+        Movie newMovie = Movie.builder().
+                title(title).
+                releaseDate(releaseDate).
+                directors(directors).
+                synopsis(synopsis).
+                actors(actors).
+                duration(duration).
+                classification(classification).
+                categories(categories).
+                build();
 
-
-
-        
-
-
-
+        // Guardar nueva Movie
+        return movieRepo.save(newMovie);
     }
 
     public List<Movie> allMovies(){return movieRepo.findAll();}
