@@ -7,7 +7,6 @@ import uy.edu.um.wtf.entities.Cinema;
 import uy.edu.um.wtf.exceptions.EntityAlreadyExistsException;
 import uy.edu.um.wtf.exceptions.InvalidDataException;
 import uy.edu.um.wtf.repository.CinemaRepository;
-
 import java.util.List;
 
 @Service

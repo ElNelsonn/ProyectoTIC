@@ -40,12 +40,15 @@ public class ClientService {
 
         // Crear un nuevo Client
         Client newClient = Client.builder().
+                identityCard(id).
                 name(name).
+                surname(surname).
+                birthDate(birthDate).
+                cardNumber(cardNumber).
                 build();
 
-
-
-
+        // Agregar client
+        return clientRepo.save(newClient);
 
     }
 
