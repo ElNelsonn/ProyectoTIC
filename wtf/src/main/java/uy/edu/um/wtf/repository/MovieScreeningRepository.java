@@ -20,4 +20,6 @@ public interface MovieScreeningRepository extends JpaRepository<MovieScreening, 
 
     public List<MovieScreening> findMovieScreeningsByScreenAndDateBetween(Screen screen, LocalDateTime startingTime, LocalDateTime endTime);
 
+    public Optional<MovieScreening> findMovieScreeningByScreenAndDate(Screen screen, LocalDateTime dateTime);
+
 }

@@ -27,6 +27,9 @@ public class TicketPurchase {
     @Column(name = "PURCHASE_DATE", nullable = false)
     private LocalDateTime purchaseDate;
 
+    @Column(name = "TOTAL_PRICE", nullable = false)
+    private Long totalPrice;
+
     @ManyToOne
     @JoinColumn(name = "MOVIE_SCREENING_ID", nullable = false)
     private MovieScreening movieScreening;

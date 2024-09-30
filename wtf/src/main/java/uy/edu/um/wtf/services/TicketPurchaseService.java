@@ -6,8 +6,12 @@ import uy.edu.um.wtf.entities.Client;
 import uy.edu.um.wtf.entities.MovieScreening;
 import uy.edu.um.wtf.entities.TicketPurchase;
 import uy.edu.um.wtf.exceptions.EntityAlreadyExistsException;
+import uy.edu.um.wtf.exceptions.EntityNotFoundException;
 import uy.edu.um.wtf.exceptions.InvalidDataException;
 import uy.edu.um.wtf.repository.TicketPurchaseRepository;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 
 @Service
@@ -21,7 +25,9 @@ public class TicketPurchaseService {
 
     //}
 
-    public TicketPurchase addTicketPurchase(int[] seats, MovieScreening movieScreening, Client client) throws InvalidDataException, EntityAlreadyExistsException {
+    // cFilas*FILAS + COLUMNAS => fila 3, col 5 indice es: cFilas*3 + 5 = 11
+
+    public TicketPurchase addTicketPurchase(int[] seats, String cinemaName, String screenName, LocalDateTime movieScreeningDate, Long clientId) throws InvalidDataException, EntityAlreadyExistsException, EntityNotFoundException {
         // Control de datos
 
         if (movieScreening == null) {
@@ -38,6 +44,7 @@ public class TicketPurchaseService {
                 .seat(seats)
                 .movieScreening(movieScreening)
                 .client(client)
+                .purchaseDate(LocalDateTime.now())
                 .build();
         return ticketRepo.save(newTicket);
     }

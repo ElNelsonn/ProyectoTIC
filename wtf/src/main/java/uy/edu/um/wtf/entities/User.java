@@ -17,7 +17,6 @@ import java.util.Date;
 @SuperBuilder
 @AllArgsConstructor
 @NoArgsConstructor
-
 public abstract class User implements Serializable {
 
     @Id
