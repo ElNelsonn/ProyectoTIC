@@ -8,6 +8,7 @@ import uy.edu.um.wtf.exceptions.InvalidDataException;
 import uy.edu.um.wtf.repository.MovieRepository;
 
 import java.sql.Time;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -17,26 +18,26 @@ public class MovieService {
     @Autowired
     private MovieRepository movieRepository;
 
-    public Movie addMovie(String title, Date releaseDate, List<String> directors, String Synopsis, List<String> Categories, List<String> Actors, Time Duration,String Clasification) throws InvalidDataException {
-        if (title == null || releaseDate == null || directors == null||Synopsis==null|| Categories==null||Actors==null||Duration==null||Clasification==null){
+    public Movie addMovie(String title, LocalDate releaseDate, List<String> directors, String synopsis, List<String> categories, List<String> actors, Long duration, String clasification) throws InvalidDataException {
+        if (title == null || releaseDate == null || directors == null||synopsis==null|| categories==null||actors==null||duration==null||clasification==null){
             throw new InvalidDataException("The data in the new movie is incorrect");
         }
-        if (Title.trim().equals("")||Clasification.trim().equals("")||Synopsis.trim().equals("")){
+        if (title.trim().equals("")||clasification.trim().equals("")||synopsis.trim().equals("")){
             throw new InvalidDataException("The values in Title,Clasification and Synopsis must be completed");
         }
-        if (Duration.getHours() <= 0&&Duration.getMinutes() <= 0&&Duration.getSeconds()<=0){
+        if (duration.intValue() <= 0){
             throw new InvalidDataException("The values of Time must be over 0");
         }
 
         Movie movieAux = Movie.builder()
-                .title(Title)
-                .actors(Actors)
-                .classification(Clasification)
-                .synopsis(Synopsis)
-                .directors(Directors)
-                .categories(Categories)
-                .releaseDate(ReleaseDate)
-                .duration(Duration)
+                .title(title)
+                .actors(actors)
+                .classification(clasification)
+                .synopsis(synopsis)
+                .directors(directors)
+                .categories(categories)
+                .releaseDate(releaseDate)
+                .duration(duration)
                 .build();
         return movieRepository.save(movieAux);
     }
