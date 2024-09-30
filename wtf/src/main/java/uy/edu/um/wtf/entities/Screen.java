@@ -39,6 +39,11 @@ public class Screen {
     @Builder.Default
     private List<MovieScreening> movieScreenings = new LinkedList<>();
 
+
+
+    @Column(name = "SEATS",nullable = false)
+    private List<Boolean> seats;
+
     /*ver como comprobar que sala esta libre para cada fecha*/
 
 
