@@ -40,7 +40,7 @@ public class CinemaService {
             throw new EntityAlreadyExistsException();
         }
 
-        // Crear un nuevo objeto Cinema
+        // Crear un nuevo Cinema
         Cinema newCinema = Cinema.builder()
                 .name(name)
                 .phoneNumber(phoneNumbers)

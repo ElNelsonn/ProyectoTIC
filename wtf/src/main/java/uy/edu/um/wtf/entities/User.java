@@ -2,6 +2,8 @@ package uy.edu.um.wtf.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -11,7 +13,7 @@ import java.util.Date;
 @DiscriminatorColumn(name = "USER_TYPE", discriminatorType = DiscriminatorType.STRING)
 @Getter
 @Setter
-//@Builder
+@SuperBuilder
 @AllArgsConstructor
 @NoArgsConstructor
 
@@ -32,7 +34,7 @@ public abstract class User implements Serializable {
     private String surname;
 
     @Temporal(TemporalType.DATE)
-    @Column(name = "BIRTH_DATE")
+    @Column(name = "BIRTH_DATE", nullable = false)
     private Date birthDate;
 
 }
