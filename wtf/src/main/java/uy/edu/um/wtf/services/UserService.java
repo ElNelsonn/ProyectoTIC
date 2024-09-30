@@ -15,25 +15,6 @@ public class UserService {
     @Autowired
     private UserRepository userRepo;
 
-    /*public User addUser(String Name, String Surname, Long Id, Date Birth_date) throws InvalidDataException {
-        if (Name == null || Surname == null || Birth_date == null)
-        {
-            throw new InvalidDataException("The data in the new User is incorrect");
-        }
-        if(Name.trim().equals("") || Surname.trim().equals(""))
-        {
-            throw new InvalidDataException("The data values in name and surname must be completed");
-        }
-
-        User userAux = User.builder()
-                .identityCard(Id)
-                .name(Name)
-                .surname(Surname)
-                .birthDate(Birth_date)
-                .build();
-        return userRepo.save(userAux);
-    }*/
-
     public List<User> allUsers(){
         return userRepo.findAll();
     }

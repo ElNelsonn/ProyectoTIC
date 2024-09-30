@@ -24,7 +24,7 @@ public class Movie implements Serializable {
     @Column(name = "ID")
     private Long id;
 
-    @Column(name = "TITLE", nullable = false)
+    @Column(name = "TITLE", nullable = false, unique = true)
     private String title;
 
     @Column(name = "RELEASE_DATE", nullable = false)

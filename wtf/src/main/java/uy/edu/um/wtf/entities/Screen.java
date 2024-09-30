@@ -2,8 +2,6 @@ package uy.edu.um.wtf.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
-
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -38,13 +36,4 @@ public class Screen {
     @OneToMany(mappedBy = "screen", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @Builder.Default
     private List<MovieScreening> movieScreenings = new LinkedList<>();
-
-
-
-    @Column(name = "SEATS",nullable = false)
-    private List<Boolean> seats;
-
-    /*ver como comprobar que sala esta libre para cada fecha*/
-
-
 }

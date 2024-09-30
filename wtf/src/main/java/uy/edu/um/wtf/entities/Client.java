@@ -21,6 +21,7 @@ public class Client extends User {
     private Long cardNumber;
 
     @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @Builder.Default
     private List<TicketPurchase> ticketPurchaseList = new LinkedList<>();
 
 }

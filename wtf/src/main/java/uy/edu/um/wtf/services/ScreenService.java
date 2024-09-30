@@ -6,7 +6,6 @@ import uy.edu.um.wtf.entities.Cinema;
 import uy.edu.um.wtf.entities.Screen;
 import uy.edu.um.wtf.exceptions.InvalidDataException;
 import uy.edu.um.wtf.repository.ScreenRepository;
-
 import java.util.LinkedList;
 import java.util.List;
 
@@ -17,6 +16,7 @@ public class ScreenService {
     private ScreenRepository screenRepository;
 
     public Screen addScreen(String name, Cinema cinema, Integer columns, Integer rows) throws InvalidDataException {
+
         if (name==null||cinema==null||columns==null||rows==null||columns<=0||rows<=0){
             throw new InvalidDataException("The data in the new screen is incorrect");
         }
@@ -32,7 +32,6 @@ public class ScreenService {
                 .cinema(cinema)
                 .columms(columns)
                 .rows(rows)
-                .seats(seats)
                 .name(name)
                 .build();
         return screenRepository.save(screenAux);

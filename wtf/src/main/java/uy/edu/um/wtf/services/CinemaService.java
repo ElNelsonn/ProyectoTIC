@@ -32,11 +32,11 @@ public class CinemaService {
 
         // Control de duplicados
         if (cinemaRepo.findCinemaByName(name).isPresent()) {
-            throw new EntityAlreadyExistsException();
+            throw new EntityAlreadyExistsException("Ya existe un cine con ese nombre.");
         }
 
         if (cinemaRepo.findCinemaByMail(mail).isPresent()) {
-            throw new EntityAlreadyExistsException();
+            throw new EntityAlreadyExistsException("Ya existe un cine con ese mail.");
         }
 
         // Crear un nuevo Cinema
