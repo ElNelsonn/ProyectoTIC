@@ -7,6 +7,8 @@ import java.util.Optional;
 
 public interface AdministratorRepository extends JpaRepository<Administrator,Long> {
 
+    public List<Administrator> findAll();
+
     public List<Administrator> findAdministratorsByName(String name);
 
     public Optional<Administrator> findAdministratorByIdentityCard(Long identityCard);
