@@ -4,6 +4,8 @@ package uy.edu.um.wtf.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Getter
 @Setter
@@ -21,6 +23,9 @@ public class TicketPurchase {
 
     @Column(name = "SEAT", nullable = false)
     private int[] seat;
+
+    @Column(name = "PURCHASE_DATE", nullable = false)
+    private LocalDateTime purchaseDate;
 
     @ManyToOne
     @JoinColumn(name = "MOVIE_SCREENING_ID", nullable = false)

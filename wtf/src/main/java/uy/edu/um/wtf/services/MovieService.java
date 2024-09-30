@@ -4,6 +4,7 @@ package uy.edu.um.wtf.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import uy.edu.um.wtf.entities.Movie;
+import uy.edu.um.wtf.exceptions.EntityAlreadyExistsException;
 import uy.edu.um.wtf.exceptions.InvalidDataException;
 import uy.edu.um.wtf.repository.MovieRepository;
 
@@ -11,37 +12,55 @@ import java.sql.Time;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class MovieService {
 
     @Autowired
-    private MovieRepository movieRepository;
+    private MovieRepository movieRepo;
 
-    public Movie addMovie(String title, LocalDate releaseDate, List<String> directors, String synopsis, List<String> categories, List<String> actors, Long duration, String clasification) throws InvalidDataException {
-        if (title == null || releaseDate == null || directors == null||synopsis==null|| categories==null||actors==null||duration==null||clasification==null){
-            throw new InvalidDataException("The data in the new movie is incorrect");
-        }
-        if (title.trim().equals("")||clasification.trim().equals("")||synopsis.trim().equals("")){
-            throw new InvalidDataException("The values in Title,Clasification and Synopsis must be completed");
-        }
-        if (duration.intValue() <= 0){
-            throw new InvalidDataException("The values of Time must be over 0");
+    public Movie addMovie(String title, LocalDate releaseDate, List<String> directors, String synopsis, List<String> categories, List<String> actors, Long duration, String classification) throws InvalidDataException, EntityAlreadyExistsException {
+        // Control de datos
+        if (title == null || title.isEmpty()) {
+            throw new InvalidDataException("El titulo no puede ser vacío.");
         }
 
-        Movie movieAux = Movie.builder()
-                .title(title)
-                .actors(actors)
-                .classification(clasification)
-                .synopsis(synopsis)
-                .directors(directors)
-                .categories(categories)
-                .releaseDate(releaseDate)
-                .duration(duration)
-                .build();
-        return movieRepository.save(movieAux);
+        if (releaseDate == null || releaseDate.isAfter(LocalDate.now())) {
+            throw new InvalidDataException("La fecha de lanzamiento no es valida.");
+        }
+
+        if (directors == null || directors.isEmpty()) {
+            throw new InvalidDataException("El nombre del director no puede estar vacío.");
+        }
+
+        if (categories == null || categories.isEmpty()) {
+            throw new InvalidDataException("Las categorías no pueden estar vacía.");
+        }
+
+        if (duration < 0) {
+            throw new InvalidDataException("Duración de pelicula invalida.");
+        }
+
+        if (classification == null || classification.isEmpty()) {
+            throw new InvalidDataException("La clasificación no puede estar vacía");
+        }
+
+        // Control de duplicados
+        Optional<Movie> movieOptional = movieRepo.findMovieByTitle(title);
+        if (movieOptional.isPresent()) {
+            throw new EntityAlreadyExistsException("Ya existe una pelicula con ese nombre.");
+        }
+
+
+
+
+        
+
+
+
     }
 
-    public List<Movie> allMovies(){return movieRepository.findAll();}
+    public List<Movie> allMovies(){return movieRepo.findAll();}
 
 }

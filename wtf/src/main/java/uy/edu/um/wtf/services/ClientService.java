@@ -7,6 +7,7 @@ import uy.edu.um.wtf.exceptions.EntityAlreadyExistsException;
 import uy.edu.um.wtf.exceptions.InvalidDataException;
 import uy.edu.um.wtf.repository.ClientRepository;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 
@@ -16,7 +17,7 @@ public class ClientService {
     @Autowired
     private ClientRepository clientRepo;
 
-    public Client addClient(Long id, String name, String surname, Date birthDate, Long cardNumber) throws InvalidDataException, EntityAlreadyExistsException {
+    public Client addClient(Long id, String name, String surname, LocalDate birthDate, Long cardNumber) throws InvalidDataException, EntityAlreadyExistsException {
 
         // Control de datos
         if (name == null || name.isEmpty()) {
@@ -27,7 +28,7 @@ public class ClientService {
             throw new InvalidDataException("El apellido no puede estar vacío.");
         }
 
-        if (birthDate == null || birthDate.after(new Date())) {
+        if (birthDate == null || birthDate.isAfter(LocalDate.now())) {
             throw new InvalidDataException("La fecha de nacimiento no es valida.");
         }
 
