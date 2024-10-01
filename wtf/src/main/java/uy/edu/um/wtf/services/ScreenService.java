@@ -60,4 +60,40 @@ public class ScreenService {
         return screenRepo.save(newScreen);
     }
 
+    public Screen addScreen2(String name, Cinema cinema, Integer columns, Integer rows) throws InvalidDataException, EntityNotFoundException, EntityAlreadyExistsException {
+        // Control de datos
+        if (name == null || name.isEmpty()) {
+            throw new InvalidDataException("El nombre no puede estar vacío.");
+        }
+
+        if (cinema == null) {
+            throw new InvalidDataException("El nombre del cine no puede estar vacío.");
+        }
+
+        if (columns == null || rows == null || columns < 0 || rows < 0) {
+            throw new InvalidDataException("Dimensiones no validas");
+        }
+
+
+        // Control de duplicados
+        if (screenRepo.findScreenByNameAndCinema(name, cinema).isPresent()) {
+            throw new EntityAlreadyExistsException("Ya exsite una sala con ese nombre");
+        }
+
+        // Crear un nuevo MovieScreening
+        Screen newScreen = Screen.builder().
+                name(name).
+                cinema(cinema).
+                rows(rows).
+                columms(columns).
+                build();
+
+        // Agregar screen
+        return screenRepo.save(newScreen);
+
+
+
+
+    }
+
 }

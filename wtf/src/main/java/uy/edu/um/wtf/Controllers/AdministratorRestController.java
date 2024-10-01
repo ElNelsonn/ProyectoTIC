@@ -17,6 +17,7 @@ public class AdministratorRestController {
 
     @Autowired
     private AdministratorService administratorService;
+
     @GetMapping("/")
     public ResponseEntity<List<Administrator>> getAll(){return ResponseEntity.ok(administratorService.allAdministrators());}
 }

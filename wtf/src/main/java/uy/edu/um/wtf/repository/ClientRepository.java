@@ -17,5 +17,4 @@ public interface ClientRepository extends JpaRepository<Client, Long> {
 
     public Optional<Client> findClientByCardNumber(Long cardNumber);
 
-
 }
