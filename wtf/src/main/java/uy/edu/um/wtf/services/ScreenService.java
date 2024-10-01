@@ -31,7 +31,7 @@ public class ScreenService {
             throw new InvalidDataException("El nombre del cine no puede estar vacío.");
         }
 
-        if (columns < 0 || rows < 0) {
+        if (columns == null || rows == null || columns < 0 || rows < 0) {
             throw new InvalidDataException("Dimensiones no validas");
         }
 
