@@ -74,6 +74,10 @@ public class ScreenService {
             throw new InvalidDataException("Dimensiones no validas");
         }
 
+        // Verificar existencia de entidades
+        if (cinemaRepo.findCinemaByName(cinema.getName()).isEmpty()) {
+            throw new EntityNotFoundException("No se encontro ese cine.");
+        }
 
         // Control de duplicados
         if (screenRepo.findScreenByNameAndCinema(name, cinema).isPresent()) {

@@ -34,7 +34,7 @@ public class MovieService {
             throw new InvalidDataException("Las categorías no pueden estar vacía.");
         }
 
-        if (duration < 0) {
+        if (duration == null || duration < 0) {
             throw new InvalidDataException("Duración de pelicula invalida.");
         }
 
@@ -43,8 +43,8 @@ public class MovieService {
         }
 
         // Control de duplicados
-        Optional<Movie> movieOptional = movieRepo.findMovieByTitle(title);
-        if (movieOptional.isPresent()) {
+
+        if (movieRepo.findMovieByTitle(title).isPresent()) {
             throw new EntityAlreadyExistsException("Ya existe una pelicula con ese nombre.");
         }
 

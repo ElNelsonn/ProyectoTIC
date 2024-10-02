@@ -12,7 +12,7 @@ public interface TicketPurchaseRepository extends JpaRepository<TicketPurchase, 
 
     public List<TicketPurchase> findTicketPurchasesByMovieScreening(MovieScreening movieScreening);
 
-    public List<TicketPurchase> findTicketPurchasesBy(Client client);
+    public List<TicketPurchase> findTicketPurchasesByClient(Client client);
 
 
 }
