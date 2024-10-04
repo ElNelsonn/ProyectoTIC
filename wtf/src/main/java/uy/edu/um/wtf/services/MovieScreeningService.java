@@ -76,7 +76,7 @@ public class MovieScreeningService {
                 .date(date)
                 .movie(movie)
                 .screen(screen)
-                .seats(new boolean[screen.getColumms() * screen.getRows()])
+                .seats(new boolean[screen.getColumms() * screen.getRows()]) //ver cual es el default
                 .build();
 
         // Agregar MovieScreening
@@ -124,7 +124,7 @@ public class MovieScreeningService {
     // Función para verificar si ya hay una función en la sala y horarios dados
     private boolean ScreenInUse(Screen screen, LocalDateTime dateTime) {
 
-        LocalDateTime startingTime = dateTime.minusHours(3);
+        LocalDateTime startingTime = dateTime.minusHours(3); //Horarios Dinamicos
         LocalDateTime endTime = dateTime.plusHours(3);
 
         List<MovieScreening> movieScreeningOptional = movieScreeningRepo.findMovieScreeningsByScreenAndDateBetween(screen, startingTime, endTime);

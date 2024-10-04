@@ -55,7 +55,7 @@ public class MovieService {
                 directors(directors).
                 synopsis(synopsis).
                 actors(actors).
-                duration(duration).
+                duration(duration). //Al dar esta informacion al cliente darla en horas y minutos
                 classification(classification).
                 categories(categories).
                 build();

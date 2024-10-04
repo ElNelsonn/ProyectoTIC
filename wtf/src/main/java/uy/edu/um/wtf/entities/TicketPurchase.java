@@ -32,7 +32,7 @@ public class TicketPurchase {
 
     @ManyToOne
     @JoinColumn(name = "MOVIE_SCREENING_ID", nullable = false)
-    private MovieScreening movieScreening;
+    private MovieScreening movieScreening; //Para ver vigencia
 
     @ManyToOne
     @JoinColumn(name = "CLIENT_ID", nullable = false)
