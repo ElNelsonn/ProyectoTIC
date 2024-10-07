@@ -70,7 +70,7 @@ public class SnackPurchaseService {
     }
 
 
-
+    public List<SnackPurchase> allSnackPurchases(){return snackPurchaseRepo.findAll();}
 
 
 }
