@@ -132,7 +132,7 @@ public class MovieScreeningService {
         return !movieScreeningOptional.isEmpty();
     }
 
-
+    public List<MovieScreening> allMovieScreenings(){return movieScreeningRepo.findAll();}
 
 
 

@@ -10,6 +10,7 @@ import uy.edu.um.wtf.repository.ClientRepository;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class ClientService {
@@ -54,7 +55,9 @@ public class ClientService {
         return clientRepo.save(newClient);
     }
 
-
+    public List<Client> allClients(){
+        return clientRepo.findAll();
+    }
 
 
 

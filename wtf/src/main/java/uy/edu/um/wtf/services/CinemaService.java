@@ -52,7 +52,9 @@ public class CinemaService {
     }
 
 
-
+    public List<Cinema> allCinemas(){
+        return cinemaRepo.findAll();
+    }
 
 
 

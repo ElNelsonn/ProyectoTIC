@@ -9,6 +9,8 @@ import uy.edu.um.wtf.exceptions.EntityNotFoundException;
 import uy.edu.um.wtf.exceptions.InvalidDataException;
 import uy.edu.um.wtf.repository.CinemaRepository;
 import uy.edu.um.wtf.repository.ScreenRepository;
+
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -31,7 +33,7 @@ public class ScreenService {
             throw new InvalidDataException("El nombre del cine no puede estar vacío.");
         }
 
-        if (columns == null || rows == null || columns < 0 || rows < 0) {
+        if (columns == null || rows == null || columns <= 0 || rows <= 0) {
             throw new InvalidDataException("Dimensiones no validas");
         }
 
@@ -70,7 +72,7 @@ public class ScreenService {
             throw new InvalidDataException("El nombre del cine no puede estar vacío.");
         }
 
-        if (columns == null || rows == null || columns < 0 || rows < 0) {
+        if (columns == null || rows == null || columns <= 0 || rows <= 0) {
             throw new InvalidDataException("Dimensiones no validas");
         }
 
@@ -99,5 +101,7 @@ public class ScreenService {
 
 
     }
+
+    public List<Screen> allScreens(){return screenRepo.findAll();}
 
 }
