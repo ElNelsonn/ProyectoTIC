@@ -14,6 +14,7 @@ import uy.edu.um.wtf.repository.ClientRepository;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class ClientService {
@@ -44,6 +45,16 @@ public class ClientService {
         // Agregar client
         return clientRepo.save(newClient);
     }
+<<<<<<< HEAD
+=======
+
+    public List<Client> allClients(){
+        return clientRepo.findAll();
+    }
+
+
+
+>>>>>>> 3204ffc421355408442c69af43e0907cb572d2f2
 }
 
 

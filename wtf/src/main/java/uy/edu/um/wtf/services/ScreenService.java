@@ -9,6 +9,8 @@ import uy.edu.um.wtf.exceptions.EntityNotFoundException;
 import uy.edu.um.wtf.exceptions.InvalidDataException;
 import uy.edu.um.wtf.repository.CinemaRepository;
 import uy.edu.um.wtf.repository.ScreenRepository;
+
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -22,6 +24,22 @@ public class ScreenService {
 
     public Screen addScreen(String name, String cinemaName, Integer columns, Integer rows) throws InvalidDataException, EntityNotFoundException, EntityAlreadyExistsException {
 
+<<<<<<< HEAD
+=======
+        // Control de datos
+        if (name == null || name.isEmpty()) {
+            throw new InvalidDataException("El nombre no puede estar vacío.");
+        }
+
+        if (cinemaName == null || cinemaName.isEmpty()) {
+            throw new InvalidDataException("El nombre del cine no puede estar vacío.");
+        }
+
+        if (columns == null || rows == null || columns <= 0 || rows <= 0) {
+            throw new InvalidDataException("Dimensiones no validas");
+        }
+
+>>>>>>> 3204ffc421355408442c69af43e0907cb572d2f2
         // Verificar existencia de entidades
         Optional<Cinema> cinemaOptional = cinemaRepo.findCinemaByName(cinemaName);
         if (cinemaOptional.isEmpty()) {
@@ -57,7 +75,7 @@ public class ScreenService {
             throw new InvalidDataException("El nombre del cine no puede estar vacío.");
         }
 
-        if (columns == null || rows == null || columns < 0 || rows < 0) {
+        if (columns == null || rows == null || columns <= 0 || rows <= 0) {
             throw new InvalidDataException("Dimensiones no validas");
         }
 
@@ -86,5 +104,7 @@ public class ScreenService {
 
 
     }
+
+    public List<Screen> allScreens(){return screenRepo.findAll();}
 
 }

@@ -4,19 +4,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import uy.edu.um.wtf.entities.User;
-import uy.edu.um.wtf.services.UserService;
+import uy.edu.um.wtf.entities.Snack;
+import uy.edu.um.wtf.services.SnackService;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/User")
-public class UserRestController {
+@RequestMapping("/api/v1/Snack")
+public class SnackRestController {
 
     @Autowired
-    private UserService userService;
+    private SnackService snackService;
 
     @RequestMapping("/")
-    public ResponseEntity<List<User>> getAll(){return ResponseEntity.ok(userService.allUsers());}
-
+    public ResponseEntity<List<Snack>> getAll(){return ResponseEntity.ok(snackService.allSnacks());}
 }

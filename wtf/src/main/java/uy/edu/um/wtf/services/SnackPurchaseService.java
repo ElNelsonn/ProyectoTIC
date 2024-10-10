@@ -56,4 +56,11 @@ public class SnackPurchaseService {
         return true;
     }
 
+<<<<<<< HEAD
+=======
+
+    public List<SnackPurchase> allSnackPurchases(){return snackPurchaseRepo.findAll();}
+
+
+>>>>>>> 3204ffc421355408442c69af43e0907cb572d2f2
 }

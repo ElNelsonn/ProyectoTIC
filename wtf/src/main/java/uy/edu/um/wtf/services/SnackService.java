@@ -8,6 +8,8 @@ import uy.edu.um.wtf.exceptions.EntityAlreadyExistsException;
 import uy.edu.um.wtf.exceptions.InvalidDataException;
 import uy.edu.um.wtf.repository.SnackRepository;
 
+import java.util.List;
+
 @Service
 public class SnackService {
 
@@ -33,7 +35,7 @@ public class SnackService {
     }
 
 
-
+    public List<Snack> allSnacks(){return snackRepo.findAll();}
 
 
 
