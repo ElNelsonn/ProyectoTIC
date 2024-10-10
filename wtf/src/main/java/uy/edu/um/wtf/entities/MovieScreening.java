@@ -1,6 +1,9 @@
 package uy.edu.um.wtf.entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Past;
 import lombok.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -24,14 +27,19 @@ public class MovieScreening {
     private Long id;
 
     @Column(name = "DATE", nullable = false)
+    @NotNull(message = "fecha no valida.")
+    @Past(message = "fecha no valida.")
     private LocalDateTime date;
 
     @ManyToOne
     @JoinColumn(name = "MOVIE_ID", nullable = false)
+    @NotNull(message = "La pelicula no es valida.")
+    //@NotBlank(message = "La pelicula no es valida.")
     private Movie movie;
 
     @ManyToOne
     @JoinColumn(name = "SCREEN_ID", nullable = false)
+    @NotNull(message = "La Screen no es valida.")
     private Screen screen;
 
     @Column(name = "SEATS", nullable = false)

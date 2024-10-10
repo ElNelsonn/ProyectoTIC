@@ -2,6 +2,8 @@ package uy.edu.um.wtf.entities;
 
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Past;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -23,16 +25,21 @@ public class SnackPurchase {
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable(name = "PURCHASED_SNACKS", joinColumns = @JoinColumn(name = "SNACK_PURCHASE_ID"), inverseJoinColumns = @JoinColumn(name = "SNACK_ID"))
+    @NotNull (message = "La lista de snacks no puedo estar vacía.")
     private List<Snack> snackList;
 
     @Column(name = "DATE", nullable = false)
+    @NotNull (message = "La fecha no puede estar vacia.")
+    @Past (message = "La fecha no es valida.")
     private LocalDateTime date;
 
     @ManyToOne
     @JoinColumn(name = "CLIENT_ID", nullable = false)
+    @NotNull (message = "El cliente no es valido.")
     private Client client;
 
     @Column(name = "TOTAL_PRICE")
+    @NotNull
     private Long totalPrice;
 
 }

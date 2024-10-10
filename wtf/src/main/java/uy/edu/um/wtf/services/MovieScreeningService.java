@@ -34,19 +34,6 @@ public class MovieScreeningService {
 
     public MovieScreening addMovieScreening(LocalDateTime date, String movieName, String screenName, String cinemaName) throws InvalidDataException, EntityAlreadyExistsException, EntityNotFoundException {
 
-        // Control de datos
-        if (date == null || date.isBefore(LocalDateTime.now())) {
-            throw new InvalidDataException("La fecha ingresada no es valida.");
-        }
-
-        if (movieName == null || movieName.isEmpty()) {
-            throw new InvalidDataException("La pelicula no es valida.");
-        }
-
-        if (screenName == null || screenName.isEmpty()) {
-            throw new InvalidDataException("La Screen no es valida.");
-        }
-
         // Verificar existencia de entidades
         Optional<Movie> movieOptional = movieRepo.findMovieByTitle(movieName);
         if (movieOptional.isEmpty()) {
@@ -83,43 +70,43 @@ public class MovieScreeningService {
         return movieScreeningRepo.save(newMovieScreening);
     }
 
-
-    // ADD CON OBJETOS
-    public MovieScreening addMovieScreening2(LocalDateTime date, Movie movie, Screen screen, Cinema cinema) throws InvalidDataException, EntityAlreadyExistsException {
-
-        // Control de datos
-        if (date == null || date.isBefore(LocalDateTime.now())) {
-            throw new InvalidDataException("La fecha ingresada no es valida.");
-        }
-
-        if (movie == null) {
-            throw new InvalidDataException("La pelicula no es valida.");
-        }
-
-        if (screen == null) {
-            throw new InvalidDataException("La Screen no es valida.");
-        }
-
-        if (cinema == null) {
-            throw new InvalidDataException("La Screen no es valida.");
-        }
-
-        // Control de duplicados
-        if (ScreenInUse(screen, date)) {
-            throw new EntityAlreadyExistsException("Sala en uso durante ese horario");
-        }
-
-        // Crear un nuevo MovieScreening
-        MovieScreening newMovieScreening = MovieScreening.builder()
-                .date(date)
-                .movie(movie)
-                .screen(screen)
-                .seats(new boolean[screen.getColumms() * screen.getRows()])
-                .build();
-
-        // Agregar MovieScreening
-        return movieScreeningRepo.save(newMovieScreening);
-    }
+//
+//    // ADD CON OBJETOS
+//    public MovieScreening addMovieScreening2(LocalDateTime date, Movie movie, Screen screen, Cinema cinema) throws InvalidDataException, EntityAlreadyExistsException {
+//
+//        // Control de datos
+//        if (date == null || date.isBefore(LocalDateTime.now())) {
+//            throw new InvalidDataException("La fecha ingresada no es valida.");
+//        }
+//
+//        if (movie == null) {
+//            throw new InvalidDataException("La pelicula no es valida.");
+//        }
+//
+//        if (screen == null) {
+//            throw new InvalidDataException("La Screen no es valida.");
+//        }
+//
+//        if (cinema == null) {
+//            throw new InvalidDataException("La Screen no es valida.");
+//        }
+//
+//        // Control de duplicados
+//        if (ScreenInUse(screen, date)) {
+//            throw new EntityAlreadyExistsException("Sala en uso durante ese horario");
+//        }
+//
+//        // Crear un nuevo MovieScreening
+//        MovieScreening newMovieScreening = MovieScreening.builder()
+//                .date(date)
+//                .movie(movie)
+//                .screen(screen)
+//                .seats(new boolean[screen.getColumms() * screen.getRows()])
+//                .build();
+//
+//        // Agregar MovieScreening
+//        return movieScreeningRepo.save(newMovieScreening);
+//    }
 
     // Función para verificar si ya hay una función en la sala y horarios dados
     private boolean ScreenInUse(Screen screen, LocalDateTime dateTime) {

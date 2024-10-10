@@ -27,19 +27,6 @@ public class SnackPurchaseService {
 
     public SnackPurchase addSnackPurchase(List<Snack> snacks, Client client, LocalDateTime date) throws InvalidDataException, EntityNotFoundException {
 
-        // Control de datos
-        if (snacks == null || snacks.isEmpty()) {
-            throw new InvalidDataException("La lista de snacks no puedo estar vacía.");
-        }
-
-        if (client == null) {
-            throw new InvalidDataException("El cliente no es valido.");
-        }
-
-        if (date == null || date.isAfter(LocalDateTime.now())) {
-            throw new InvalidDataException("Precio no valido.");
-        }
-
         // Control de existencias
         if (clientRepo.findClientByIdentityCard(client.getIdentityCard()).isEmpty()) {
             throw new EntityNotFoundException("Cliente no encontrado.");
@@ -68,9 +55,5 @@ public class SnackPurchaseService {
         }
         return true;
     }
-
-
-
-
 
 }

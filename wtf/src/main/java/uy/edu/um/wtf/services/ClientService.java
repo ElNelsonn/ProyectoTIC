@@ -1,7 +1,11 @@
 package uy.edu.um.wtf.services;
 
+import jakarta.validation.Valid;
+import org.antlr.v4.runtime.misc.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
+
 import uy.edu.um.wtf.entities.Client;
 import uy.edu.um.wtf.exceptions.EntityAlreadyExistsException;
 import uy.edu.um.wtf.exceptions.InvalidDataException;
@@ -17,20 +21,7 @@ public class ClientService {
     @Autowired
     private ClientRepository clientRepo;
 
-    public Client addClient(Long id, String name, String surname, LocalDate birthDate, Long cardNumber) throws InvalidDataException, EntityAlreadyExistsException {
-
-        // Control de datos
-        if (name == null || name.isEmpty()) {
-            throw new InvalidDataException("El nombre del cliente no puedo estar vacío.");
-        }
-
-        if (surname == null || surname.isEmpty()) {
-            throw new InvalidDataException("El apellido no puede estar vacío.");
-        }
-
-        if (birthDate == null || birthDate.isAfter(LocalDate.now())) {
-            throw new InvalidDataException("La fecha de nacimiento no es valida.");
-        }
+    public Client addClient(Long id, String name, String surname, LocalDate birthDate, Long cardNumber) throws  EntityAlreadyExistsException {
 
         // Control de duplicados
         if (clientRepo.findClientByCardNumber(cardNumber).isPresent()) {
@@ -53,9 +44,7 @@ public class ClientService {
         // Agregar client
         return clientRepo.save(newClient);
     }
-
-
-
-
-
 }
+
+
+

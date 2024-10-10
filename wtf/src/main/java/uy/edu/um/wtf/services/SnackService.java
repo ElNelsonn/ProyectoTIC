@@ -16,19 +16,6 @@ public class SnackService {
 
     public Snack addSnack(String name, Boolean glutenFree, Long price) throws InvalidDataException, EntityAlreadyExistsException {
 
-        // Control de datos
-        if (name == null || name.isEmpty()) {
-            throw new InvalidDataException("El nombre del snack no puedo estar vacío.");
-        }
-
-        if (glutenFree == null) {
-            throw new InvalidDataException("Debe indicarse si es gluten free.");
-        }
-
-        if (price == null || price < 0 ) {
-            throw new InvalidDataException("Precio no valido.");
-        }
-
         // Control de duplicados
         if (snackRepo.findSnackByName(name).isPresent()) {
             throw new EntityAlreadyExistsException("Ya existe ese snack.");

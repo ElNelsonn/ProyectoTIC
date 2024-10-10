@@ -22,19 +22,6 @@ public class ScreenService {
 
     public Screen addScreen(String name, String cinemaName, Integer columns, Integer rows) throws InvalidDataException, EntityNotFoundException, EntityAlreadyExistsException {
 
-        // Control de datos
-        if (name == null || name.isEmpty()) {
-            throw new InvalidDataException("El nombre no puede estar vacío.");
-        }
-
-        if (cinemaName == null || cinemaName.isEmpty()) {
-            throw new InvalidDataException("El nombre del cine no puede estar vacío.");
-        }
-
-        if (columns == null || rows == null || columns < 0 || rows < 0) {
-            throw new InvalidDataException("Dimensiones no validas");
-        }
-
         // Verificar existencia de entidades
         Optional<Cinema> cinemaOptional = cinemaRepo.findCinemaByName(cinemaName);
         if (cinemaOptional.isEmpty()) {
