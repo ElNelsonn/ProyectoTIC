@@ -17,18 +17,18 @@ public class AdministratorService {
 
     public Administrator addAdministrator(Long id, String name, String surname, LocalDate birthDate) throws InvalidDataException, EntityAlreadyExistsException {
 
-        // Control de datos
-        if (name == null || name.isEmpty()) {
-            throw new InvalidDataException("El nombre del admin no puedo estar vacío.");
-        }
-
-        if (surname == null || surname.isEmpty()) {
-            throw new InvalidDataException("El apellido no puede estar vacío.");
-        }
-
-        if (birthDate == null || birthDate.isAfter(LocalDate.now())) {
-            throw new InvalidDataException("La fecha de nacimiento no es valida.");
-        }
+//        // Control de datos
+//        if (name == null || name.isEmpty()) {
+//            throw new InvalidDataException("El nombre del admin no puedo estar vacío.");
+//        }
+//
+//        if (surname == null || surname.isEmpty()) {
+//            throw new InvalidDataException("El apellido no puede estar vacío.");
+//        }
+//
+//        if (birthDate == null || birthDate.isAfter(LocalDate.now())) {
+//            throw new InvalidDataException("La fecha de nacimiento no es valida.");
+//        }
 
         // Control de duplicados
         if (adminRepo.findAdministratorByIdentityCard(id).isPresent()) {

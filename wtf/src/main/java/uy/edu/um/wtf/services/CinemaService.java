@@ -17,18 +17,18 @@ public class CinemaService {
 
     public Cinema addCinema(String name, List<Long> phoneNumbers, String location, String mail) throws InvalidDataException, EntityAlreadyExistsException {
 
-        // Control de datos
-        if (name == null || name.isEmpty()) {
-            throw new InvalidDataException("El nombre del cine no puedo estar vacío.");
-        }
-
-        if (location == null || location.isEmpty()) {
-            throw new InvalidDataException("La ubicación no puede estar vacía.");
-        }
-
-        if (mail == null || mail.isEmpty()) {
-            throw new InvalidDataException("El mail no puede estar vacío.");
-        }
+//        // Control de datos
+//        if (name == null || name.isEmpty()) {
+//            throw new InvalidDataException("El nombre del cine no puedo estar vacío.");
+//        }
+//
+//        if (location == null || location.isEmpty()) {
+//            throw new InvalidDataException("La ubicación no puede estar vacía.");
+//        }
+//
+//        if (mail == null || mail.isEmpty()) {
+//            throw new InvalidDataException("El mail no puede estar vacío.");
+//        }
 
         // Control de duplicados
         if (cinemaRepo.findCinemaByName(name).isPresent()) {

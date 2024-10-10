@@ -17,30 +17,6 @@ public class MovieService {
     private MovieRepository movieRepo;
 
     public Movie addMovie(String title, LocalDate releaseDate, List<String> directors, String synopsis, List<String> categories, List<String> actors, Long duration, String classification) throws InvalidDataException, EntityAlreadyExistsException {
-        // Control de datos
-        if (title == null || title.isEmpty()) {
-            throw new InvalidDataException("El titulo no puede ser vacío.");
-        }
-
-        if (releaseDate == null || releaseDate.isAfter(LocalDate.now())) {
-            throw new InvalidDataException("La fecha de lanzamiento no es valida.");
-        }
-
-        if (directors == null || directors.isEmpty()) {
-            throw new InvalidDataException("El nombre del director no puede estar vacío.");
-        }
-
-        if (categories == null || categories.isEmpty()) {
-            throw new InvalidDataException("Las categorías no pueden estar vacía.");
-        }
-
-        if (duration == null || duration < 0) {
-            throw new InvalidDataException("Duración de pelicula invalida.");
-        }
-
-        if (classification == null || classification.isEmpty()) {
-            throw new InvalidDataException("La clasificación no puede estar vacía");
-        }
 
         // Control de duplicados
 

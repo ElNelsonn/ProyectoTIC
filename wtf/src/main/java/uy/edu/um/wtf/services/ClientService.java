@@ -22,7 +22,7 @@ public class ClientService {
     @Autowired
     private ClientRepository clientRepo;
 
-    public Client addClient(Long id, String name, String surname, LocalDate birthDate, Long cardNumber) throws  EntityAlreadyExistsException {
+    public Client addClient(Long id, String name, String surname, LocalDate birthDate, Long cardNumber) throws EntityAlreadyExistsException {
 
         // Control de duplicados
         if (clientRepo.findClientByCardNumber(cardNumber).isPresent()) {
@@ -45,17 +45,10 @@ public class ClientService {
         // Agregar client
         return clientRepo.save(newClient);
     }
-<<<<<<< HEAD
-=======
 
-    public List<Client> allClients(){
-        return clientRepo.findAll();
-    }
-
-
-
->>>>>>> 3204ffc421355408442c69af43e0907cb572d2f2
 }
+
+
 
 
 
