@@ -65,5 +65,6 @@ public class SnackPurchaseService {
         return true;
     }
 
+    public List<SnackPurchase> allSnackPurchases (){return snackPurchaseRepo.findAll();}
 
 }
