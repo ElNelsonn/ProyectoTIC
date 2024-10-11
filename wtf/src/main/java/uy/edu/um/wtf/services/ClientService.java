@@ -54,6 +54,10 @@ public class ClientService {
         return clientRepo.save(newClient);
     }
 
+    public List<Client> allClient() {
+        return clientRepo.findAll();
+    }
+
 }
 
 
