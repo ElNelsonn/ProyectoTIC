@@ -56,6 +56,23 @@ public class ClientService {
     
     public List<Client> allClients(){return clientRepo.findAll();}
 
+    public List<Client> byName(String name) throws InvalidDataException {
+        if (name == null){
+            throw new InvalidDataException("Wrtie a name please");
+        }
+        else {
+            return clientRepo.findClientsByName(name);
+        }
+    }
+
+    public List<Client> bySurname(String surname) throws InvalidDataException {
+        if (surname == null) {
+            throw new InvalidDataException("Write a surname please");
+        }
+        else {
+            return clientRepo.findClientsBySurname(surname);
+        }
+    }
 }
 
 
