@@ -50,4 +50,12 @@ public class MovieService {
 
     public List<Movie> allMovies(){return movieRepo.findAll();}
 
+    public List<Movie> byCategories(String category) throws InvalidDataException {
+        if (category == null){
+            throw new InvalidDataException("A category must be written");
+        }
+        else {
+            return movieRepo.findMovieByCategories(category);
+        }
+    }
 }

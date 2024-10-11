@@ -86,7 +86,7 @@ public class TicketPurchaseService {
 
     }
 
-
+    public List<TicketPurchase> allTicketPurchases(){return ticketPurchaseRepo.findAll();}
 
 
 
