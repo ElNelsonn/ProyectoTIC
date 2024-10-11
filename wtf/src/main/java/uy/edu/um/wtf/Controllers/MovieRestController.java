@@ -32,5 +32,4 @@ public class MovieRestController {
             return ResponseEntity.status(500).build();
         }
     }
-
 }

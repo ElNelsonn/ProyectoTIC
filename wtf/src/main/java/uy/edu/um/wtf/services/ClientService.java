@@ -53,7 +53,7 @@ public class ClientService {
         // Agregar client
         return clientRepo.save(newClient);
     }
-    
+
     public List<Client> allClients(){return clientRepo.findAll();}
 
 }

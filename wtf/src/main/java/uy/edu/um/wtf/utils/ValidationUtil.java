@@ -3,7 +3,6 @@ package uy.edu.um.wtf.utils;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validator;
 import uy.edu.um.wtf.exceptions.InvalidDataException;
-
 import java.util.Set;
 
 public class ValidationUtil {
@@ -20,7 +19,4 @@ public class ValidationUtil {
             throw new InvalidDataException("Errores de validación: " + sb.toString());
         }
     }
-
-
-
 }
