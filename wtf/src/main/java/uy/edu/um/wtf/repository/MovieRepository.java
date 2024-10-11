@@ -13,7 +13,9 @@ public interface MovieRepository extends JpaRepository<Movie,Long> {
 
     public List<Movie> findMoviesByDirectorsContaining(String director);
 
-    public List<Movie> findMoviesByCategoriesContaining(String category);
+    public List<Movie> findMovieByCategories(String category);
+    //Hay que probar si lo genera, sino : findAll -> filtrar segun la lista de categorias
+    // contiene o no la category que se busca
 
     public List<Movie> findMoviesByActorsContaining(String actor);
 

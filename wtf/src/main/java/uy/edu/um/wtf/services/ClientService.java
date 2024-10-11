@@ -55,7 +55,7 @@ public class ClientService {
     }
 
 
-    public List<Client> allClient(){return clientRepo.findAll();}
+    public List<Client> allClients(){return clientRepo.findAll();}
 }
 
 
