@@ -53,5 +53,11 @@ public class CinemaService {
         return cinemaRepo.findAll();
     }
 
-
+    public List<Cinema> byLocation(String location) throws InvalidDataException {
+        if (location == null) {
+            throw new InvalidDataException("Write a location please");
+        } else {
+            return cinemaRepo.findCinemasByLocation(location);
+        }
+    }
 }
