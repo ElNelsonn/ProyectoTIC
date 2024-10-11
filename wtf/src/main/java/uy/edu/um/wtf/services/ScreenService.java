@@ -58,6 +58,7 @@ public class ScreenService {
     }
 
 
-    public List<Screen> allScreens(){return screenRepo.findAll();}
+    public List<Screen> allScreens(){
+        return screenRepo.findAll();}
 
 }

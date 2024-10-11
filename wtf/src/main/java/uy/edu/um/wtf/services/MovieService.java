@@ -44,9 +44,7 @@ public class MovieService {
         // Validaciones
         ValidationUtil.validate(newMovie, validator);
 
-
-
-        // Guardar nueva Movie
+        // Save new Movie
         return movieRepo.save(newMovie);
     }
 
