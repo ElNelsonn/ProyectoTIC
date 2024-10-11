@@ -11,6 +11,7 @@ import uy.edu.um.wtf.exceptions.InvalidDataException;
 import uy.edu.um.wtf.repository.CinemaRepository;
 import uy.edu.um.wtf.utils.ValidationUtil;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -53,5 +54,27 @@ public class CinemaService {
         return cinemaRepo.findAll();
     }
 
+    public List<Cinema> byLocation(String location) throws InvalidDataException {
+        if (location == null) {
+            throw new InvalidDataException("Write a location please");
+        } else {
+            return cinemaRepo.findCinemasByLocation(location);
+        }
+    }
 
+    public Optional<Cinema> byName(String name) throws InvalidDataException {
+        if (name == null) {
+            throw new InvalidDataException("Write a name please");
+        } else {
+            return cinemaRepo.findCinemaByName(name);
+        }
+    }
+
+    public Optional<Cinema> byMail(String mail) throws InvalidDataException {
+        if (mail == null) {
+            throw new InvalidDataException("Write a mail please");
+        } else {
+            return cinemaRepo.findCinemaByMail(mail);
+        }
+    }
 }
