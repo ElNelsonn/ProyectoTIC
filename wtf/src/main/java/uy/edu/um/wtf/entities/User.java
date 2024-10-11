@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Past;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
@@ -25,20 +26,20 @@ public abstract class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
-    @NotNull
     private Long id;
 
     @Column(name = "IDENTITY_CARD", unique = true, nullable = false)
+
     private Long identityCard;
 
     @Column(name = "NAME", nullable = false)
-    @NotNull (message = "El nombre del cliente no puedo estar vacío.")
-    @NotBlank (message = "El nombre del cliente no puedo estar vacío.")
+    @NotNull (message = "El apellido no puede estar vacío.")
+    @Size(min = 2, max = 30, message = "El nombre debe tener entre 2 y 30 caracteres")
     private String name;
 
     @Column(name = "SURNAME", nullable = false)
     @NotNull (message = "El apellido no puede estar vacío.")
-    @NotBlank (message = "El apellido no puede estar vacío.")
+    @Size(min = 2, max = 30, message = "El apellido debe tener entre 2 y 30 caracteres")
     private String surname;
 
     @Temporal(TemporalType.DATE)

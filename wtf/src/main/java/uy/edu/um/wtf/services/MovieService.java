@@ -1,11 +1,14 @@
 package uy.edu.um.wtf.services;
 
+import jakarta.validation.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import uy.edu.um.wtf.entities.Movie;
 import uy.edu.um.wtf.exceptions.EntityAlreadyExistsException;
 import uy.edu.um.wtf.exceptions.InvalidDataException;
 import uy.edu.um.wtf.repository.MovieRepository;
+import uy.edu.um.wtf.utils.ValidationUtil;
+
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -16,10 +19,12 @@ public class MovieService {
     @Autowired
     private MovieRepository movieRepo;
 
+    @Autowired
+    private Validator validator;
+
     public Movie addMovie(String title, LocalDate releaseDate, List<String> directors, String synopsis, List<String> categories, List<String> actors, Long duration, String classification) throws InvalidDataException, EntityAlreadyExistsException {
 
         // Control de duplicados
-
         if (movieRepo.findMovieByTitle(title).isPresent()) {
             throw new EntityAlreadyExistsException("Ya existe una pelicula con ese nombre.");
         }
@@ -31,10 +36,15 @@ public class MovieService {
                 directors(directors).
                 synopsis(synopsis).
                 actors(actors).
-                duration(duration). //Al dar esta informacion al cliente darla en horas y minutos
+                duration(duration).
                 classification(classification).
                 categories(categories).
                 build();
+
+        // Validaciones
+        ValidationUtil.validate(newMovie, validator);
+
+
 
         // Guardar nueva Movie
         return movieRepo.save(newMovie);

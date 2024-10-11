@@ -33,17 +33,18 @@ public class MovieScreening {
 
     @ManyToOne
     @JoinColumn(name = "MOVIE_ID", nullable = false)
-    @NotNull(message = "La pelicula no es valida.")
-    //@NotBlank(message = "La pelicula no es valida.")
+    @NotNull(message = "La pelicula no es valida. (null)")
     private Movie movie;
 
     @ManyToOne
     @JoinColumn(name = "SCREEN_ID", nullable = false)
-    @NotNull(message = "La Screen no es valida.")
+    @NotNull(message = "La Screen no es valida. (null)")
     private Screen screen;
 
-    @Column(name = "SEATS", nullable = false)
-    private boolean[] seats;
+    @ElementCollection
+    @Column(name = "SEAT")
+    @NotNull(message = "La lista de asientos no puede ser nula")
+    private List<Boolean> seats;
 
     @OneToMany(mappedBy = "movieScreening", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @Builder.Default

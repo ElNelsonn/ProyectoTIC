@@ -1,13 +1,17 @@
 package uy.edu.um.wtf.services;
 
 
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import uy.edu.um.wtf.entities.Cinema;
 import uy.edu.um.wtf.exceptions.EntityAlreadyExistsException;
 import uy.edu.um.wtf.exceptions.InvalidDataException;
 import uy.edu.um.wtf.repository.CinemaRepository;
+import uy.edu.um.wtf.utils.ValidationUtil;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class CinemaService {
@@ -15,20 +19,10 @@ public class CinemaService {
     @Autowired
     private CinemaRepository cinemaRepo;
 
-    public Cinema addCinema(String name, List<Long> phoneNumbers, String location, String mail) throws InvalidDataException, EntityAlreadyExistsException {
+    @Autowired
+    private Validator validator;
 
-//        // Control de datos
-//        if (name == null || name.isEmpty()) {
-//            throw new InvalidDataException("El nombre del cine no puedo estar vacío.");
-//        }
-//
-//        if (location == null || location.isEmpty()) {
-//            throw new InvalidDataException("La ubicación no puede estar vacía.");
-//        }
-//
-//        if (mail == null || mail.isEmpty()) {
-//            throw new InvalidDataException("El mail no puede estar vacío.");
-//        }
+    public Cinema addCinema(String name, List<Long> phoneNumbers, String location, String mail) throws InvalidDataException, EntityAlreadyExistsException {
 
         // Control de duplicados
         if (cinemaRepo.findCinemaByName(name).isPresent()) {
@@ -46,6 +40,9 @@ public class CinemaService {
                 .location(location)
                 .mail(mail)
                 .build();
+
+        // Validaciones
+        ValidationUtil.validate(newCinema, validator);
 
         // Agregar cine
         return cinemaRepo.save(newCinema);

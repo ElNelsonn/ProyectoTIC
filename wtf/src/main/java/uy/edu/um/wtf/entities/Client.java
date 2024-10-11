@@ -12,6 +12,7 @@ import java.util.List;
 @Getter
 @Setter
 @SuperBuilder
+@NoArgsConstructor
 public class Client extends User {
 
     @Column(name = "CARD_NUMBER", unique = true)

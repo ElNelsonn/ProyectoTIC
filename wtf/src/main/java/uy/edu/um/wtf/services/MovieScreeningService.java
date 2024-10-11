@@ -1,5 +1,6 @@
 package uy.edu.um.wtf.services;
 
+import jakarta.validation.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import uy.edu.um.wtf.entities.Cinema;
@@ -13,7 +14,11 @@ import uy.edu.um.wtf.repository.CinemaRepository;
 import uy.edu.um.wtf.repository.MovieRepository;
 import uy.edu.um.wtf.repository.MovieScreeningRepository;
 import uy.edu.um.wtf.repository.ScreenRepository;
+import uy.edu.um.wtf.utils.ValidationUtil;
+
+import javax.swing.table.TableRowSorter;
 import java.time.LocalDateTime;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,6 +36,9 @@ public class MovieScreeningService {
 
     @Autowired
     private ScreenRepository screenRepo;
+
+    @Autowired
+    private Validator validator;
 
     public MovieScreening addMovieScreening(LocalDateTime date, String movieName, String screenName, String cinemaName) throws InvalidDataException, EntityAlreadyExistsException, EntityNotFoundException {
 
@@ -54,7 +62,7 @@ public class MovieScreeningService {
         Screen screen = screenOptional.get();
 
         // Control de duplicados
-        if (ScreenInUse(screen, date)) {
+        if (ScreenInUse(screen, date, movie.getDuration())) {
             throw new EntityAlreadyExistsException("Sala en uso durante ese horario");
         }
 
@@ -63,65 +71,49 @@ public class MovieScreeningService {
                 .date(date)
                 .movie(movie)
                 .screen(screen)
-                .seats(new boolean[screen.getColumms() * screen.getRows()]) //ver cual es el default
+                .seats(newSeatsList(screen.getRows(), screen.getColumms()))
                 .build();
+
+        // Validaciones
+        ValidationUtil.validate(newMovieScreening, validator);
 
         // Agregar MovieScreening
         return movieScreeningRepo.save(newMovieScreening);
     }
 
-//
-//    // ADD CON OBJETOS
-//    public MovieScreening addMovieScreening2(LocalDateTime date, Movie movie, Screen screen, Cinema cinema) throws InvalidDataException, EntityAlreadyExistsException {
-//
-//        // Control de datos
-//        if (date == null || date.isBefore(LocalDateTime.now())) {
-//            throw new InvalidDataException("La fecha ingresada no es valida.");
-//        }
-//
-//        if (movie == null) {
-//            throw new InvalidDataException("La pelicula no es valida.");
-//        }
-//
-//        if (screen == null) {
-//            throw new InvalidDataException("La Screen no es valida.");
-//        }
-//
-//        if (cinema == null) {
-//            throw new InvalidDataException("La Screen no es valida.");
-//        }
-//
-//        // Control de duplicados
-//        if (ScreenInUse(screen, date)) {
-//            throw new EntityAlreadyExistsException("Sala en uso durante ese horario");
-//        }
-//
-//        // Crear un nuevo MovieScreening
-//        MovieScreening newMovieScreening = MovieScreening.builder()
-//                .date(date)
-//                .movie(movie)
-//                .screen(screen)
-//                .seats(new boolean[screen.getColumms() * screen.getRows()])
-//                .build();
-//
-//        // Agregar MovieScreening
-//        return movieScreeningRepo.save(newMovieScreening);
-//    }
+    private List<Boolean> newSeatsList(Integer rows, Integer columns) {
 
-    // Función para verificar si ya hay una función en la sala y horarios dados
-    private boolean ScreenInUse(Screen screen, LocalDateTime dateTime) {
+        List<Boolean> newSeats = new LinkedList<>();
 
-        LocalDateTime startingTime = dateTime.minusHours(3); //Horarios Dinamicos
-        LocalDateTime endTime = dateTime.plusHours(3);
+        for (int i = 1; i <= (rows*columns); i++) {
+            newSeats.add(false);
+        }
 
-        List<MovieScreening> movieScreeningOptional = movieScreeningRepo.findMovieScreeningsByScreenAndDateBetween(screen, startingTime, endTime);
-
-        return !movieScreeningOptional.isEmpty();
+        return newSeats;
     }
 
-    public List<MovieScreening> allMovieScreenings(){return movieScreeningRepo.findAll();}
+    private boolean ScreenInUse(Screen screen, LocalDateTime dateTime, Long duration) {
 
+        List<MovieScreening> movieScreeningOptional = movieScreeningRepo.findMovieScreeningsByScreenAndDateBetween(screen, dateTime.minusMinutes(20), dateTime.plusMinutes(duration + 20));
+        if (!movieScreeningOptional.isEmpty()) {
+            return true;
+        }
 
+        movieScreeningOptional = movieScreeningRepo.findMovieScreeningsByScreenAndDateBetween(screen, dateTime.minusHours(4), dateTime.minusMinutes(20));
+
+        for (MovieScreening movieScreening : movieScreeningOptional) {
+
+            if (movieScreening.getDate().plusMinutes(movieScreening.getMovie().getDuration()).isAfter(dateTime.minusMinutes(20))) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public List<MovieScreening> allMovieScreenings(){
+        return movieScreeningRepo.findAll();
+    }
 
 
 

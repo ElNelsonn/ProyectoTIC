@@ -1,5 +1,6 @@
 package uy.edu.um.wtf.services;
 
+import jakarta.validation.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import uy.edu.um.wtf.entities.Cinema;
@@ -9,6 +10,7 @@ import uy.edu.um.wtf.exceptions.EntityNotFoundException;
 import uy.edu.um.wtf.exceptions.InvalidDataException;
 import uy.edu.um.wtf.repository.CinemaRepository;
 import uy.edu.um.wtf.repository.ScreenRepository;
+import uy.edu.um.wtf.utils.ValidationUtil;
 
 import java.util.List;
 import java.util.Optional;
@@ -22,24 +24,11 @@ public class ScreenService {
     @Autowired
     private CinemaRepository cinemaRepo;
 
+    @Autowired
+    private Validator validator;
+
     public Screen addScreen(String name, String cinemaName, Integer columns, Integer rows) throws InvalidDataException, EntityNotFoundException, EntityAlreadyExistsException {
 
-<<<<<<< HEAD
-=======
-        // Control de datos
-        if (name == null || name.isEmpty()) {
-            throw new InvalidDataException("El nombre no puede estar vacío.");
-        }
-
-        if (cinemaName == null || cinemaName.isEmpty()) {
-            throw new InvalidDataException("El nombre del cine no puede estar vacío.");
-        }
-
-        if (columns == null || rows == null || columns <= 0 || rows <= 0) {
-            throw new InvalidDataException("Dimensiones no validas");
-        }
-
->>>>>>> 3204ffc421355408442c69af43e0907cb572d2f2
         // Verificar existencia de entidades
         Optional<Cinema> cinemaOptional = cinemaRepo.findCinemaByName(cinemaName);
         if (cinemaOptional.isEmpty()) {
@@ -61,49 +50,13 @@ public class ScreenService {
                 columms(columns).
                 build();
 
+        // Validaciones
+        ValidationUtil.validate(newScreen, validator);
+
         // Agregar screen
         return screenRepo.save(newScreen);
     }
 
-    public Screen addScreen2(String name, Cinema cinema, Integer columns, Integer rows) throws InvalidDataException, EntityNotFoundException, EntityAlreadyExistsException {
-        // Control de datos
-        if (name == null || name.isEmpty()) {
-            throw new InvalidDataException("El nombre no puede estar vacío.");
-        }
-
-        if (cinema == null) {
-            throw new InvalidDataException("El nombre del cine no puede estar vacío.");
-        }
-
-        if (columns == null || rows == null || columns <= 0 || rows <= 0) {
-            throw new InvalidDataException("Dimensiones no validas");
-        }
-
-        // Verificar existencia de entidades
-        if (cinemaRepo.findCinemaByName(cinema.getName()).isEmpty()) {
-            throw new EntityNotFoundException("No se encontro ese cine.");
-        }
-
-        // Control de duplicados
-        if (screenRepo.findScreenByNameAndCinema(name, cinema).isPresent()) {
-            throw new EntityAlreadyExistsException("Ya exsite una sala con ese nombre");
-        }
-
-        // Crear un nuevo MovieScreening
-        Screen newScreen = Screen.builder().
-                name(name).
-                cinema(cinema).
-                rows(rows).
-                columms(columns).
-                build();
-
-        // Agregar screen
-        return screenRepo.save(newScreen);
-
-
-
-
-    }
 
     public List<Screen> allScreens(){return screenRepo.findAll();}
 
