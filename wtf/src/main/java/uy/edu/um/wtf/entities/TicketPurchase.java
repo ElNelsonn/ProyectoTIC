@@ -27,10 +27,10 @@ public class TicketPurchase {
     private Long id;
 
     @ElementCollection
-    @Column(name = "SEAT", nullable = false)
+    @Column(name = "SEATS", nullable = false)
     @NotNull(message = "La lista de asientos no puede estar vacía (null)")
     @NotEmpty(message = "La lista de asientos no puede estar vacía")
-    private List<Integer> seat;
+    private List<Integer> seats;
 
     @Column(name = "PURCHASE_DATE", nullable = false)
     @Past(message = "La fecha no esta dentro de un rango valido")
@@ -45,7 +45,7 @@ public class TicketPurchase {
     @ManyToOne
     @JoinColumn(name = "MOVIE_SCREENING_ID", nullable = false)
     @NotNull (message = "La funcion no puede estar vacía")
-    private MovieScreening movieScreening; //Para ver vigencia
+    private MovieScreening movieScreening;
 
     @ManyToOne
     @JoinColumn(name = "CLIENT_ID", nullable = false)
