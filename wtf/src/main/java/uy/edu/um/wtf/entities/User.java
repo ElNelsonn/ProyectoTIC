@@ -1,16 +1,11 @@
 package uy.edu.um.wtf.entities;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Past;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
-
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Date;
 
 @Entity
 @Table(name = "USUARIO")
@@ -29,7 +24,7 @@ public abstract class User implements Serializable {
     private Long id;
 
     @Column(name = "IDENTITY_CARD", unique = true, nullable = false)
-
+    @Digits(integer = 8, fraction = 0, message = "Cedula invalida.")
     private Long identityCard;
 
     @Column(name = "NAME", nullable = false)
@@ -41,6 +36,16 @@ public abstract class User implements Serializable {
     @NotNull (message = "El apellido no puede estar vacío.")
     @Size(min = 2, max = 30, message = "El apellido debe tener entre 2 y 30 caracteres")
     private String surname;
+
+    @Column(name = "EMAIL", nullable = false, unique = true)
+    @NotNull (message = "El mail no puede estar vacio.")
+    @Email(message = "Email no valido.")
+    private String email;
+
+    @Column(name = "PASSWORD", nullable = false)
+    @NotNull(message = "La contrasena no puede estar vacia")
+    @Size(min = 8, max = 30, message = "La contrasena debe tener al menos 8 caracteres.")
+    private String password;
 
     @Temporal(TemporalType.DATE)
     @Column(name = "BIRTH_DATE", nullable = false)

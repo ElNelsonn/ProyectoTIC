@@ -20,7 +20,7 @@ public class ClientService {
     @Autowired
     private Validator validator;
 
-    public Client addClient(Long id, String name, String surname, LocalDate birthDate, Long cardNumber) throws EntityAlreadyExistsException, InvalidDataException {
+    public Client addClient(Long id, String name, String surname, LocalDate birthDate, Long cardNumber, LocalDate cardExpiraton, String email, String password) throws EntityAlreadyExistsException, InvalidDataException {
 
         // Control de duplicados
         if (clientRepo.findClientByCardNumber(cardNumber).isPresent()) {
@@ -38,6 +38,9 @@ public class ClientService {
                 surname(surname).
                 birthDate(birthDate).
                 cardNumber(cardNumber).
+                cardExpirationDate(cardExpiraton).
+                email(email).
+                password(password).
                 build();
 
         // Validaciones
@@ -46,6 +49,11 @@ public class ClientService {
         // Agregar client
         return clientRepo.save(newClient);
     }
+
+
+
+
+
 
     public List<Client> allClients(){return clientRepo.findAll();}
 

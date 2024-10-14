@@ -9,6 +9,8 @@ import uy.edu.um.wtf.exceptions.EntityAlreadyExistsException;
 import uy.edu.um.wtf.exceptions.InvalidDataException;
 import uy.edu.um.wtf.repository.AdministratorRepository;
 import uy.edu.um.wtf.utils.ValidationUtil;
+
+import java.awt.*;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
@@ -22,7 +24,7 @@ public class AdministratorService {
     @Autowired
     private Validator validator;
 
-    public Administrator addAdministrator(Long id, String name, String surname, LocalDate birthDate) throws InvalidDataException, EntityAlreadyExistsException {
+    public Administrator addAdministrator(Long id, String name, String surname, LocalDate birthDate, String email, String password) throws InvalidDataException, EntityAlreadyExistsException {
 
         // Control de duplicados
         if (adminRepo.findAdministratorByIdentityCard(id).isPresent()) {
@@ -35,6 +37,8 @@ public class AdministratorService {
                 name(name).
                 surname(surname).
                 birthDate(birthDate).
+                email(email).
+                password(password).
                 build();
 
         // Validaciones
