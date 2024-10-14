@@ -2,10 +2,7 @@ package uy.edu.um.wtf.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import uy.edu.um.wtf.entities.Client;
 import uy.edu.um.wtf.exceptions.InvalidDataException;
 import uy.edu.um.wtf.services.ClientService;
@@ -13,38 +10,11 @@ import uy.edu.um.wtf.services.ClientService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/Client")
+@RequestMapping("/api/v1/client")
 public class ClientRestController {
 
     @Autowired
     private ClientService clientService;
-
-    @PostMapping("/registro")
-    public ResponseEntity<Client> clientRegistration() {
-
-
-
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     

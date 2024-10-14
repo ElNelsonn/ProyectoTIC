@@ -18,12 +18,7 @@ public class CinemaConverter implements Converter<String, Cinema> {
 
     public Cinema convert(String cinemaName){
 
-        Optional<Cinema> cinemaOptional = cinemaRepo.findCinemaByName(cinemaName);
-        if (cinemaOptional.isEmpty()) {
-            throw new EntityNotFoundException("No se encontró un cine con ese nombre.");
-        }
-
-        return cinemaOptional.get();
+        return cinemaRepo.findCinemaByName(cinemaName).get();
     }
 
 
