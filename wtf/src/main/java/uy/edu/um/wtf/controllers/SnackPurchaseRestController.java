@@ -1,4 +1,4 @@
-package uy.edu.um.wtf.Controllers;
+package uy.edu.um.wtf.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

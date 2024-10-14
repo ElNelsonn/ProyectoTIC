@@ -1,6 +1,5 @@
-package uy.edu.um.wtf.Controllers;
+package uy.edu.um.wtf.controllers;
 
-import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,6 +17,16 @@ public class ClientRestController {
 
     @Autowired
     private ClientService clientService;
+
+
+
+
+
+
+
+
+
+    
 
     @RequestMapping("/")
     public ResponseEntity<List<Client>> getAll(){return ResponseEntity.ok(clientService.allClients());}

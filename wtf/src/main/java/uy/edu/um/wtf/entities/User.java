@@ -48,4 +48,5 @@ public abstract class User implements Serializable {
     @Past (message = "La fecha no esta dentro de un rango valido")
     private LocalDate birthDate;
 
+
 }
