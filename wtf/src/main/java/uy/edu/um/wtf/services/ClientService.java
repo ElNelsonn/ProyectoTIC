@@ -20,15 +20,19 @@ public class ClientService {
     @Autowired
     private Validator validator;
 
-    public Client addClient(Long id, String name, String surname, LocalDate birthDate, Long cardNumber, LocalDate cardExpiraton, String email, String password) throws EntityAlreadyExistsException, InvalidDataException {
+    public Client addClient(Long id, String name, String surname, LocalDate birthDate, String cardNumber, LocalDate cardExpiraton, String email, String password) throws EntityAlreadyExistsException, InvalidDataException {
 
         // Control de duplicados
-        if (clientRepo.findClientByCardNumber(cardNumber).isPresent()) {
+        if (cardNumber != null && clientRepo.findClientByCardNumber(cardNumber).isPresent()) {
             throw new EntityAlreadyExistsException("Ya existe un cliente con ese n° de tarjeta.");
         }
 
         if (clientRepo.findClientByIdentityCard(id).isPresent()) {
             throw new EntityAlreadyExistsException("Ya existe un cliente con esa dni.");
+        }
+
+        if (clientRepo.findClientByEmail(email).isPresent()) {
+            throw new EntityAlreadyExistsException("Ya existe un cliente con ese email.");
         }
 
         // Crear un nuevo Client

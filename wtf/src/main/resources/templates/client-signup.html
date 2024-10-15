@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title> Sign Up | WTF </title>
@@ -7,6 +7,7 @@
 </head>
 <body>
     <form action="/client/registro" method="post">
+
         <h2>Sign Up</h2>
 
         <div class="formulario_input">
@@ -25,8 +26,8 @@
         </div>
 
         <div class="formulario_input">
-            <label for="bithdate">Birth Date</label>
-            <input type="date" name="birhtDate" placeholder="Fecha de nacimiento" id="bithdate">
+            <label for="birthdate">Birth Date</label>
+            <input type="date" name="birthDate" placeholder="Fecha de nacimiento" id="birthdate">
         </div>
 
         <div class="formulario_input">
@@ -36,12 +37,25 @@
 
         <div class="formulario_input">
             <label for="password">Password</label>
-            <input type="text" name="password" placeholder="Ingresa tu contrasena" id="password">
+            <input type="password" name="password" placeholder="Ingresa tu contrasena" id="password">
+        </div>
+
+        <div class="formulario_input">
+            <label for="password2">Password</label>
+            <input type="password" name="password2" placeholder="Ingresa tu contrasena nuevamente" id="password2">
         </div>
 
         <div class="formulario_input">
             <input type="submit" name="enviar" value="Enviar">
         </div>
+
     </form>
+
+    <div>
+        <span style="color: red;">
+            <p th:if="${errorMessage != null}" th:text="${errorMessage}"></p>
+        </span>
+    </div>
+
 </body>
 </html>
