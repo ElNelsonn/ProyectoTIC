@@ -26,44 +26,13 @@ public class ClientController {
     private ClientService clientService;
 
     @GetMapping("/signup")
-    public String getLogin(){
+    public String getLogin(Model model){
 
+
+        model.addAttribute("todayDate", LocalDate.now());
         return "client-signup";
     }
 
-
-    /*
-    @PostMapping("/registro")
-    public String registerClient(@RequestParam String name, @RequestParam String surname,
-                                 @RequestParam String email, @RequestParam String password,
-                                 @RequestParam Long identityCard, @RequestParam LocalDate birthDate, Model model) {
-        try {
-
-            System.out.println("Intento de sign up.");
-
-            Client newClient = clientService.addClient(
-                    identityCard,
-                    name,
-                    surname,
-                    birthDate,
-                    null,     // Número de tarjeta se ingresa luego
-                    null,                // Fecha de expiración de la tarjeta se ingresa luego
-                    email,
-                    password
-            );
-
-            System.out.println("Sign up.");
-
-            return "client-signup-success";
-
-        } catch (EntityAlreadyExistsException | InvalidDataException e) {
-
-            model.addAttribute("errorMessage", e.getMessage());
-            return "client-signup";
-        }
-    }
-
-     */
 
     @PostMapping("/registro")
     public String registerClient(@ModelAttribute @Valid Client client, BindingResult result, Model model) {
@@ -71,7 +40,6 @@ public class ClientController {
         if (result.hasErrors()) {
 
             String errorMessage = result.getFieldErrors().getFirst().getDefaultMessage();
-
             System.out.println(errorMessage);
             model.addAttribute("errorMessages", errorMessage);
             return "client-signup";
