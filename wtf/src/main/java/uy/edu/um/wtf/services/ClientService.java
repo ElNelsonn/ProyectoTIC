@@ -24,7 +24,7 @@ public class ClientService {
 
         // Control de duplicados
         if (cardNumber != null && clientRepo.findClientByCardNumber(cardNumber).isPresent()) {
-            throw new EntityAlreadyExistsException("Ya existe un cliente con ese n° de tarjeta.");
+            throw new EntityAlreadyExistsException("Ya existe un cliente con ese numero de tarjeta.");
         }
 
         if (clientRepo.findClientByIdentityCard(id).isPresent()) {

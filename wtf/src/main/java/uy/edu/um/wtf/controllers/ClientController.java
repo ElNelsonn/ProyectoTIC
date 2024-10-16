@@ -28,20 +28,25 @@ public class ClientController {
     @GetMapping("/signup")
     public String getLogin(Model model){
 
-
         model.addAttribute("todayDate", LocalDate.now());
         return "client-signup";
     }
 
-
     @PostMapping("/registro")
     public String registerClient(@ModelAttribute @Valid Client client, BindingResult result, Model model) {
 
+        List<String> errorMessages = new ArrayList<>();
+
         if (result.hasErrors()) {
 
-            String errorMessage = result.getFieldErrors().getFirst().getDefaultMessage();
-            System.out.println(errorMessage);
-            model.addAttribute("errorMessages", errorMessage);
+            for (FieldError error : result.getFieldErrors()) {
+                errorMessages.add(error.getDefaultMessage());
+            }
+
+            System.out.println(errorMessages);
+
+            model.addAttribute("todayDate", LocalDate.now());
+            model.addAttribute("errorMessages", errorMessages);
             return "client-signup";
         }
 
@@ -60,13 +65,16 @@ public class ClientController {
                     client.getPassword()
             );
 
-            System.out.println("Sign up.");
+            System.out.println("Sign up exitoso.");
 
             return "client-signup-success";
 
         } catch (EntityAlreadyExistsException | InvalidDataException e) {
 
-            model.addAttribute("errorMessage", e.getMessage());
+            errorMessages.add(e.getMessage());
+
+            model.addAttribute("todayDate", LocalDate.now());
+            model.addAttribute("errorMessages", errorMessages);
             return "client-signup";
         }
     }
