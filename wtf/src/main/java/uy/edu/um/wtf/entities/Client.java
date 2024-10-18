@@ -30,4 +30,8 @@ public class Client extends User {
     @Builder.Default
     private List<TicketPurchase> ticketPurchaseList = new LinkedList<>();
 
+    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @Builder.Default
+    private List<SnackPurchase> snackPurchaseList = new LinkedList<>();
+
 }
