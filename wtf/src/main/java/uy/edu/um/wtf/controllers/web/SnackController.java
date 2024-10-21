@@ -1,2 +1,4 @@
-package uy.edu.um.wtf.controllers.web;public class SnackController {
+package uy.edu.um.wtf.controllers.web;
+
+public class SnackController {
 }

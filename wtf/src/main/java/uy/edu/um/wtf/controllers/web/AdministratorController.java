@@ -74,8 +74,8 @@ public class AdministratorController {
 
             System.out.println("Sign up exitoso.");
 
-            return "client-signup-success";
-
+            return "client-signup-success"; //no es por client, es el HTML que da good
+            //mas tarde agregar llevada a homepage
         } catch (EntityAlreadyExistsException | InvalidDataException e) {
 
 
