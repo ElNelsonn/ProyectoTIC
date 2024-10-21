@@ -42,8 +42,6 @@ public class ClientController {
                 errorMessages.add(error.getDefaultMessage());
             }
 
-            System.out.println(errorMessages);
-
             model.addAttribute("todayDate", LocalDate.now());
             model.addAttribute("errorMessages", errorMessages);
             return "client-signup";
@@ -76,7 +74,6 @@ public class ClientController {
             return "client-signup-success";
 
         } catch (EntityAlreadyExistsException | InvalidDataException e) {
-
 
             errorMessages.add(e.getMessage());
 

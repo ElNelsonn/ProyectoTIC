@@ -47,7 +47,7 @@ public class ScreenService {
                 name(name).
                 cinema(cinema).
                 rows(rows).
-                columms(columns).
+                columns(columns).
                 build();
 
         // Validaciones

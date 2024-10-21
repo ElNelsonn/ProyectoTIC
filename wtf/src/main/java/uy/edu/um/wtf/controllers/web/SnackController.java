@@ -6,10 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import uy.edu.um.wtf.entities.Client;
 import uy.edu.um.wtf.entities.Snack;
 import uy.edu.um.wtf.exceptions.EntityAlreadyExistsException;
@@ -20,7 +17,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-@Controller("/snack")
+@Controller
+@RequestMapping("/snack")
 public class SnackController {
 
     @Autowired
@@ -29,11 +27,11 @@ public class SnackController {
     @GetMapping("/create")
     public String getCreateSnack() {
 
-        return "snack-create";
+        return "snack-creation";
     }
 
     @PostMapping("/create")
-    public String crateSnack(@ModelAttribute @Valid Snack snack, BindingResult result, @RequestParam String cinemaName, Model model) {
+    public String crateSnack(@ModelAttribute @Valid Snack snack, BindingResult result, Model model) {
 
         List<String> errorMessages = new ArrayList<>();
 
@@ -44,7 +42,7 @@ public class SnackController {
             }
 
             model.addAttribute("errorMessages", errorMessages);
-            return "client-signup";
+            return "snack-creation";
         }
 
         try {
@@ -62,7 +60,7 @@ public class SnackController {
             errorMessages.add(e.getMessage());
 
             model.addAttribute("errorMessages", errorMessages);
-            return "client-signup";
+            return "snack-creation";
         }
     }
 

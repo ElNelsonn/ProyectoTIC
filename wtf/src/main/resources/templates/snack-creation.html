@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title> Snack Create | WTF </title>
+
+</head>
+<body>
+    <form action="/snack/create" method="post">
+
+        <h2> Create Snack </h2>
+
+        <div class="formulario_input">
+            <label for="name">Snack Name</label>
+            <input type="text" name="name" placeholder="Ingresa el nombre" id="name" required maxlength="30" minlength="2">
+        </div>
+
+        <div class="formulario_input">
+            <label for="glutenFree">Gluten Free</label>
+            <select name="glutenFree" id="glutenFree" required>
+                <option value="" disabled selected>Selecciona una opción</option>
+                <option value="true">Sí</option>
+                <option value="false">No</option>
+            </select>
+        </div>
+
+        <div class="formulario_input">
+            <label for="price"> Price </label>
+            <input type="number" name="price" placeholder="Ingrese el precio" id="price" required min="0" max="9999">
+        </div>
+
+        <div class="formulario_input">
+            <input type="submit" name="enviar" value="Enviar">
+        </div>
+    </form>
+
+    <div>
+        <span style="color: red;">
+            <ul th:if="${errorMessages != null}">
+                <li th:each="errorMessage : ${errorMessages}" th:text="${errorMessage}"></li>
+            </ul>
+        </span>
+    </div>
+
+</body>
+</html>

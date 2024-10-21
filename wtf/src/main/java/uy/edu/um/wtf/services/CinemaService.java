@@ -23,23 +23,23 @@ public class CinemaService {
     @Autowired
     private Validator validator;
 
-    public Cinema addCinema(String name, List<Long> phoneNumbers, String location, String mail) throws InvalidDataException, EntityAlreadyExistsException {
+    public Cinema addCinema(String name, Long phoneNumber, String location, String email) throws InvalidDataException, EntityAlreadyExistsException {
 
         // Control de duplicados
         if (cinemaRepo.findCinemaByName(name).isPresent()) {
             throw new EntityAlreadyExistsException("Ya existe un cine con ese nombre.");
         }
 
-        if (cinemaRepo.findCinemaByMail(mail).isPresent()) {
+        if (cinemaRepo.findCinemaByEmail(email).isPresent()) {
             throw new EntityAlreadyExistsException("Ya existe un cine con ese mail.");
         }
 
         // Crear un nuevo Cinema
         Cinema newCinema = Cinema.builder()
                 .name(name)
-                .phoneNumber(phoneNumbers)
+                .phoneNumber(phoneNumber)
                 .location(location)
-                .mail(mail)
+                .email(email)
                 .build();
 
         // Validaciones
@@ -74,7 +74,7 @@ public class CinemaService {
         if (mail == null) {
             throw new InvalidDataException("Write a mail please");
         } else {
-            return cinemaRepo.findCinemaByMail(mail);
+            return cinemaRepo.findCinemaByEmail(mail);
         }
     }
 }

@@ -71,7 +71,7 @@ public class MovieScreeningService {
                 .date(date)
                 .movie(movie)
                 .screen(screen)
-                .seats(newSeatsList(screen.getRows(), screen.getColumms()))
+                .seats(newSeatsList(screen.getRows(), screen.getColumns()))
                 .build();
 
         // Validaciones

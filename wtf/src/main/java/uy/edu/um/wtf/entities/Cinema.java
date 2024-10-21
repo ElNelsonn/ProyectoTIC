@@ -29,22 +29,19 @@ public class Cinema {
     @Size(min = 2, max = 30, message = "El nombre debe tener entre 2 y 30 caracteres")
     private String name;
 
-    @ElementCollection
-    @CollectionTable(name = "CINEMA_PHONE_NUMBERS", joinColumns = @JoinColumn(name = "CINEMA_ID"))
     @Column(name = "PHONE_NUMBER")
     @NotNull (message = "El cine debe tener un telefono de contacto.")
-    @Size(min = 1, message = "El cine debe tener un telefono de contacto.")
-    private List<Long> phoneNumber;
+    private Long phoneNumber;
 
     @Column(name = "LOCATION", nullable = false)
     @NotBlank(message = "La ubicación no puede estar vacía.")
     @NotNull(message = "La ubicación no puede estar vacía.")
     private String location;
 
-    @Column(name = "MAIL", unique = true, nullable = false)
+    @Column(name = "EMAIL", unique = true, nullable = false)
     @Email(message = "El correo electrónico debe tener un formato válido")
-    @NotBlank(message = "El mail no puede estar vacío.")
-    private String mail;
+    @NotBlank(message = "El email no puede estar vacío.")
+    private String email;
 
     @OneToMany(mappedBy = "cinema", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @Builder.Default

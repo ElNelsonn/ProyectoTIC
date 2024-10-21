@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title> Create Cinema | WTF </title>
+    <link rel="stylesheet" th:href="@{/CSS/styles/cinema-creation-style.css}">
+
+</head>
+<body>
+    <form action="/cinema/create" method="post">
+
+        <h2> Create Cinema </h2>
+
+        <div class="formulario_input">
+            <label for="name">Cinema Name</label>
+            <input type="text" name="name" placeholder="Ingresa el nombre" id="name" required maxlength="30" minlength="2">
+        </div>
+
+        <div class="formulario_input">
+            <label for="email">Email</label>
+            <input type="email" name="email" placeholder="Ingresa el email de contacto" id="email" required>
+        </div>
+
+        <div class="formulario_input">
+            <label for="phoneNumber"> Phone Number </label>
+            <input type="number" name="phoneNumber" placeholder="Ingrese el número de telefono" id="phoneNumber" required min="0" max="9999999999">
+        </div>
+
+        <div class="formulario_input">
+            <label for="location"> Location </label>
+            <input type="text" name="location" placeholder="Ingresa la ubicacion" id="location" required minlength="5" maxlength="60" >
+        </div>
+
+        <div class="formulario_input">
+            <input type="submit" name="enviar" value="Enviar">
+        </div>
+    </form>
+
+    <div>
+        <span style="color: red;">
+            <ul th:if="${errorMessages != null}">
+                <li th:each="errorMessage : ${errorMessages}" th:text="${errorMessage}"></li>
+            </ul>
+        </span>
+    </div>
+
+</body>
+</html>

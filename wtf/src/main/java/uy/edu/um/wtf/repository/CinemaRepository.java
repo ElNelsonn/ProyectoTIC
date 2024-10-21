@@ -12,9 +12,10 @@ public interface CinemaRepository extends JpaRepository<Cinema, Long> {
 
     public Optional<Cinema> findCinemaByName(String name);
 
-    public Optional<Cinema> findCinemaByMail(String mail);
+    public Optional<Cinema> findCinemaByEmail(String mail);
 
     public List<Cinema> findCinemasByLocation(String location);
+
 
 
 

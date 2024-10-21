@@ -20,7 +20,6 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/cinema")
-
 public class CinemaController {
 
     @Autowired
@@ -29,33 +28,47 @@ public class CinemaController {
     @GetMapping("/create")
     public String getCreateCinema(Model model){
         model.addAttribute("todayDate", LocalDate.now());
-        return "X"; //HTML faltante
+        return "cinema-creation";
     }
 
     @PostMapping("/create")
     public String createCinema(@ModelAttribute @Valid Cinema cinema, BindingResult result, Model model){
+
         List<String> errorMessages = new ArrayList<>();
 
         if (result.hasErrors()) {
+
             for (FieldError error : result.getFieldErrors()) {
                 errorMessages.add(error.getDefaultMessage());
             }
+
             model.addAttribute("errorMessages", errorMessages);
-            return "X";
+            return "cinema-creation";
+
         }
         try {
             Cinema newCinema = cinemaService.addCinema(
                     cinema.getName(),
                     cinema.getPhoneNumber(),
                     cinema.getLocation(),
-                    cinema.getMail()
+                    cinema.getEmail()
             );
-            return "cinema-creation-success";
+
+            return "client-signup-success";
+
         } catch (EntityAlreadyExistsException | InvalidDataException e) {
+
             errorMessages.add(e.getMessage());
+
             model.addAttribute("errorMessages",errorMessages);
-            return "X";
+            return "cinema-creation";
         }
     }
+
+
+
+
+
+
 
 }

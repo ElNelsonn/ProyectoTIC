@@ -1,51 +1,41 @@
-package uy.edu.um.wtf.entities;
+package uy.edu.um.wtf.DTO;
 
-import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
-import lombok.*;
-import java.util.LinkedList;
-import java.util.List;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import uy.edu.um.wtf.entities.Cinema;
 
-@Entity
+
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
-@Builder
-@Table(name = "SCREEN")
+@AllArgsConstructor
+public class ScreenForController {
 
-public class Screen {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID")
-    private Long id;
-
-    @Column(name = "NAME", nullable = false)
     @NotBlank(message = "El nombre no puede estar vacío.")
     @NotNull(message = "El nombre no puede estar vacío.")
     @Size(min = 1, max = 8, message = "El nombre debe tener entre 1 y 8 caracteres")
     private String name;
 
-    @ManyToOne
-    @JoinColumn(name = "CINEMA_ID", nullable = false)
     @NotNull(message = "El cine no puede estar vacío.")
-    private Cinema cinema;
+    @Size(min = 1, max = 8, message = "El nombre del cine debe tener entre 2 y 30 caracteres")
+    private String cinemaName;
 
-    @Column(name = "COLUMNS",nullable = false)
     @NotNull(message = "Dimensiones no validas")
     @Positive(message = "Dimensiones no validas")
     private Integer columns;
 
-    @Column(name = "ROWS", nullable = false)
     @NotNull(message = "Dimensiones no validas")
     @Positive(message = "Dimensiones no validas")
     private Integer rows;
 
-    @OneToMany(mappedBy = "screen", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @Builder.Default
-    private List<MovieScreening> movieScreenings = new LinkedList<>();
+
+
+
+
 }
