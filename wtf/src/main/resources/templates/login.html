@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <meta charset="UTF-8">
+    <title> Log In | WTF </title>
+
+</head>
+<body>
+
+    <form action="/user/login" method="post">
+
+        <h2>Log In</h2>
+
+        <div class="formulario_input">
+            <label for="email">Email</label>
+            <input type="email" name="email" placeholder="Ingresa tu email" id="email" required>
+        </div>
+
+        <div class="formulario_input">
+            <label for="password">Password</label>
+            <input type="password" name="password" placeholder="Ingresa tu contrasena" id="password" required minlength="8" maxlength="30" >
+        </div>
+
+        <div class="formulario_input">
+            <input type="submit" name="enviar" value="Enviar">
+        </div>
+
+        <div>
+            <span style="color: red;">
+                <ul th:if="${errorMessages != null}">
+                    <li th:each="errorMessage : ${errorMessages}" th:text="${errorMessage}"></li>
+                </ul>
+            </span>
+        </div>
+
+    </form>
+
+</body>
+</html>

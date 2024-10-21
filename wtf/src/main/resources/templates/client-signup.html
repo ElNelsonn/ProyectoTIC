@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title> Sign Up | WTF </title>
+    <link rel="stylesheet" th:href="@{/CSS/styles/client-signup-style.css}">
 
 </head>
 <body>
-    <form action="/client/registro" method="post">
+    <form action="/client/signup" method="post">
 
         <h2>Sign Up</h2>
 
@@ -32,7 +33,7 @@
 
         <div class="formulario_input">
             <label for="id">Identity Card</label>
-            <input type="number" name="identityCard" placeholder="Ingrese su cedula de identidad" id="id" required>
+            <input type="number" name="identityCard" placeholder="Ingrese su cedula de identidad" id="id" required min="0" max="999999999">
         </div>
 
         <div class="formulario_input">

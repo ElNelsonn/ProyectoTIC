@@ -2,9 +2,63 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title> Admin Sign Up | WTF </title>
+
 </head>
 <body>
+<form action="/administrator/signup" method="post">
+
+    <h2>Sign Up</h2>
+    <h3> STAFF ONLY </h3>
+
+    <div class="formulario_input">
+        <label for="name">Name</label>
+        <input type="text" name="name" placeholder="Ingresa tu nombre" id="name" required maxlength="30" minlength="2">
+    </div>
+
+    <div class="formulario_input">
+        <label for="surname">Surname</label>
+        <input type="text" name="surname" placeholder="Ingresa tu apellido" id="surname" required maxlength="30" minlength="2">
+    </div>
+
+    <div class="formulario_input">
+        <label for="email">Email</label>
+        <input type="email" name="email" placeholder="Ingresa tu email" id="email" required>
+    </div>
+
+    <div class="formulario_input">
+        <label for="birthdate">Birth Date</label>
+        <input type="date" name="birthDate" placeholder="Fecha de nacimiento" id="birthdate" required th:max="${todayDate}">
+    </div>
+
+    <div class="formulario_input">
+        <label for="id">Identity Card</label>
+        <input type="number" name="identityCard" placeholder="Ingrese su cedula de identidad" id="id" required min="0" max="999999999">
+    </div>
+
+    <div class="formulario_input">
+        <label for="password">Password</label>
+        <input type="password" name="password" placeholder="Ingresa tu contrasena" id="password" required minlength="8" maxlength="30" >
+    </div>
+
+    <div class="formulario_input">
+        <label for="password2">Password</label>
+        <input type="password" name="password2" placeholder="Ingresa tu contrasena nuevamente" id="password2" required minlength="8" maxlength="30" >
+    </div>
+
+    <div class="formulario_input">
+        <input type="submit" name="enviar" value="Enviar">
+    </div>
+
+</form>
+
+<div>
+        <span style="color: red;">
+        <ul th:if="${errorMessages != null}">
+            <li th:each="errorMessage : ${errorMessages}" th:text="${errorMessage}"></li>
+        </ul>
+    </span>
+</div>
 
 </body>
 </html>

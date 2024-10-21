@@ -17,7 +17,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
-public class SnackPurchaseService {
+public class
+SnackPurchaseService {
 
     @Autowired
     private SnackPurchaseRepository snackPurchaseRepo;
