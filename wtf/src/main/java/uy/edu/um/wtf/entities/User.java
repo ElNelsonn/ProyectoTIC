@@ -44,7 +44,7 @@ public abstract class User implements Serializable {
 
     @Column(name = "PASSWORD", nullable = false)
     @NotNull(message = "La contrasena no puede estar vacia")
-    @Size(min = 8, max = 30, message = "La contrasena debe tener al menos 8 caracteres.")
+    @Size(min = 8, message = "La contrasena debe tener al menos 8 caracteres.")
     private String password;
 
     @Temporal(TemporalType.DATE)

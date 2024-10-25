@@ -3,6 +3,7 @@ package uy.edu.um.wtf.services;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import uy.edu.um.wtf.entities.Administrator;
 import uy.edu.um.wtf.entities.Client;
@@ -30,6 +31,9 @@ public class AdministratorService {
     @Autowired
     private Validator validator;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     public Administrator addAdministrator(Long id, String name, String surname, LocalDate birthDate, String email, String password) throws InvalidDataException, EntityAlreadyExistsException {
 
         // Control de duplicados
@@ -44,7 +48,7 @@ public class AdministratorService {
                 surname(surname).
                 birthDate(birthDate).
                 email(email).
-                password(password).
+                password(passwordEncoder.encode(password)).
                 build();
 
         // Validaciones

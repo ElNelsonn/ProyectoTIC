@@ -2,6 +2,7 @@ package uy.edu.um.wtf.services;
 
 import jakarta.validation.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import uy.edu.um.wtf.entities.Client;
 import uy.edu.um.wtf.exceptions.EntityAlreadyExistsException;
@@ -24,6 +25,9 @@ public class ClientService {
 
     @Autowired
     private Validator validator;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     public Client addClient(Long id, String name, String surname, LocalDate birthDate, String cardNumber, LocalDate cardExpiraton, String email, String password) throws EntityAlreadyExistsException, InvalidDataException {
 
@@ -49,7 +53,7 @@ public class ClientService {
                 cardNumber(cardNumber).
                 cardExpirationDate(cardExpiraton).
                 email(email).
-                password(password).
+                password(passwordEncoder.encode(password)).
                 build();
 
         // Validaciones

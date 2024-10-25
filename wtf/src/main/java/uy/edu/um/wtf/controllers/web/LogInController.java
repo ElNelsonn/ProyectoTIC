@@ -1,5 +1,6 @@
 package uy.edu.um.wtf.controllers.web;
 
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -38,7 +39,7 @@ public class LogInController {
     }
 
     @PostMapping("/login")
-    public String logInClient(@RequestParam String email, @RequestParam String password, Model model) {
+    public String logInClient(@RequestParam String email, @RequestParam String password, Model model, HttpSession session) {
 
         Client possibleClient = clientConverter.convert(email);
 
@@ -50,9 +51,8 @@ public class LogInController {
                 return "login";
             }
 
-
+            session.setAttribute("loggedInUser", possibleClient);
             return "client-signup-success";
-
 
         }
 
@@ -66,10 +66,11 @@ public class LogInController {
                 return "login";
             }
 
+
+            session.setAttribute("loggedInUser", possibleAdministrator);
             return "client-signup-success";
 
         }
-
 
         model.addAttribute("errorMessages", "Usuario no encontrado.");
         return "login";

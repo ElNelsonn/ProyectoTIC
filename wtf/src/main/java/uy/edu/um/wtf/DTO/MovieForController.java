@@ -1,31 +1,25 @@
-package uy.edu.um.wtf.entities;
+package uy.edu.um.wtf.DTO;
 
-import jakarta.persistence.*;
+
+import jakarta.persistence.CollectionTable;
+import jakarta.persistence.Column;
+import jakarta.persistence.ElementCollection;
+import jakarta.persistence.JoinColumn;
 import jakarta.validation.constraints.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.validator.constraints.URL;
 
-import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.LinkedList;
 import java.util.List;
-import static jakarta.persistence.GenerationType.IDENTITY;
 
-
-@Entity
-@Table(name = "MOVIE")
 @Getter
 @Setter
-@Builder
-@AllArgsConstructor
 @NoArgsConstructor
-
-public class Movie implements Serializable {
-
-    @Id
-    @GeneratedValue(strategy = IDENTITY)
-    @Column(name = "ID")
-    private Long id;
+@AllArgsConstructor
+public class MovieForController {
 
     @Column(name = "TITLE", nullable = false, unique = true)
     @NotBlank(message = "El titulo no puede ser vacío.")
@@ -35,32 +29,27 @@ public class Movie implements Serializable {
 
     @Column(name = "RELEASE_DATE", nullable = false)
     @NotNull (message = "La fecha de lanzamiento no es valida.")
-    @Past (message = "La fecha de lanzamiento no es valida.")
+    @Past(message = "La fecha de lanzamiento no es valida.")
     private LocalDate releaseDate;
 
-    @ElementCollection
-    @CollectionTable(name = "MOVIE_DIRECTORS",joinColumns = @JoinColumn(name="MOVIE_ID"))
     @Column(name = "DIRECTORS", nullable = false)
     @NotNull (message = "La pelicula debe tener algun director")
-    @Size(min = 1, message = "Debe haber al menos un director.")
-    private List<String> directors;
+    @Size(min = 2, message = "La pelicula debe tener algun director")
+    private String directors;
 
     @Column(name = "SYNOPSIS")
     private String synopsis;
 
-    @ElementCollection
-    @CollectionTable(name = "MOVIE_CATEGORIES",joinColumns=@JoinColumn(name="MOVIE_ID"))
     @Column(name = "CATEGORIES", nullable = false)
     @NotNull (message = "Las categorías no pueden estar vacía.")
-    @Size(min = 1, message = "Debe haber al menos una categoría.")
-    private List<String> categories;
+    @Size(min = 2, message = "Las categorías no pueden estar vacía.")
+    private String categories;
 
-    @ElementCollection
-    @CollectionTable(name = "MOVIE_ACTORS",joinColumns = @JoinColumn(name="MOVIE_ID"))
+
     @Column(name = "ACTORS", nullable = false)
-    @NotNull (message = "Es necesario poner los autores")
-    @Size(min = 1, message = "Debe haber al menos un actor.")
-    private List<String> actors;
+    @NotNull (message = "Es necesario poner minimo un autor")
+    @Size(min = 2, message = "Es necesario poner minimo un autor")
+    private String actors;
 
     @Column(name = "DURATION", nullable = false)
     @NotNull (message = "Duración de pelicula invalida.")
@@ -78,8 +67,5 @@ public class Movie implements Serializable {
     private String posterURL;
 
 
-    @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @Builder.Default
-    private List<MovieScreening> movieScreenings = new LinkedList<>();
 
 }

@@ -22,7 +22,7 @@ public class MovieService {
     @Autowired
     private Validator validator;
 
-    public Movie addMovie(String title, LocalDate releaseDate, List<String> directors, String synopsis, List<String> categories, List<String> actors, Long duration, String classification) throws InvalidDataException, EntityAlreadyExistsException {
+    public Movie addMovie(String title, LocalDate releaseDate, List<String> directors, String synopsis, List<String> categories, List<String> actors, Long duration, String classification, String posterURL) throws InvalidDataException, EntityAlreadyExistsException {
 
         // Control de duplicados
         if (movieRepo.findMovieByTitle(title).isPresent()) {
@@ -39,6 +39,7 @@ public class MovieService {
                 duration(duration).
                 classification(classification).
                 categories(categories).
+                posterURL(posterURL).
                 build();
 
         // Validaciones

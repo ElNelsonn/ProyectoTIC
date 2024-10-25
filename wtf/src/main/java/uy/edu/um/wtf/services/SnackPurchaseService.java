@@ -43,11 +43,17 @@ SnackPurchaseService {
             throw new EntityNotFoundException("Algún snack no es valido.");
         }
 
+        Long price = 0L;
+        for (Snack snack : snacks) {
+            price += snack.getPrice();
+        }
+
         // Crear snack purchase
         SnackPurchase newSnackPurchase = SnackPurchase.builder().
                 snackList(snacks).
                 client(client).
                 date(date).
+                totalPrice(price).
                 build();
 
         // Validaciones

@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Snacks | WTF </title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <style>
+        h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 3rem;
+            color: #ffffff;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+            margin: 10px 0;
+            padding: 10px 0;
+            text-align: center;
+            letter-spacing: 1px;
+        }
+
+        body {
+            background-color: #131313;
+            color: #ffffff;
+        }
+
+        header {
+            background-color: rgb(59, 55, 55);
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.49);
+        }
+
+        .logo {
+            max-height: 60px;
+            margin-right: 20px;
+        }
+
+        .card {
+            background-color: #383c41;
+            color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+            transition: background-color 0.2s;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+        .btn-danger {
+            background-color: #dc3545;
+            border-color: #dc3545;
+            transition: background-color 0.2s;
+        }
+
+        .btn-danger:hover {
+            background-color: #c82333;
+        }
+
+        #carrito {
+            background-color: #373c41;
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        #carrito li {
+            background-color: #54595e;
+            color: #ffffff;
+        }
+
+        #total {
+            color: #ffffff;
+        }
+
+        .main-content {
+            margin-top: 20px;
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            let carrito = [];
+            const divisa = '$';
+            const DOMcarrito = document.querySelector('#carrito');
+            const DOMtotal = document.querySelector('#total');
+            const DOMbotonVaciar = document.querySelector('#boton-vaciar');
+            const DOMbotonComprar = document.querySelector('#boton-comprar');
+
+            // Funciones
+            function renderizarCarrito() {
+                DOMcarrito.textContent = '';
+                const carritoSinDuplicados = [...new Set(carrito.map(item => item.id))]; // Obtener solo los IDs únicos
+
+                carritoSinDuplicados.forEach((id) => {
+                    const item = carrito.find(item => item.id === id); // Buscar el snack correspondiente
+                    const numeroUnidadesItem = carrito.reduce((total, itemId) => {
+                        return itemId.id === id ? total + 1 : total; // Contar las unidades del snack
+                    }, 0);
+
+                    const miNodo = document.createElement('li');
+                    miNodo.classList.add('list-group-item', 'd-flex', 'justify-content-between', 'align-items-center'); // Flexbox para alinear
+
+                    // Contenido del item
+                    miNodo.textContent = `${numeroUnidadesItem} x ${item.name} - ${item.price}${divisa}`;
+
+                    const miBoton = document.createElement('button');
+                    miBoton.classList.add('btn', 'btn-danger', 'btn-sm');
+                    miBoton.textContent = 'X';
+                    miBoton.addEventListener('click', () => borrarItemCarrito(item.id));
+
+                    // Agregamos el botón al elemento del carrito
+                    miNodo.appendChild(miBoton);
+                    DOMcarrito.appendChild(miNodo);
+                });
+
+                DOMtotal.textContent = calcularTotal();
+            }
+
+            function calcularTotal() {
+                return carrito.reduce((total, item) => total + item.price, 0).toFixed(2);
+            }
+
+            function borrarItemCarrito(id) {
+                carrito = carrito.filter(item => item.id !== id);
+                renderizarCarrito();
+            }
+
+            function anyadirProductoAlCarrito(snack) {
+                carrito.push(snack);
+                renderizarCarrito();
+            }
+
+            document.querySelectorAll('.add-to-cart').forEach(button => {
+                button.addEventListener('click', () => {
+                    const id = parseInt(button.dataset.id);
+                    const name = button.dataset.name;
+                    const price = parseFloat(button.dataset.price);
+                    const snack = { id, name, price };
+                    anyadirProductoAlCarrito(snack);
+                });
+            });
+
+            DOMbotonVaciar.addEventListener('click', () => {
+                carrito = [];
+                renderizarCarrito();
+            });
+
+            // Evento para comprar
+            DOMbotonComprar.addEventListener('click', () => {
+                if (carrito.length === 0) {
+                    alert('El carrito está vacío. Añade snacks antes de comprar.');
+                    return;
+                }
+
+                const url = '/snack/purchase'; // Cambia esta URL a la que maneje las compras en tu controlador
+
+                fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(carrito) // Enviamos el carrito como JSON
+                })
+                    .then(response => {
+                        if (response.ok) {
+                            alert('Compra realizada con éxito');
+                            carrito = [];
+                            renderizarCarrito();
+                        } else {
+                            alert('Hubo un problema al realizar la compra');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('Hubo un error al enviar la compra. Inténtalo de nuevo.');
+                    });
+            });
+
+            renderizarCarrito();
+        });
+    </script>
+</head>
+<body>
+<header class="d-flex justify-content-between align-items-center">
+    <div class="d-flex align-items-center">
+        <img src="https://static.vecteezy.com/system/resources/thumbnails/008/505/808/small/cinema-projector-and-film-strip-illustration-png.png" alt="Logo" class="logo"> <!-- Cambia la ruta a tu logo -->
+        <h1 class="text-white ml-2">SNACKS</h1>
+    </div>
+    <a href="URL_DE_TU_ELECCIÓN" class="btn btn-primary"> Home Page</a>
+</header>
+
+<div class="container main-content">
+    <div class="row">
+        <main id="items" class="col-sm-8 row">
+            <!-- Usamos Thymeleaf para iterar sobre la lista de snacks -->
+            <div th:each="snack : ${snacks}" class="card col-sm-4">
+                <div class="card-body">
+                    <img th:src="@{${snack.imageURL}}" class="img-fluid">
+                    <h5 class="card-title" th:text="${snack.name}"></h5>
+                    <p class="card-text" th:text="${snack.price} + '$'"></p>
+                    <button class="btn btn-primary add-to-cart"
+                            th:data-id="${snack.id}"
+                            th:data-name="${snack.name}"
+                            th:data-price="${snack.price}">
+                        +
+                    </button>
+                </div>
+            </div>
+        </main>
+        <!-- Carrito -->
+        <aside class="col-sm-4">
+            <h2>Carrito</h2>
+            <ul id="carrito" class="list-group"></ul>
+            <hr>
+            <p class="text-right">Total: <span id="total"></span>$</p>
+            <button id="boton-vaciar" class="btn btn-danger">Vaciar</button>
+            <button id="boton-comprar" class="btn btn-success">Comprar</button> <!-- Botón de compra agregado -->
+        </aside>
+    </div>
+</div>
+</body>
+</html>

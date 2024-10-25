@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title> Add Movie | WTF </title>
+
+</head>
+
+<body>
+    <form action="/movie/add" method="post">
+
+        <h2> Add Movie </h2>
+
+        <div class="formulario_input">
+            <label for="title">Movie Title</label>
+            <input type="text" name="title" placeholder="Ingrese el titulo" id="title" required maxlength="30" minlength="2">
+        </div>
+
+        <div class="formulario_input">
+            <label for="releaseDate">Release Date</label>
+            <input type="date" name="releaseDate" placeholder="Ingrese la fecha de estreno" id="releaseDate" required th:max="${todayDate}" >
+        </div>
+
+        <div class="formulario_input">
+            <label for="directors"> Directors </label>
+            <input type="text" name="directors" placeholder="Director1,Director2,etc " id="directors" required maxlength="100" minlength="1">
+        </div>
+
+        <div class="formulario_input">
+            <label for="actors"> Actors </label>
+            <input type="text" name="actors" placeholder="Actor1,Actor2,etc " id="actors" required maxlength="200" minlength="1">
+        </div>
+
+        <div class="synopsis">
+            <label for="synopsis">Synopsis</label>
+            <textarea id="synopsis" name="synopsis" placeholder="Escriba la sinopsis aqui..."></textarea>
+        </div>
+
+        <div class="formulario_input">
+            <label for="categories"> Categories </label>
+            <input type="text" name="categories" placeholder="Actor1,Actor2,etc " id="categories" required maxlength="200" minlength="1">
+        </div>
+
+        <div class="formulario_input">
+            <label for="duration"> Duration </label>
+            <input type="number" name="duration" placeholder="Ingrese la duracion en minutos" id="duration" required min="20" max="240">
+        </div>
+
+        <div class="formulario_input">
+            <label for="classification"> Classification </label>
+            <input type="text" name="classification" placeholder="Ingrese la clasificacion" id="classification" required minlength="2">
+        </div>
+
+        <div class="formulario_input">
+            <label for="posterURL"> Poster URL </label>
+            <input type="url" name="posterURL" placeholder="Ingrese la URL de la imagen" id="posterURL" required minlength="2">
+        </div>
+
+        <div class="formulario_input">
+            <input type="submit" name="enviar" value="Enviar">
+        </div>
+    </form>
+
+    <div>
+        <span style="color: red;">
+            <ul th:if="${errorMessages != null}">
+                <li th:each="errorMessage : ${errorMessages}" th:text="${errorMessage}"></li>
+            </ul>
+        </span>
+    </div>
+
+</body>
+</html>

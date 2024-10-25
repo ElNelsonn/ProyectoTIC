@@ -20,7 +20,7 @@ public class SnackService {
     @Autowired
     private Validator validator;
 
-    public Snack addSnack(String name, Boolean glutenFree, Long price) throws InvalidDataException, EntityAlreadyExistsException {
+    public Snack addSnack(String name, Long price, String imageURL) throws InvalidDataException, EntityAlreadyExistsException {
 
         // Control de duplicados
         if (snackRepo.findSnackByName(name).isPresent()) {
@@ -30,8 +30,8 @@ public class SnackService {
         // Crear nuevo snack
         Snack newSnack = Snack.builder().
                 name(name).
-                glutenFree(glutenFree).
                 price(price).
+                imageURL(imageURL).
                 build();
 
         // Validaciones
