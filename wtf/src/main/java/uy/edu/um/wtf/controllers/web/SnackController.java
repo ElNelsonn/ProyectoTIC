@@ -2,7 +2,6 @@ package uy.edu.um.wtf.controllers.web;
 
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.web.servlet.server.Session;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -18,13 +17,11 @@ import uy.edu.um.wtf.entities.User;
 import uy.edu.um.wtf.exceptions.EntityAlreadyExistsException;
 import uy.edu.um.wtf.exceptions.EntityNotFoundException;
 import uy.edu.um.wtf.exceptions.InvalidDataException;
-import uy.edu.um.wtf.repository.ScreenRepository;
 import uy.edu.um.wtf.repository.SnackRepository;
 import uy.edu.um.wtf.repository.UserRepository;
 import uy.edu.um.wtf.services.SnackPurchaseService;
 import uy.edu.um.wtf.services.SnackService;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -109,7 +106,7 @@ public class SnackController {
         }
 
         model.addAttribute("snacks", snacks);
-        return "snack3";
+        return "snack-purchase";
     }
 
     @PostMapping("/purchase")
@@ -119,7 +116,7 @@ public class SnackController {
 
         if (carrito.isEmpty()) {
 
-            return "snack3";
+            return "snack-purchase";
         }
 
         List<Snack> snacks = new LinkedList<>();
@@ -141,7 +138,7 @@ public class SnackController {
 
         } else {
 
-            return "snack3";
+            return "snack-purchase";
         }
 
         Optional<User> clientOpt = userRepo.findUserByEmail(email);
@@ -172,7 +169,7 @@ public class SnackController {
 
             model.addAttribute("errorMessages", errorMessages);
             System.out.println(errorMessages.get(0));
-            return "snack3";
+            return "snack-purchase";
         }
 
     }
