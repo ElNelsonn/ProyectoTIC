@@ -1,0 +1,42 @@
+body {
+    background-color: #131313;
+        color: #ffffff;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        margin: 0;
+}
+
+h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 3rem;
+    color: #ffffff;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+    margin: 10px 0;
+    padding: 10px 0;
+    text-align: center;
+    letter-spacing: 1px;
+}
+
+header {
+    background-color: rgb(59, 55, 55);
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.49);
+}
+
+.button-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+}
+
+.logout-button {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+}

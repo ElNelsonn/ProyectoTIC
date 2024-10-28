@@ -1,10 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Administrator Menu</title>
+    <link rel="stylesheet" th:href="@{/CSS/styles/admin-homepage-style.css}">
 </head>
 <body>
-
+<h1>Administrator Menu</h1>
+<form action="/administrator/homepage" method="post">
+    <button onclick="window.location.href='movie-creation.html'">Create Movie</button>
+    <button onclick="window.location.href='movie-creation.html'">Create Snack</button>
+    <button onclick="window.location.href='movie-creation.html'">Create Function</button>
+    <button onclick="window.location.href='movie-creation.html'">Create Administrator account</button>
+</form>
+<button class="logout-button" type="button" onclick="window.location.href='/logout'">Log Out</button>
 </body>
 </html>
