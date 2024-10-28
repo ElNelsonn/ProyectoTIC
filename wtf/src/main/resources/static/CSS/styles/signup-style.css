@@ -30,6 +30,12 @@ h2 {
     color: #ffffff;
 }
 
+h3 {
+    margin-bottom: 2rem;
+    font-size: 1.5rem;
+    color: #ffffff;
+}
+
 .formulario_input {
     margin-bottom: 1.5rem;
 }
