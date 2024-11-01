@@ -11,6 +11,7 @@ import uy.edu.um.wtf.entities.Movie;
 import uy.edu.um.wtf.entities.MovieScreening;
 import uy.edu.um.wtf.entities.Screen;
 import uy.edu.um.wtf.exceptions.EntityAlreadyExistsException;
+import uy.edu.um.wtf.exceptions.EntityNotFoundException;
 import uy.edu.um.wtf.exceptions.InvalidDataException;
 import uy.edu.um.wtf.repository.MovieRepository;
 import uy.edu.um.wtf.repository.ScreenRepository;
@@ -40,18 +41,8 @@ public class MovieScreeningController {
     @GetMapping("/create")
     public String getMovieScreeningCreate(Model model) {
 
-        List<Screen> allScreens = screenRepo.findAll();
-        List<String> screenAndCinema = new LinkedList<>();
-        List<Movie> allMovies = movieRepo.findAll();
-        List<String> movieTitle = new LinkedList<>();
-
-        for (Screen screen: allScreens) {
-            screenAndCinema.add(screen.getCinema().getName() + ", " + screen.getName());
-        }
-
-        for (Movie movie: allMovies) {
-            movieTitle.add(movie.getTitle());
-        }
+        List<String> screenAndCinema = allScreenAndCinema();
+        List<String> movieTitle = allmoviesNames();
 
         if (movieTitle.isEmpty() || screenAndCinema.isEmpty()) {
             return "dsf";
@@ -73,8 +64,6 @@ public class MovieScreeningController {
 
         try {
 
-
-
             MovieScreening newMovieScreening = movieScreeningService.addMovieScreening(
                     date,
                     title,
@@ -84,20 +73,10 @@ public class MovieScreeningController {
 
             return "client-signup-success";
 
-        } catch (EntityAlreadyExistsException | InvalidDataException e) {
+        } catch (EntityAlreadyExistsException | InvalidDataException | EntityNotFoundException e) {
 
-            List<Screen> allScreens = screenRepo.findAll();
-            List<String> screenAndCinema = new LinkedList<>();
-            List<Movie> allMovies = movieRepo.findAll();
-            List<String> movieTitle = new LinkedList<>();
-
-            for (Screen screen: allScreens) {
-                screenAndCinema.add(screen.getCinema().getName() + ", " + screen.getName());
-            }
-
-            for (Movie movie: allMovies) {
-                movieTitle.add(movie.getTitle());
-            }
+            List<String> screenAndCinema = allScreenAndCinema();
+            List<String> movieTitle = allmoviesNames();
 
             if (movieTitle.isEmpty() || screenAndCinema.isEmpty()) {
                 return "dsf";
@@ -107,13 +86,39 @@ public class MovieScreeningController {
 
             errorMessages.add(e.getMessage());
 
+            model.addAttribute("errorMessages", errorMessages);
             model.addAttribute("todayDate", LocalDateTime.now());
             model.addAttribute("screensCinemas", screenAndCinema);
             model.addAttribute("moviesTitle", movieTitle);
+
             return "moviescreening-creation";
+
         }
 
     }
+
+    public List<String> allScreenAndCinema() {
+        List<Screen> allScreens = screenRepo.findAll();
+        List<String> screenAndCinema = new LinkedList<>();
+
+        for (Screen screen: allScreens) {
+            screenAndCinema.add(screen.getCinema().getName() + ", " + screen.getName());
+        }
+        return screenAndCinema;
+    }
+
+    public List<String> allmoviesNames() {
+        List<Movie> allMovies = movieRepo.findAll();
+        List<String> movieTitle = new LinkedList<>();
+
+        for (Movie movie: allMovies) {
+            movieTitle.add(movie.getTitle());
+        }
+
+        return movieTitle;
+
+    }
+
 
 
 

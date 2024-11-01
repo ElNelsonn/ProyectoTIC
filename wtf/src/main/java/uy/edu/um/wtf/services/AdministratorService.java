@@ -41,6 +41,10 @@ public class AdministratorService {
             throw new EntityAlreadyExistsException("Ya existe un admin con esa dni.");
         }
 
+        if (userRepo.findUserByEmail(email).isPresent()) {
+            throw new EntityAlreadyExistsException("Ya existe un admin con ese email.");
+        }
+
         // Crear un nuevo Admin
         Administrator newAdmin = Administrator.builder().
                 identityCard(id).
