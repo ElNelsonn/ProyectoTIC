@@ -97,7 +97,6 @@ public class SnackController {
     @GetMapping("/purchase")
     public String getSnacks(Model model, @AuthenticationPrincipal org.springframework.security.core.userdetails.User usuario) {
 
-        System.out.println("##########################"+usuario.getUsername());
         List<Snack> snacks = snackRepo.findAll();
 
         if (snacks.isEmpty()) {

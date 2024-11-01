@@ -54,7 +54,11 @@ public class SecurityConfig {
                         .frameOptions(frameOptions -> frameOptions.disable())
                 )
 
-                .logout(LogoutConfigurer::permitAll
+                .logout(logout -> logout
+                        .logoutUrl("/logout")
+                        .invalidateHttpSession(true)
+                        .deleteCookies("JSESSIONID")
+                        .permitAll()
                 )
 
                 .sessionManagement((session) -> session

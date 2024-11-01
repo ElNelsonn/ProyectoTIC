@@ -1,6 +1,7 @@
 package uy.edu.um.wtf.entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.Past;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
@@ -23,7 +24,7 @@ public class Client extends User {
     private String cardNumber;
 
     @Column(name = "CARD_DATE")
-    @Past(message = "Tarjeta vencida")
+    @Future(message = "Tarjeta vencida")
     private LocalDate cardExpirationDate;
 
     @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, fetch = FetchType.LAZY)

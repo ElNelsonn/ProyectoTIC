@@ -6,6 +6,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import uy.edu.um.wtf.entities.Client;
 import uy.edu.um.wtf.exceptions.EntityAlreadyExistsException;
+import uy.edu.um.wtf.exceptions.EntityNotFoundException;
 import uy.edu.um.wtf.exceptions.InvalidDataException;
 import uy.edu.um.wtf.repository.ClientRepository;
 import uy.edu.um.wtf.repository.UserRepository;
@@ -63,9 +64,23 @@ public class ClientService {
         return clientRepo.save(newClient);
     }
 
-    public Optional<Client> findClientByEmail(String email) {
+    public Client editClient(String email, String cardNumber, LocalDate cardExpirationDate, String password) throws EntityNotFoundException, InvalidDataException {
 
-        return clientRepo.findClientByEmail(email);
+        Optional<Client> probClient = clientRepo.findClientByEmail(email);
+
+        if (probClient.isEmpty()) {
+            throw new EntityNotFoundException("Cliente no encontrado.");
+        }
+
+        Client client = probClient.get();
+
+        client.setCardNumber(cardNumber);
+        client.setCardExpirationDate(cardExpirationDate);
+        client.setPassword(passwordEncoder.encode(password));
+
+        ValidationUtil.validate(client, validator);
+
+        return clientRepo.save(client);
     }
 
 
@@ -74,10 +89,10 @@ public class ClientService {
 
 
 
+    public Optional<Client> findClientByEmail(String email) {
 
-
-
-
+        return clientRepo.findClientByEmail(email);
+    }
 
 
     public List<Client> allClients(){return clientRepo.findAll();}
