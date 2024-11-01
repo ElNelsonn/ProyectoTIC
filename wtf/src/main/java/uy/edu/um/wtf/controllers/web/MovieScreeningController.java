@@ -24,7 +24,6 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
-
 @Controller
 @RequestMapping("/moviescreening")
 public class MovieScreeningController {
@@ -42,10 +41,10 @@ public class MovieScreeningController {
     public String getMovieScreeningCreate(Model model) {
 
         List<String> screenAndCinema = allScreenAndCinema();
-        List<String> movieTitle = allmoviesNames();
+        List<String> movieTitle = allMoviesNames();
 
         if (movieTitle.isEmpty() || screenAndCinema.isEmpty()) {
-            return "dsf";
+            return "snack-purchase";
         }
 
         model.addAttribute("todayDate", LocalDateTime.now());
@@ -56,7 +55,6 @@ public class MovieScreeningController {
 
     @PostMapping("/create")
     public String movieScreeningCreate(@RequestParam LocalDateTime date, @RequestParam String screenCinema,@RequestParam String title, Model model) {
-
 
         String[] partes = screenCinema.split(", ");
         String cinemaName = partes[0];
@@ -76,10 +74,10 @@ public class MovieScreeningController {
         } catch (EntityAlreadyExistsException | InvalidDataException | EntityNotFoundException e) {
 
             List<String> screenAndCinema = allScreenAndCinema();
-            List<String> movieTitle = allmoviesNames();
+            List<String> movieTitle = allMoviesNames();
 
             if (movieTitle.isEmpty() || screenAndCinema.isEmpty()) {
-                return "dsf";
+                return "client-signup";
             }
 
             List<String> errorMessages = new ArrayList<>();
@@ -94,7 +92,6 @@ public class MovieScreeningController {
             return "moviescreening-creation";
 
         }
-
     }
 
     public List<String> allScreenAndCinema() {
@@ -107,7 +104,7 @@ public class MovieScreeningController {
         return screenAndCinema;
     }
 
-    public List<String> allmoviesNames() {
+    public List<String> allMoviesNames() {
         List<Movie> allMovies = movieRepo.findAll();
         List<String> movieTitle = new LinkedList<>();
 
@@ -118,14 +115,5 @@ public class MovieScreeningController {
         return movieTitle;
 
     }
-
-
-
-
-
-
-
-
-
 }
 

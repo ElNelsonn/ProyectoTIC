@@ -33,14 +33,13 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests((authz) -> authz
 
-                        .requestMatchers("/h2-console").permitAll()
-
-                        .requestMatchers("/static/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/administrator/signup").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/administrator/signup").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/client/signup").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/client/signup").permitAll()
-                        .requestMatchers("/movie/**").hasRole("ADMIN")
+                         //   .requestMatchers("/h2-console").permitAll()
+                         //   .requestMatchers("/static/**").permitAll()
+                         //   .requestMatchers(HttpMethod.GET, "/administrator/signup").permitAll()
+                         //   .requestMatchers(HttpMethod.POST, "/administrator/signup").permitAll()
+                          //  .requestMatchers(HttpMethod.GET, "/client/signup").permitAll()
+                           // .requestMatchers(HttpMethod.POST, "/client/signup").permitAll()
+                          //  .requestMatchers("/movie/**").hasRole("ADMIN")
                         .anyRequest().permitAll()
                 )
 

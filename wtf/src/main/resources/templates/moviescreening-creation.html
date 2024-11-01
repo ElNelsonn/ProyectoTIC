@@ -12,7 +12,7 @@
 
         <div class="formulario_input">
             <label for="date">Release Date</label>
-            <input type="date" name="date" placeholder="Ingrese la fecha de la funcion" id="date" required th:min="${todayDate}" >
+            <input type="datetime-local" name="date" placeholder="Ingrese la fecha de la funcion" id="date" required th:min="${todayDate}" >
         </div>
 
         <div class="formulario_input">
@@ -27,8 +27,8 @@
         </div>
 
         <div class="formulario_input">
-            <label for="movieTitle">Movie Title</label>
-            <select name="movieTitle" id="movieTitle" required>
+            <label for="title">Movie Title</label>
+            <select name="title" id="title" required>
                 <option value="">Seleccione un Título de Película</option>
                 <option th:each="title : ${moviesTitle}"
                         th:value="${title}"

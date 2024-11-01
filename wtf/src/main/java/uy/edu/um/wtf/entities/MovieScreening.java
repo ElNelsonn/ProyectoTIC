@@ -1,6 +1,7 @@
 package uy.edu.um.wtf.entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Past;
@@ -28,7 +29,7 @@ public class MovieScreening {
 
     @Column(name = "DATE", nullable = false)
     @NotNull(message = "fecha no valida.")
-    @Past(message = "fecha no valida.")
+    @Future(message = "fecha no valida.")
     private LocalDateTime date;
 
     @ManyToOne
