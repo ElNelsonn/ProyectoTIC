@@ -33,6 +33,7 @@ public class MovieController {
 
     @GetMapping("/add")
     public String getAddMovie() {
+        
 
         return "movie-creation";
     }

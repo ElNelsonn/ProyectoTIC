@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galería de Películas</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div style="text-align: right;">
+    <a th:if="${!signed}" href="/login">Iniciar Sesión</a>
+    <a th:if="${!signed}" href="/register">Registrarse</a>
+    <span th:if="${signed}">Bienvenido, Usuario</span>
+</div>
+
+<div class="gallery-wrap">
+    <img src="images/back.png" id="backBtn">
+    <div class="gallery">
+        <div th:each="movie : ${movies}">
+                <span>
+                    <img th:src="${movie.posterURL}" alt="Imagen de la película" />
+                </span>
+        </div>
+    </div>
+    <img src="images/next.png" id="nextBtn">
+</div>
+
+<script>
+    let scrollContainer = document.querySelector(".gallery");
+    let backBtn = document.getElementById("backBtn");
+    let nextBtn = document.getElementById("nextBtn");
+
+    scrollContainer.addEventListener("wheel", (evt) => {
+        evt.preventDefault();
+        scrollContainer.scrollLeft += evt.deltaY;
+        scrollContainer.style.scrollBehavior = "auto";
+    });
+
+    nextBtn.addEventListener("click", () => {
+        scrollContainer.style.scrollBehavior = "smooth";
+        scrollContainer.scrollLeft += 900;
+    });
+
+    backBtn.addEventListener("click", () => {
+        scrollContainer.style.scrollBehavior = "smooth";
+        scrollContainer.scrollLeft -= 900;
+    });
+</script>
+
+</body>
+</html>
