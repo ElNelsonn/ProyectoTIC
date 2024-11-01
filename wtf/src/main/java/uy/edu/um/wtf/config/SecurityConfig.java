@@ -44,7 +44,7 @@ public class SecurityConfig {
                 )
 
                 .formLogin((form) -> form
-                        .defaultSuccessUrl("/snack/purchase")
+                        .defaultSuccessUrl("/home")
                         .permitAll()
                 )
 
