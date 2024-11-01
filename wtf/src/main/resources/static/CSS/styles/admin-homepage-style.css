@@ -1,12 +1,13 @@
+
 body {
     background-color: #131313;
-        color: #ffffff;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        height: 100vh;
-        margin: 0;
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
 }
 
 h1 {
@@ -28,6 +29,26 @@ header {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.49);
 }
 
+
+.logout-button {
+    background-color: #6a0dad;
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 5px;
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+}
+
+.logout-button:hover {
+    background-color: #5a009a;
+}
+
 .button-container {
     display: flex;
     flex-direction: column;
@@ -35,8 +56,28 @@ header {
     align-items: center;
 }
 
-.logout-button {
-    position: absolute;
-    bottom: 10px;
-    left: 10px;
+.button-container button {
+background-color: #6a0dad;
+color: white;
+border: none;
+padding: 15px 30px;
+text-align: center;
+font-size: 16px;
+font-weight: bold;
+cursor: pointer;
+border-radius: 5px;
+width: 200px;
+}
+
+        .button-container button:hover {
+    background-color: #5a009a;
+}
+
+.content-container {
+    background-color: #1e1e1e;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    margin-top: 0px;
+    text-align: center;
 }
