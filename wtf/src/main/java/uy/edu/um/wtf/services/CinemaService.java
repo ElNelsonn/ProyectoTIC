@@ -49,7 +49,6 @@ public class CinemaService {
         return cinemaRepo.save(newCinema);
     }
 
-
     public List<Cinema> allCinemas(){
         return cinemaRepo.findAll();
     }
@@ -61,6 +60,17 @@ public class CinemaService {
             return cinemaRepo.findCinemasByLocation(location);
         }
     }
+
+
+
+
+
+
+
+
+
+
+
 
     public Optional<Cinema> byName(String name) throws InvalidDataException {
         if (name == null) {
