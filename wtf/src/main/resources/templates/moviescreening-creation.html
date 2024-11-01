@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Movie Screening | WTF</title>
+</head>
+<body>
+
+    <form action="/moviescreening/create" method="post">
+
+        <h2> Create Movie Screening </h2>
+
+        <div class="formulario_input">
+            <label for="date">Release Date</label>
+            <input type="date" name="date" placeholder="Ingrese la fecha de la funcion" id="date" required th:min="${todayDate}" >
+        </div>
+
+        <div class="formulario_input">
+            <label for="screenCinema">Cinema and Screen</label>
+            <select name="screenCinema" id="screenCinema" required>
+                <option value="">Seleccione un Cinema y Screen</option>
+                <option th:each="screenCinema : ${screensCinemas}"
+                        th:value="${screenCinema}"
+                        th:text="${screenCinema}">
+                </option>
+            </select>
+        </div>
+
+        <div class="formulario_input">
+            <label for="movieTitle">Movie Title</label>
+            <select name="movieTitle" id="movieTitle" required>
+                <option value="">Seleccione un Título de Película</option>
+                <option th:each="title : ${moviesTitle}"
+                        th:value="${title}"
+                        th:text="${title}">
+                </option>
+            </select>
+        </div>
+
+
+        <div class="formulario_input">
+            <input type="submit" name="enviar" value="Enviar">
+        </div>
+    </form>
+
+    <div>
+        <span style="color: red;">
+            <ul th:if="${errorMessages != null}">
+                <li th:each="errorMessage : ${errorMessages}" th:text="${errorMessage}"></li>
+            </ul>
+        </span>
+    </div>
+
+
+
+</body>
+</html>
