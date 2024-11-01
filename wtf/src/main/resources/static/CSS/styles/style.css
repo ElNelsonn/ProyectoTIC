@@ -1,53 +1,129 @@
-*{
+/* galeria de manejo de las imagenes de las peliculas */
+*
+{
     margin: 0;
     padding: 0;
     font-family: 'Poppins', sans-serif;
     box-sizing: border-box;
 }
-body{
-    background: #191919;
+
+body {
+    background: #000000FF; /* Color de fondo */
+    overflow-x: hidden; /* Evita el desplazamiento horizontal */
 }
-.gallery{
-    width: 900px;
-    display: flex;
-    overflow-x: scroll;
+
+.gallery {
+    display: flex; /* Permite el desplazamiento horizontal */
+    overflow-x: auto; /* Habilita el scroll horizontal */
 }
-.gallery div{
-    width: 100%;
-    display: grid;
-    grid-template-columns: auto auto auto;
-    grid-gap: 20px;
-    padding: 10px;
-    flex: none;
+
+.gallery-item {
+    margin-right: 20px; /* Espacio entre los items */
 }
-.gallery div img {
-    width: 100%;
-    filter: grayscale(100%);
+
+.gallery img {
+    width: 300px; /* Ancho fijo para las imágenes */
+    height: auto; /* Altura automática para mantener la proporción */
+    max-height: 400px; /* Altura máxima para las imágenes */
+    filter: grayscale(30%);
     transition: transform 0.5s;
 }
 
-.gallery::-webkit-scrollbar{
-    display: none;
+.gallery::-webkit-scrollbar {
+    display: none; /* Oculta la barra de desplazamiento */
 }
 
-.gallery-wrap{
+.gallery-wrap {
     display: flex;
     align-items: center;
     justify-content: center;
     margin: 10% auto;
+    margin-top: 80px; /* Ajusta este valor según la altura del encabezado */
+    position: relative; /* Para el posicionamiento del scroll */
+    z-index: 1; /* Asegura que la galería esté debajo del encabezado */
 }
-#backBtn, #nextBtn{
+
+#backBtn, #nextBtn {
     width: 50px;
     cursor: pointer;
     margin: 40px;
 }
 
-.gallery div img:hover{
+.gallery img:hover {
     filter: grayscale(0);
     cursor: pointer;
-    transform: scale(1.2);
+    transform: scale(1.1);
+}
+
+/* encabezado */
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.5); /* Negro con 10% de opacidad */
+    padding: 10px 15px; /* Espaciado interno */
+    position: fixed; /* Para que el encabezado esté por encima de la imagen */
+    z-index: 2; /* Para asegurar que el encabezado esté por encima */
+    width: 100%; /* Asegura que el encabezado ocupe todo el ancho */
+    max-width: 100%; /* Evita que se salga del ancho del contenedor */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Sombra para un mejor efecto visual */
+    height: 80px;
+}
+
+.logo {
+    height: 60px; /* Ajusta la altura del logo para que se ajuste al encabezado */
+    width: auto; /* Permite que el ancho se ajuste automáticamente */
+    margin-right: 15px; /* Espacio entre el logo y los enlaces */
 }
 
 
+
+.header-links {
+    display: flex;
+    gap: 15px; /* Espacio entre los enlaces */
+}
+
+.header-links a, .header-links span {
+    color: white; /* Color de texto */
+    text-decoration: none; /* Quitar subrayado */
+}
+
+.header-links a:hover {
+    text-decoration: underline; /* Subrayado al pasar el mouse */
+}
+
+/* imagen gigante */
+
+.imagen-Grande {
+    width: 100%; /* Usa 100% del ancho de la ventana */
+    height: auto; /* Altura automática para mantener la proporción */
+    display: block; /* Para evitar espacio adicional */
+    object-fit: cover; /* Cubre el área y mantiene la proporción */
+}
+
+
+
+.gallery-wrap {
+    position: relative; /* Para el posicionamiento del scroll */
+    z-index: 1; /* Asegura que la galería esté debajo del encabezado */
+}
+
+.imagen-Grande-container {
+    position: relative; /* Permite la posición del pseudo-elemento en relación a la imagen */
+    overflow: hidden; /* Oculta cualquier parte de la imagen que se salga del contenedor */
+}
+
+.imagen-Grande-container::after {
+    content: ""; /* Crea un pseudo-elemento */
+    position: absolute; /* Posiciona el pseudo-elemento */
+    top: 0; /* Alinea al fondo del contenedor */
+    left: 0; /* Alinea a la izquierda */
+    right: 0; /* Alinea a la derecha */
+    bottom: 0; /* Alinea a la parte inferior */
+    background: linear-gradient(to bottom, rgba(25, 25, 25, 0) 0%, rgb(0, 0, 0) 100%); /* Degradado de transparente a oscuro */
+    pointer-events: none; /* Asegúrate de que no interfiera con los eventos del mouse */
+    z-index: 1; /* Asegúrate de que el pseudo-elemento esté por encima de la imagen */
+}
 
 

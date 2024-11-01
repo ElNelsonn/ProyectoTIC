@@ -3,25 +3,34 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Galería de Películas</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/CSS/styles/style.css">
 </head>
 <body>
-<div style="text-align: right;">
-    <a th:if="${!signed}" href="/login">Iniciar Sesión</a>
-    <a th:if="${!signed}" href="/register">Registrarse</a>
-    <span th:if="${signed}">Bienvenido, Usuario</span>
+
+<header class="header">
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTl7OiJqVRnvriUcBOhMt0z2Muqur5qc35nTA&s" alt="Logo" class="logo">
+
+    <div class="header-links">
+        <a href="/snack/purchase">Comprar Snack</a>
+        <a href="/login">Iniciar Sesión</a>
+        <a href="/client/signup">Registrarse</a>
+    </div>
+</header>
+
+
+<div class="imagen-Grande-container">
+    <img src="https://m.media-amazon.com/images/S/pv-target-images/d775fb8599018935d1e28ed9cbc2fb67870d726d850f0eee13dc6f50f37b76d3.jpg" alt="Imagen Grande" class="imagen-Grande">
 </div>
 
+
 <div class="gallery-wrap">
-    <img src="images/back.png" id="backBtn">
+    <img src="https://res.cloudinary.com/drmjvrs2p/image/upload/ydd7wnq5nvam8s1mbzog" id="backBtn" alt="Atrás">
     <div class="gallery">
-        <div th:each="movie : ${movies}">
-                <span>
-                    <img th:src="${movie.posterURL}" alt="Imagen de la película" />
-                </span>
+        <div th:each="movie : ${movies}" class="gallery-item">
+            <img th:src="${movie.posterURL}" alt="Imagen de la película" />
         </div>
     </div>
-    <img src="images/next.png" id="nextBtn">
+    <img src="https://res.cloudinary.com/drmjvrs2p/image/upload/hkdlf5fytenwp8ljmu12" id="nextBtn" alt="Siguiente">
 </div>
 
 <script>

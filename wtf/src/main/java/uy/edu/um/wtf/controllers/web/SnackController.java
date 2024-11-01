@@ -102,7 +102,7 @@ public class SnackController {
 
         if (snacks.isEmpty()) {
 
-            return "client-signup";
+            return "redirect:/home";
         }
 
         model.addAttribute("snacks", snacks);
