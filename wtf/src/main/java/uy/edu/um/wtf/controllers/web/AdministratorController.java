@@ -34,11 +34,6 @@ public class AdministratorController {
         return "admin-signup";
     }
 
-    @GetMapping("/homepage")
-    public String adminHomepage(){
-        return "admin-homepage";
-    }
-
     @PostMapping("/signup")
     public String registerClient(@ModelAttribute @Valid Administrator admin, BindingResult result, @RequestParam String password2, Model model) {
 
