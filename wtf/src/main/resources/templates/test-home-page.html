@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml" lang="en">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Galería de Películas</title>
+    <title>Home</title>
     <link rel="stylesheet" href="/CSS/styles/style.css">
 </head>
 <body>
@@ -11,9 +11,16 @@
     <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTl7OiJqVRnvriUcBOhMt0z2Muqur5qc35nTA&s" alt="Logo" class="logo">
 
     <div class="header-links">
-        <a href="/snack/purchase">Comprar Snack</a>
-        <a href="/login">Iniciar Sesión</a>
-        <a href="/client/signup">Registrarse</a>
+        <div th:if="${signed}">
+            <a href="/snack/purchase">Comprar Snack</a>
+            <a href="/home">Cerrar Sesión</a>
+
+        </div>
+        <div th:unless="${signed}">
+            <a href="/home">Iniciar Sesión</a>
+            <a href="/client/signup">Registrarse</a>
+ <!-- chequea si estoy logeado o no -->
+        </div>
     </div>
 </header>
 

@@ -25,12 +25,10 @@ public class HomePageController {
 
         List<Movie> movies = movieRepo.findAll();
 
-
         model.addAttribute("movies", movies);
 
-
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        boolean isAuthenticated = authentication != null && authentication.isAuthenticated();
+        boolean isAuthenticated = authentication != null && authentication.isAuthenticated() && !"anonymousUser".equals(authentication.getPrincipal().toString());
 
 
         model.addAttribute("signed", isAuthenticated);
