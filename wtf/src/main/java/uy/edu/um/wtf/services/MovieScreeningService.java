@@ -3,10 +3,7 @@ package uy.edu.um.wtf.services;
 import jakarta.validation.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import uy.edu.um.wtf.entities.Cinema;
-import uy.edu.um.wtf.entities.Movie;
-import uy.edu.um.wtf.entities.MovieScreening;
-import uy.edu.um.wtf.entities.Screen;
+import uy.edu.um.wtf.entities.*;
 import uy.edu.um.wtf.exceptions.EntityAlreadyExistsException;
 import uy.edu.um.wtf.exceptions.EntityNotFoundException;
 import uy.edu.um.wtf.exceptions.InvalidDataException;
@@ -18,6 +15,7 @@ import uy.edu.um.wtf.utils.ValidationUtil;
 
 import javax.swing.table.TableRowSorter;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -81,15 +79,15 @@ public class MovieScreeningService {
         return movieScreeningRepo.save(newMovieScreening);
     }
 
-    private List<Boolean> newSeatsList(Integer rows, Integer columns) {
+    private List<Seat> newSeatsList(Integer rows, Integer columns) {
 
-        List<Boolean> newSeats = new LinkedList<>();
+        List<Seat> seats = new ArrayList<>();
 
-        for (int i = 1; i <= (rows*columns); i++) {
-            newSeats.add(false);
+        for (int i = 0; i < (rows * columns); i++) {
+            seats.add(new Seat(i, false));
         }
 
-        return newSeats;
+        return seats;
     }
 
     private boolean ScreenInUse(Screen screen, LocalDateTime dateTime, Long duration) {

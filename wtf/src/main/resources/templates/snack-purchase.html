@@ -100,18 +100,17 @@
             // Funciones
             function renderizarCarrito() {
                 DOMcarrito.textContent = '';
-                const carritoSinDuplicados = [...new Set(carrito.map(item => item.id))]; // Obtener solo los IDs únicos
+                const carritoSinDuplicados = [...new Set(carrito.map(item => item.id))];
 
                 carritoSinDuplicados.forEach((id) => {
-                    const item = carrito.find(item => item.id === id); // Buscar el snack correspondiente
+                    const item = carrito.find(item => item.id === id);
                     const numeroUnidadesItem = carrito.reduce((total, itemId) => {
-                        return itemId.id === id ? total + 1 : total; // Contar las unidades del snack
+                        return itemId.id === id ? total + 1 : total;
                     }, 0);
 
                     const miNodo = document.createElement('li');
                     miNodo.classList.add('list-group-item', 'd-flex', 'justify-content-between', 'align-items-center'); // Flexbox para alinear
 
-                    // Contenido del item
                     miNodo.textContent = `${numeroUnidadesItem} x ${item.name} - ${item.price}${divisa}`;
 
                     const miBoton = document.createElement('button');
@@ -119,7 +118,6 @@
                     miBoton.textContent = 'X';
                     miBoton.addEventListener('click', () => borrarItemCarrito(item.id));
 
-                    // Agregamos el botón al elemento del carrito
                     miNodo.appendChild(miBoton);
                     DOMcarrito.appendChild(miNodo);
                 });
@@ -163,14 +161,14 @@
                     return;
                 }
 
-                const url = '/snack/purchase'; // Cambia esta URL a la que maneje las compras en tu controlador
+                const url = '/snack/purchase';
 
                 fetch(url, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify(carrito) // Enviamos el carrito como JSON
+                    body: JSON.stringify(carrito)
                 })
                     .then(response => {
                         if (response.ok) {
@@ -203,7 +201,7 @@
 <div class="container main-content">
     <div class="row">
         <main id="items" class="col-sm-8 row">
-            <!-- Usamos Thymeleaf para iterar sobre la lista de snacks -->
+
             <div th:each="snack : ${snacks}" class="card col-sm-4">
                 <div class="card-body">
                     <img th:src="@{${snack.imageURL}}" class="img-fluid">
@@ -218,14 +216,14 @@
                 </div>
             </div>
         </main>
-        <!-- Carrito -->
+
         <aside class="col-sm-4">
             <h2>Carrito</h2>
             <ul id="carrito" class="list-group"></ul>
             <hr>
             <p class="text-right">Total: <span id="total"></span>$</p>
             <button id="boton-vaciar" class="btn btn-danger">Vaciar</button>
-            <button id="boton-comprar" class="btn btn-success">Comprar</button> <!-- Botón de compra agregado -->
+            <button id="boton-comprar" class="btn btn-success">Comprar</button>
         </aside>
     </div>
 </div>

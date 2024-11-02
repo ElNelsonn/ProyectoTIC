@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Details | WTF Cinema</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .movie-header, .cinema-details, .screen-details, .movie-info, .buy-tickets {
+            margin-bottom: 20px;
+        }
+        .movie-poster img {
+            max-width: 100%;
+        }
+        .buy-tickets button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <div class="movie-header">
+        <h1 id="movie-title">Movie Title</h1>
+    </div>
+
+    <div class="movie-info">
+        <div class="movie-poster">
+            <img id="movie-poster" src="poster.jpg" alt="Movie Poster">
+        </div>
+        <p><strong>Release Date:</strong> <span id="release-date">Fecha</span></p>
+        <p><strong>Directors:</strong> <span id="directors">Directores</span></p>
+        <p><strong>Categories:</strong> <span id="categories">Categorías</span></p>
+        <p><strong>Actors:</strong> <span id="actors">Actores</span></p>
+        <p><strong>Duration:</strong> <span id="duration">Duración</span> minutes</p>
+        <p><strong>Classification:</strong> <span id="classification">Clasificación</span></p>
+        <p><strong>Synopsis:</strong></p>
+        <p id="synopsis">Movie Synopsis</p>
+    </div>
+
+
+
+
+</body>
+</html>

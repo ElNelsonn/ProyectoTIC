@@ -6,7 +6,9 @@ import jakarta.validation.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import uy.edu.um.wtf.entities.Cinema;
+import uy.edu.um.wtf.entities.Screen;
 import uy.edu.um.wtf.exceptions.EntityAlreadyExistsException;
+import uy.edu.um.wtf.exceptions.EntityNotFoundException;
 import uy.edu.um.wtf.exceptions.InvalidDataException;
 import uy.edu.um.wtf.repository.CinemaRepository;
 import uy.edu.um.wtf.utils.ValidationUtil;
@@ -49,42 +51,10 @@ public class CinemaService {
         return cinemaRepo.save(newCinema);
     }
 
-    public List<Cinema> allCinemas(){
-        return cinemaRepo.findAll();
-    }
-
-    public List<Cinema> byLocation(String location) throws InvalidDataException {
-        if (location == null) {
-            throw new InvalidDataException("Write a location please");
-        } else {
-            return cinemaRepo.findCinemasByLocation(location);
-        }
-    }
 
 
 
 
 
 
-
-
-
-
-
-
-    public Optional<Cinema> byName(String name) throws InvalidDataException {
-        if (name == null) {
-            throw new InvalidDataException("Write a name please");
-        } else {
-            return cinemaRepo.findCinemaByName(name);
-        }
-    }
-
-    public Optional<Cinema> byMail(String mail) throws InvalidDataException {
-        if (mail == null) {
-            throw new InvalidDataException("Write a mail please");
-        } else {
-            return cinemaRepo.findCinemaByEmail(mail);
-        }
-    }
 }

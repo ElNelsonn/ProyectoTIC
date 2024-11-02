@@ -31,14 +31,13 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .authorizeHttpRequests((authz) -> authz
-
-                         //   .requestMatchers("/h2-console").permitAll()
+                .authorizeHttpRequests((authorizeRequests ) -> authorizeRequests
+                        //   .requestMatchers("/h2-console").permitAll()
                          //   .requestMatchers("/static/**").permitAll()
-                         //   .requestMatchers(HttpMethod.GET, "/administrator/signup").permitAll()
-                         //   .requestMatchers(HttpMethod.POST, "/administrator/signup").permitAll()
-                          //  .requestMatchers(HttpMethod.GET, "/client/signup").permitAll()
-                           // .requestMatchers(HttpMethod.POST, "/client/signup").permitAll()
+                        //.requestMatchers(HttpMethod.GET, "/administrator/signup").hasRole("CLIENT")
+                        //.requestMatchers(HttpMethod.POST, "/administrator/signup").hasRole("CLIENT")
+                        //.requestMatchers(HttpMethod.GET, "/client/signup").permitAll()
+                        //.requestMatchers(HttpMethod.POST, "/client/signup").permitAll()
                           //  .requestMatchers("/movie/**").hasRole("ADMIN")
                         .anyRequest().permitAll()
                 )
@@ -57,13 +56,15 @@ public class SecurityConfig {
                 .logout(logout -> logout
                         .logoutUrl("/logout")
                         .invalidateHttpSession(true)
+                        .clearAuthentication(true)
                         .deleteCookies("JSESSIONID")
                         .permitAll()
                 )
 
-                .sessionManagement((session) -> session
+                .sessionManagement(sessionManagement -> sessionManagement
                         .maximumSessions(1)
-                        .maxSessionsPreventsLogin(true)
+                        .maxSessionsPreventsLogin(false)
+                        .expiredUrl("/login?expired")
                 );
 
         return http.build();

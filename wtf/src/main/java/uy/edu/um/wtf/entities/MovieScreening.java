@@ -43,9 +43,9 @@ public class MovieScreening {
     private Screen screen;
 
     @ElementCollection
-    @Column(name = "SEAT")
-    @NotNull(message = "La lista de asientos no puede ser nula")
-    private List<Boolean> seats;
+    @CollectionTable(name = "MOVIE_SCREENING_SEATS", joinColumns = @JoinColumn(name = "MOVIE_SCREENING_ID"))
+    @NotNull(message = "La lista de asientos no puede estar vacía.")
+    private List<Seat> seats = new ArrayList<>();
 
     @OneToMany(mappedBy = "movieScreening", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @Builder.Default

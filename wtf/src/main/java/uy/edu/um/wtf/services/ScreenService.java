@@ -19,6 +19,9 @@ import java.util.Optional;
 public class ScreenService {
 
     @Autowired
+    private CinemaService cinemaService;
+
+    @Autowired
     private ScreenRepository screenRepo;
 
     @Autowired
