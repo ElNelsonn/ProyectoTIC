@@ -30,8 +30,35 @@ public class HomePageController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         boolean isAuthenticated = authentication != null && authentication.isAuthenticated() && !"anonymousUser".equals(authentication.getPrincipal().toString());
 
+        //        if(isAuthenticated){
+//            model.addAttribute("signed", isAuthenticated);
+//            String rol = usuario.getAuthorities().iterator().next().getAuthority();
+//            model.addAttribute("rol_user_actual", rol);
+//        } else {
+//            model.addAttribute("signed", !isAuthenticated);
+//        }
 
-        model.addAttribute("signed", isAuthenticated);
+
+        if (isAuthenticated) {
+            model.addAttribute("signed", true);
+            String rol = usuario.getAuthorities().iterator().next().getAuthority();
+            model.addAttribute("rol_user_actual", rol);
+            System.out.println("Usuario autenticado con rol: " + rol);
+        } else {
+            model.addAttribute("signed", false);
+            System.out.println("Usuario no autenticado.");
+        }
+
+
+
+
+
+//         if (usuario != null) {
+//             model.addAttribute("signed", true);
+//             String rol = usuario.getAuthorities().iterator().next().getAuthority();
+//             model.addAttribute("rol_user_actual", rol);
+//         } else
+//             model.addAttribute("signed", false);
 
         return "test-home-page";
     }

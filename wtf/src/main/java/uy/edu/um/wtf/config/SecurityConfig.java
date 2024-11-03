@@ -32,13 +32,13 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests((authorizeRequests ) -> authorizeRequests
-                        //.requestMatchers("/h2-console").permitAll()
-                        //.requestMatchers("/static/**").permitAll()
-                        //.requestMatchers(HttpMethod.GET, "/administrator/signup").hasRole("CLIENT")
-                        //.requestMatchers(HttpMethod.POST, "/administrator/signup").hasRole("CLIENT")
-                        //.requestMatchers(HttpMethod.GET, "/client/signup").permitAll()
-                        //.requestMatchers(HttpMethod.POST, "/client/signup").permitAll()
-                        //.requestMatchers("/movie/**").hasRole("ADMIN")
+                        .requestMatchers("/h2-console").permitAll()
+//                        .requestMatchers("/static/**").permitAll()
+//                        .requestMatchers(HttpMethod.GET, "/administrator/signup").hasRole("CLIENT")
+//                        .requestMatchers(HttpMethod.POST, "/administrator/signup").hasRole("CLIENT")
+//                        .requestMatchers(HttpMethod.GET, "/client/signup").permitAll()
+//                        .requestMatchers(HttpMethod.POST, "/client/signup").permitAll()
+//                        .requestMatchers("/movie/**").hasRole("ADMIN")
                         .anyRequest().permitAll()
                 )
 
