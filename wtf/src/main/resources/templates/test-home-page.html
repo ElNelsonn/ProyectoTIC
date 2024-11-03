@@ -38,8 +38,8 @@
     <img src="https://res.cloudinary.com/drmjvrs2p/image/upload/ydd7wnq5nvam8s1mbzog" id="backBtn" alt="Atrás">
     <div class="gallery">
         <div th:each="movie : ${movies}" class="gallery-item">
-            <a th:href="@{/login}">
             <img th:src="${movie.posterURL}" alt="Imagen de la película" />
+            <a th:href="@{/movie/info(titulo=${movie.title})}">
         </div>
     </div>
     <img src="https://res.cloudinary.com/drmjvrs2p/image/upload/hkdlf5fytenwp8ljmu12" id="nextBtn" alt="Siguiente">
