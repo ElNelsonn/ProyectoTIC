@@ -85,9 +85,9 @@ public class MovieController {
     }
 
     @GetMapping("/info")
-    public String getMovieinfo(Model model) {
+    public String getMovieinfo(Model model, @RequestParam String title) {
 
-        Movie movie = movieRepo.findMovieByTitle("Alien").get();
+        Movie movie = movieRepo.findMovieByTitle(title).get();
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         String formattedReleaseDate = movie.getReleaseDate().format(formatter);
