@@ -78,7 +78,7 @@ public class ClientController {
 
             System.out.println("Sign up exitoso.");
 
-            return "client-signup-success";
+            return "redirect:/login";
 
         } catch (EntityAlreadyExistsException | InvalidDataException e) {
 

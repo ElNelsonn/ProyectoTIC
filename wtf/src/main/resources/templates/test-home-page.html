@@ -13,6 +13,7 @@
     <div class="header-links">
         <div th:if="${signed}">
             <div th:if="${rol_user_actual == 'ROLE_CLIENT'}">
+                <a href="/client/profile">Mi perfil</a>
                 <a href="/snack/purchase">Comprar Snack</a>
                 <a href="/logout">Cerrar Sesión</a>
             </div>
@@ -30,7 +31,7 @@
 
 
 <div class="imagen-Grande-container">
-    <img src=https://i.blogs.es/c76165/carteles-cine-terror/1366_2000.jpg alt="Imagen Grande" class="imagen-Grande">
+    <img src=https://images-ext-1.discordapp.net/external/3ux9d4ob8ZLtDPzOWd_NGlfBjhth_WIJMjUuryPWV9E/https/i.blogs.es/c76165/carteles-cine-terror/1366_2000.jpg?format=webp&width=1124&height=701 alt="Imagen Grande" class="imagen-Grande">
 </div>
 <div class="imagen-Central-container">
     <img src="https://res.cloudinary.com/drmjvrs2p/image/upload/Logo2_xgiikc" alt="Imagen Central" class="imagen-Central">
@@ -39,7 +40,7 @@
 
 
 <div class="gallery-wrap">
-    <img src="https://res.cloudinary.com/drmjvrs2p/image/upload/ydd7wnq5nvam8s1mbzog" id="backBtn" alt="Atrás">
+    <img src="https://res.cloudinary.com/drmjvrs2p/image/upload/Left_k12q7o" id="backBtn" alt="Atrás">
     <div class="gallery">
         <div th:each="movie : ${movies}" class="gallery-item">
             <a th:href="@{/movie/info(title=${movie.title})}">
@@ -47,7 +48,7 @@
             </a>
         </div>
     </div>
-    <img src="https://res.cloudinary.com/drmjvrs2p/image/upload/hkdlf5fytenwp8ljmu12" id="nextBtn" alt="Siguiente">
+    <img src="https://res.cloudinary.com/drmjvrs2p/image/upload/Right_aviijh" id="nextBtn" alt="Siguiente">
 </div>
 
 <script>

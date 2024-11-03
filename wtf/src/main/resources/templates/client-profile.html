@@ -3,110 +3,71 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/CSS/styles/client-profile.css">
     <title>Client Profile | WTF</title>
-
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-        }
-        .container {
-            max-width: 600px;
-            margin: 20px auto;
-            background: #fff;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-        }
-        .profile-header {
-            padding: 20px;
-            background-color: #4CAF50;
-            color: #fff;
-        }
-        .profile-header h1 {
-            margin: 0;
-        }
-        .profile-details, .recent-activity {
-            padding: 20px;
-        }
-        .section-title {
-            margin-bottom: 10px;
-            color: #333;
-            font-weight: bold;
-        }
-        .form-group {
-            margin-bottom: 15px;
-        }
-        label {
-            display: block;
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-        input[type="text"], input[type="email"], input[type="tel"], input[type="submit"] {
-            width: 100%;
-            padding: 8px;
-            box-sizing: border-box;
-        }
-        input[type="submit"] {
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-        input[type="submit"]:hover {
-            background-color: #45a049;
-        }
-    </style>
 </head>
 <body>
 
-    <div class="container">
+<header class="header">
+    <img src="https://res.cloudinary.com/drmjvrs2p/image/upload/Logo2_xgiikc" alt="Logo" class="logo">
 
-        <div class="profile-details">
+    <div class="header-links">
+        <a href="/home">Home</a>
+    </div>
+</header>
 
-            <h2 class="section-title">Mi perfil</h2>
+<div class="container">
 
-            <div class="client-name">
-                <p><strong>Nombre:</strong> <span th:text="${client.name}"></span></p>
-                <p><strong>Apellido:</strong> <span th:text="${client.surname}"></span></p>
-                <p><strong>Cédula:</strong> <span th:text="${client.identityCard}"></span></p>
+    <div class="profile-details">
+
+        <h2 class="section-title">Mi perfil</h2>
+
+        <div class="client-name">
+            <p><strong>Nombre:</strong> <span th:text="${client.name}"></span></p>
+
+            <p><strong>Apellido:</strong> <span th:text="${client.surname}"></span></p>
+
+            <p><strong>Cédula:</strong> <span th:text="${client.identityCard}"></span></p>
+        </div>
+
+        <form action="/client/profile/update" method="post">
+
+            <h3 class="section-subtitle">Método de Pago</h3>
+            <div class="form-group">
+                <label for="cardNumber">Numero de tarjeta:</label>
+                <input type="text" id="cardNumber" name="cardNumber" th:value="${client.cardNumber}">
             </div>
 
-            <form action="/client/profile/update" method="post">
+            <div class="form-group">
+                <label for="cardExpirationDate">Card Expiration Date:</label>
+                <input type="date" id="cardExpirationDate" name="cardExpirationDate" th:value="${client.cardExpirationDate}" th:min="${todayDate}">
+            </div>
 
-                <h3 class="section-subtitle">Método de Pago</h3>
-                <div class="form-group">
-                    <label for="cardNumber">Credit Card Number:</label>
-                    <input type="text" id="cardNumber" name="cardNumber" th:value="${client.cardNumber}">
-                </div>
+            <h3 class="section-subtitle">Cambiar Contraseña</h3>
+            <div class="form-group">
+                <input type="password" id="password" name="password" placeholder="Nueva contraseña">
+            </div>
 
-                <div class="form-group">
-                    <label for="cardExpirationDate">Card Expiration Date:</label>
-                    <input type="date" id="cardExpirationDate" name="cardExpirationDate" th:value="${client.cardExpirationDate}" th:min="${todayDate}">
-                </div>
+            <input type="submit" value="Guardar cambios">
 
-                <h3 class="section-subtitle">Cambiar Contraseña</h3>
-                <div class="form-group">
-                    <input type="password" id="password" name="password" placeholder="Nueva contraseña">
-                </div>
 
-                <input type="submit" value="Save Changes">
+        </form>
 
-            </form>
+        <!-- Botones alineados a los bordes del contenedor -->
+        <div class="button-group">
+            <a href="/tickets" class="button">Ver mis tickets</a>
+            <a href="/purchases" class="button">Ver mis compras</a>
         </div>
     </div>
+</div>
 
-    <div>
+<div>
         <span style="color: red;">
         <ul th:if="${errorMessages != null}">
             <li th:each="errorMessage : ${errorMessages}" th:text="${errorMessage}"></li>
         </ul>
     </span>
-    </div>
-
-
+</div>
 
 </body>
 </html>
