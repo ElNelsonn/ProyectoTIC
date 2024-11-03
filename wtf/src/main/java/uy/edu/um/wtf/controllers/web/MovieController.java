@@ -3,25 +3,23 @@ package uy.edu.um.wtf.controllers.web;
 
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import uy.edu.um.wtf.DTO.MovieForController;
-import uy.edu.um.wtf.entities.Client;
-import uy.edu.um.wtf.entities.Movie;
+import uy.edu.um.wtf.entities.*;
 import uy.edu.um.wtf.exceptions.EntityAlreadyExistsException;
 import uy.edu.um.wtf.exceptions.InvalidDataException;
 import uy.edu.um.wtf.repository.MovieRepository;
+import uy.edu.um.wtf.repository.MovieScreeningRepository;
 import uy.edu.um.wtf.services.MovieService;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Controller
 @RequestMapping("/movie")
@@ -32,6 +30,9 @@ public class MovieController {
 
     @Autowired
     private MovieRepository movieRepo;
+
+    @Autowired
+    private MovieScreeningRepository movieScreeningRepo;
 
 
     @GetMapping("/add")
@@ -86,7 +87,7 @@ public class MovieController {
     }
 
     @GetMapping("/info")
-    public String getMovieinfo(Model model, @RequestParam String title) {
+    public String getMovieinfo(Model model, @RequestParam String title, @AuthenticationPrincipal org.springframework.security.core.userdetails.User usuario) {
 
         Optional<Movie> movieOp = movieRepo.findMovieByTitle(title);
 
@@ -98,11 +99,41 @@ public class MovieController {
 
         Movie movie = movieOp.get();
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        String formattedReleaseDate = movie.getReleaseDate().format(formatter);
+        List<MovieScreening> allMovieScreeningForMovie = movieScreeningRepo.findMovieScreeningsByMovie(movie);
 
+        List<String> infoMovieScreening = new LinkedList<>();
+
+        for (MovieScreening movieScreening: allMovieScreeningForMovie) {
+
+            DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+            String formatedMovieScreeningDate = movieScreening.getDate().format(formatter1);
+
+            Screen screen = movieScreening.getScreen();
+            Cinema cinema = screen.getCinema();
+
+            infoMovieScreening.add(cinema.getName() + ", " + screen.getName() + ", " + formatedMovieScreeningDate);
+            movieScreening.getSeats();
+        }
+
+        if (infoMovieScreening.isEmpty()) {
+            infoMovieScreening = null;
+        }
+
+        String directors = String.join(", ", movie.getDirectors());
+        String categories = String.join(", ", movie.getCategories());
+        String actors = String.join(", ", movie.getActors());
+
+        DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        String formattedReleaseDate = movie.getReleaseDate().format(formatter2);
+
+
+        model.addAttribute("funciones", infoMovieScreening);
+        model.addAttribute("actors", actors);
+        model.addAttribute("directors", directors);
+        model.addAttribute("categories", categories);
         model.addAttribute("movie", movie);
         model.addAttribute("dateFormated", formattedReleaseDate);
+        model.addAttribute("signed", usuario != null);
         return "movie-ticket";
     }
 
