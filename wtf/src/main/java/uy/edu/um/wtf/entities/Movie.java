@@ -77,6 +77,10 @@ public class Movie implements Serializable {
     @URL(message = "URL no valida.")
     private String posterURL;
 
+    @Column(name = "MOVIE_IMAGE")
+    @NotNull(message = "La imágen no puede estar vacío.")
+    @URL(message = "URL no valida.")
+    private String imageURL;
 
     @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @Builder.Default

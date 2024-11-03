@@ -7,10 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import uy.edu.um.wtf.DTO.MovieForController;
 import uy.edu.um.wtf.entities.Client;
 import uy.edu.um.wtf.entities.Movie;
@@ -70,7 +67,8 @@ public class MovieController {
                     Arrays.asList(movie.getActors().split(",")),
                     movie.getDuration(),
                     movie.getClassification(),
-                    movie.getPosterURL()
+                    movie.getPosterURL(),
+                    movie.getImageURL()
             );
 
             return "client-signup-success";
@@ -90,6 +88,7 @@ public class MovieController {
     public String getMovieinfo(Model model) {
 
         Movie movie = movieRepo.findMovieByTitle("Alien").get();
+
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         String formattedReleaseDate = movie.getReleaseDate().format(formatter);
 

@@ -66,6 +66,10 @@ public class MovieForController {
     @URL(message = "URL no valida.")
     private String posterURL;
 
+    @Column(name = "MOVIE_IMAGE")
+    @NotNull(message = "La imágen no puede estar vacío.")
+    @URL(message = "URL no valida.")
+    private String imageURL;
 
 
 }
