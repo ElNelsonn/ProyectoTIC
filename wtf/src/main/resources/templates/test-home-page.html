@@ -8,7 +8,7 @@
 <body>
 
 <header class="header">
-    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTl7OiJqVRnvriUcBOhMt0z2Muqur5qc35nTA&s" alt="Logo" class="logo">
+    <img src="https://res.cloudinary.com/drmjvrs2p/image/upload/Logo2_xgiikc" alt="Logo" class="logo">
 
     <div class="header-links">
         <div th:if="${signed}">
@@ -30,7 +30,11 @@
 
 
 <div class="imagen-Grande-container">
-    <img src="https://m.media-amazon.com/images/S/pv-target-images/d775fb8599018935d1e28ed9cbc2fb67870d726d850f0eee13dc6f50f37b76d3.jpg" alt="Imagen Grande" class="imagen-Grande">
+    <img src=https://i.blogs.es/c76165/carteles-cine-terror/1366_2000.jpg alt="Imagen Grande" class="imagen-Grande">
+</div>
+<div class="imagen-Central-container">
+    <img src="https://res.cloudinary.com/drmjvrs2p/image/upload/Logo2_xgiikc" alt="Imagen Central" class="imagen-Central">
+    <img src="https://res.cloudinary.com/drmjvrs2p/image/upload/image_lnyivk" alt="Imagen Secundaria" class="imagen-Secundaria">
 </div>
 
 
@@ -38,8 +42,9 @@
     <img src="https://res.cloudinary.com/drmjvrs2p/image/upload/ydd7wnq5nvam8s1mbzog" id="backBtn" alt="Atrás">
     <div class="gallery">
         <div th:each="movie : ${movies}" class="gallery-item">
-            <img th:src="${movie.posterURL}" alt="Imagen de la película" />
             <a th:href="@{/movie/info(title=${movie.title})}">
+                <img th:src="${movie.posterURL}" alt="Imagen de la película" />
+            </a>
         </div>
     </div>
     <img src="https://res.cloudinary.com/drmjvrs2p/image/upload/hkdlf5fytenwp8ljmu12" id="nextBtn" alt="Siguiente">
