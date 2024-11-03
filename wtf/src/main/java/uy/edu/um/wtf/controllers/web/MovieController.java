@@ -21,6 +21,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/movie")
@@ -87,7 +88,15 @@ public class MovieController {
     @GetMapping("/info")
     public String getMovieinfo(Model model, @RequestParam String title) {
 
-        Movie movie = movieRepo.findMovieByTitle(title).get();
+        Optional<Movie> movieOp = movieRepo.findMovieByTitle(title);
+
+        if (movieOp.isEmpty()) {
+
+            model.addAttribute("errorMessage", "No se encontró la película con el título: " + title);
+            return "redirect:/home";
+        }
+
+        Movie movie = movieOp.get();
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         String formattedReleaseDate = movie.getReleaseDate().format(formatter);
