@@ -150,7 +150,7 @@
     <div class="info-container">
         <h1>Detalles de la Película</h1>
 
-        <p><strong>Fecha de Lanzamiento:</strong> <span th:text="${#dates.format(movie.releaseDate, 'dd/MM/yyyy')}"></span></p>
+        <p><strong>Fecha de Lanzamiento:</strong> <span th:text="${dateFormated}"></span></p>
 
         <p><strong>Directores:</strong>
         <ul class="list" th:each="director : ${movie.directors}">

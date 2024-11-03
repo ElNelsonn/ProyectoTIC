@@ -16,9 +16,11 @@ import uy.edu.um.wtf.entities.Client;
 import uy.edu.um.wtf.entities.Movie;
 import uy.edu.um.wtf.exceptions.EntityAlreadyExistsException;
 import uy.edu.um.wtf.exceptions.InvalidDataException;
+import uy.edu.um.wtf.repository.MovieRepository;
 import uy.edu.um.wtf.services.MovieService;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -29,6 +31,10 @@ public class MovieController {
 
     @Autowired
     private MovieService movieService;
+
+    @Autowired
+    private MovieRepository movieRepo;
+
 
     @GetMapping("/add")
     public String getAddMovie(Model model) {
@@ -79,6 +85,22 @@ public class MovieController {
         }
 
     }
+
+    @GetMapping("/info")
+    public String getMovieinfo(Model model) {
+
+        Movie movie = movieRepo.findMovieByTitle("Alien").get();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        String formattedReleaseDate = movie.getReleaseDate().format(formatter);
+
+        model.addAttribute("movie", movie);
+        model.addAttribute("dateFormated", formattedReleaseDate);
+        return "movie-ticket";
+    }
+
+
+
+
 
 
 
