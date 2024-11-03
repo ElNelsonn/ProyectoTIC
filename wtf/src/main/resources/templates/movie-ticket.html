@@ -6,30 +6,30 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            height: auto;
-            overflow-x: hidden;
+            margin: 0; /* Eliminar margen del body */
+            padding: 0; /* Eliminar padding del body */
+            height: auto; /* Altura automática */
+            overflow-x: hidden; /* Eliminar el desplazamiento horizontal */
         }
 
         .header {
-            background-color: rgba(0, 0, 0, 0.7);
+            background-color: rgba(0, 0, 0, 0.7); /* Negro translúcido */
             color: white;
             display: flex;
             align-items: center;
             padding: 10px 20px;
-            position: fixed;
-            width: 100%;
-            z-index: 1000;
+            position: fixed; /* Para que el header permanezca en la parte superior */
+            width: 100%; /* Asegura que cubra todo el ancho */
+            z-index: 1000; /* Asegura que esté por encima de otros elementos */
         }
 
         .logo {
-            height: 50px;
-            margin-right: 20px;
+            height: 50px; /* Altura del logo */
+            margin-right: 20px; /* Espacio entre logo y enlaces */
         }
 
         .header-links {
-            margin-left: auto;
+            margin-left: auto; /* Para alinear a la derecha */
         }
 
         .header-links a {
@@ -39,49 +39,49 @@
         }
 
         .header-links a:hover {
-            text-decoration: underline;
+            text-decoration: underline; /* Subrayar al pasar el mouse */
         }
 
         .poster-container {
             background-image: url(https://cloudfront-eu-central-1.images.arcpublishing.com/diarioas/6HXZALIES5ES5FN2SGRE2KOJ64.jpg);
             background-size: cover;
             background-position: center;
-            height: 80vh;
-            width: 100%;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            align-items: flex-end;
-            justify-content: flex-start;
-            color: white;
-            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
-            position: relative;
+            height: 90vh; /* Altura del contenedor de póster */
+            width: 100%; /* Ancho completo */
+            margin: 0; /* Sin márgenes */
+            padding: 0; /* Sin padding */
+            display: flex; /* Para centrar el título */
+            align-items: flex-end; /* Alinear el título al fondo */
+            justify-content: flex-start; /* Alinear a la izquierda */
+            color: white; /* Color del texto */
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7); /* Sombra para mejor legibilidad */
+            position: relative; /* Para el pseudo-elemento */
         }
 
-        .poster-container::before {
+        .poster-container::after {
             content: "";
             position: absolute;
-            top: 0;
+            bottom: 0;
             left: 0;
             width: 100%;
-            height: 100%;
-            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.7), transparent);
+            height: 30%;
+            background: linear-gradient(to top, rgb(0, 0, 0), transparent);
             z-index: 1;
         }
 
         .title {
-            padding: 20px;
-            font-size: 24px;
-            position: relative;
-            z-index: 2;
+            padding: 20px; /* Espacio interno para el título */
+            font-size: 24px; /* Tamaño del texto del título */
+            position: relative; /* Para asegurarse de que el texto esté sobre el degradado */
+            z-index: 2; /* Asegúrate de que esté por encima del degradado */
         }
 
         .info-container {
-            background-color: #000000;
+            background-color: #000000; /* Fondo negro */
             color: white;
             padding: 20px;
-            width: 100%;
-            height: auto;
+            width: 100%; /* Ancho completo */
+            height: auto; /* Altura automática */
         }
 
         h1 {
@@ -109,7 +109,7 @@
             background: #e7e7e7;
             padding: 5px 10px;
             border-radius: 5px;
-            color: #000000;
+            color: #000000; /* Color del texto de la lista */
         }
 
         a {
@@ -129,57 +129,56 @@
 </head>
 <body>
 
-<header class="header">
-    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTl7OiJqVRnvriUcBOhMt0z2Muqur5qc35nTA&s" alt="Logo" class="logo">
-    <div class="header-links">
-        <div th:if="${signed}">
-            <a href="/snack/purchase">Comprar Snack</a>
-            <a href="/home">Cerrar Sesión</a>
+    <header class="header">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTl7OiJqVRnvriUcBOhMt0z2Muqur5qc35nTA&s" alt="Logo" class="logo">
+        <div class="header-links">
+            <div th:if="${signed}">
+                <a href="/snack/purchase">Comprar Snack</a>
+                <a href="/home">Cerrar Sesión</a>
+            </div>
+            <div th:unless="${signed}">
+                <a href="/home">Iniciar Sesión</a>
+                <a href="/client/signup">Registrarse</a>
+            </div>
         </div>
-        <div th:unless="${signed}">
-            <a href="/home">Iniciar Sesión</a>
-            <a href="/client/signup">Registrarse</a>
-        </div>
+    </header>
+
+    <div class="poster-container">
+        <div class="title" th:text="${movie.title}">Título de la Película</div>
     </div>
-</header>
 
-<div class="poster-container">
-    <div class="title" th:text="${movie.title}">Título de la Película</div>
-</div>
+    <div class="info-container">
+        <h1>Detalles de la Película</h1>
 
-<div class="info-container">
-    <h1>Detalles de la Película</h1>
+        <p><strong>Fecha de Lanzamiento:</strong> <span th:text="${#dates.format(movie.releaseDate, 'dd/MM/yyyy')}"></span></p>
 
-    <p><strong>Fecha de Lanzamiento:</strong> <span th:text="${#dates.format(movie.releaseDate, 'dd/MM/yyyy')}"></span></p>
+        <p><strong>Directores:</strong>
+        <ul class="list" th:each="director : ${movie.directors}">
+            <li th:text="${director}"></li>
+        </ul>
+        </p>
 
-    <p><strong>Directores:</strong>
-    <ul class="list" th:each="director : ${movie.directors}">
-        <li th:text="${director}"></li>
-    </ul>
-    </p>
+        <p><strong>Sinopsis:</strong> <span th:text="${movie.synopsis}"></span></p>
 
-    <p><strong>Sinopsis:</strong> <span th:text="${movie.synopsis}"></span></p>
+        <p><strong>Categorías:</strong>
+        <ul class="list" th:each="category : ${movie.categories}">
+            <li th:text="${category}"></li>
+        </ul>
+        </p>
 
-    <p><strong>Categorías:</strong>
-    <ul class="list" th:each="category : ${movie.categories}">
-        <li th:text="${category}"></li>
-    </ul>
-    </p>
+        <p><strong>Actores:</strong>
+        <ul class="list" th:each="actor : ${movie.actors}">
+            <li th:text="${actor}"></li>
+        </ul>
+        </p>
 
-    <p><strong>Actores:</strong>
-    <ul class="list" th:each="actor : ${movie.actors}">
-        <li th:text="${actor}"></li>
-    </ul>
-    </p>
+        <p><strong>Duración:</strong> <span th:text="${movie.duration}"></span> minutos</p>
 
-    <p><strong>Duración:</strong> <span th:text="${movie.duration}"></span> minutos</p>
+        <p><strong>Clasificación:</strong> <span th:text="${movie.classification}"></span></p>
 
-    <p><strong>Clasificación:</strong> <span th:text="${movie.classification}"></span></p>
-
-    <p>
-        <a href="/movies">Volver a la lista de películas</a>
-    </p>
-
-</div>
+        <p>
+            <a href="/movies">Volver a la lista de películas</a>
+        </p>
+    </div>
 </body>
 </html>
