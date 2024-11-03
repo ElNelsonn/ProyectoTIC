@@ -4,42 +4,57 @@
     <meta charset="UTF-8">
     <title>Detalles de la Película</title>
     <style>
+
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
             height: auto;
             overflow-x: hidden;
+            color: white;
         }
 
         .header {
             background-color: rgba(0, 0, 0, 0.7);
+            padding: 0;
+            margin: 0;
             color: white;
             display: flex;
             align-items: center;
-            padding: 10px 20px;
             position: fixed;
             width: 100%;
             z-index: 1000;
         }
 
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
         .logo {
-            height: 50px;
-            margin-right: 20px;
+            height: 80px;
+            margin-left: 30px;
         }
 
         .header-links {
             margin-left: auto;
+            margin-right: 30px;
         }
 
         .header-links a {
-            color: white;
+            color: #d7d7d7;
             text-decoration: none;
-            margin: 0 10px;
+            margin: 0 20px;
+            font-size: 16px;
+            font-weight: bold;
         }
 
         .header-links a:hover {
-            text-decoration: underline;
+            color: #ffffff;
+            text-decoration: none;
         }
 
         .poster-container {
@@ -70,114 +85,153 @@
 
         .title {
             padding: 20px;
-            font-size: 24px;
+            font-size: 80px;
+            font-weight: bold;
             position: relative;
             z-index: 2;
         }
 
-        .info-container {
+        .content {
+            display: flex;
+            padding: 20px;
             background-color: #000000;
             color: white;
-            padding: 20px;
             width: 100%;
-            height: auto;
         }
 
-        h1 {
-            color: #4a90e2;
-            margin-bottom: 10px;
+        .info-container, .purchase-container {
+            padding: 20px;
+            background-color: #000000;
+            margin-left: 20px;
+            margin-right: 20px;
+            width: 50%;
+            box-sizing: border-box;
+            display: flex; /* Usar Flexbox en el contenedor de compra */
+            flex-direction: column; /* Colocar los elementos en columna */
+            justify-content: center; /* Centrar verticalmente */
         }
 
         p {
             line-height: 1.6;
+            margin: 5px 0;
         }
 
         strong {
-            color: #4a90e2;
+            color: #ffffff;
+            font-weight: bold;
         }
 
-        .list {
-            margin: 0;
-            padding: 0;
-            list-style-type: none;
-        }
 
-        .list li {
-            display: inline;
-            margin-right: 10px;
-            background: #e7e7e7;
-            padding: 5px 10px;
-            border-radius: 5px;
-            color: #000000;
-        }
-
-        a {
-            display: inline-block;
-            margin-top: 20px;
-            padding: 10px 15px;
-            background-color: #4a90e2;
+        .purchase-container {
+            background-color: #0e0e0e;
             color: white;
-            text-decoration: none;
-            border-radius: 5px;
+            padding: 20px;
+            border-bottom-left-radius: 9px;
+            border-top-left-radius: 9px;
+            height: 50%;
         }
 
-        a:hover {
-            background-color: #357ab8;
+        .purchase-container h2 {
+            margin-top: 20px;
         }
+
+        .purchase-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px; /* Espacio entre los elementos del formulario */
+            height: 100%; /* Asegura que el formulario ocupe toda la altura del contenedor */
+        }
+
+        label {
+            font-size: 18px;
+            color: #ffffff; /* Color del texto del label */
+        }
+
+        select {
+            padding: 10px; /* Espaciado interno del select */
+            border: 1px solid #4a90e2; /* Borde del select */
+            border-radius: 2px; /* Bordes redondeados */
+            background-color: #2a2a2a; /* Color de fondo del select */
+            color: #ffffff; /* Color del texto dentro del select */
+            font-size: 16px; /* Tamaño de fuente del select */
+            transition: border-color 0.3s; /* Transición suave para el borde */
+        }
+
+        select:focus {
+            border-color: #5bc0de; /* Cambia el color del borde al hacer foco */
+            outline: none; /* Quitar el contorno predeterminado */
+        }
+
+        .submit-button {
+            padding: 10px 15px; /* Espaciado interno del botón */
+            background-color: #4a90e2; /* Color de fondo del botón */
+            color: white; /* Color del texto del botón */
+            border: none; /* Sin borde */
+            border-radius: 2px; /* Bordes redondeados */
+            font-size: 16px; /* Tamaño de fuente del botón */
+            cursor: pointer; /* Cambia el cursor al pasar el ratón sobre el botón */
+            transition: background-color 0.3s; /* Transición suave para el fondo */
+            width: 200px; /* Establece el ancho del botón */
+            margin-top: 20px; /* Espacio superior para el botón */
+            align-self: center; /* Centra el botón en el contenedor */
+        }
+
+        .submit-button:hover {
+            background-color: #357ab8; /* Color del botón al pasar el ratón */
+        }
+
     </style>
 </head>
 <body>
 
 <header class="header">
-    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTl7OiJqVRnvriUcBOhMt0z2Muqur5qc35nTA&s" alt="Logo" class="logo">
+    <img src="https://res.cloudinary.com/drmjvrs2p/image/upload/Logo2_xgiikc" alt="Logo" class="logo">
+
     <div class="header-links">
-        <div th:if="${signed}">
-            <a href="/snack/purchase">Comprar Snack</a>
-            <a href="/home">Cerrar Sesión</a>
-        </div>
-        <div th:unless="${signed}">
-            <a href="/home">Iniciar Sesión</a>
-            <a href="/client/signup">Registrarse</a>
+        <div>
+            <a href="/home">Home</a>
         </div>
     </div>
 </header>
 
 <div class="poster-container" th:style="'background-image: url(' + ${movie.imageURL} + ');'">
-    <div class="title" th:text="${movie.title}">Título de la Película</div>
+    <h1 class="title" th:text="${movie.title}">Título de la Película</h1>
 </div>
 
-<div class="info-container">
-    <h1>Detalles de la Película</h1>
+<div class="content">
 
-    <p><strong>Fecha de Lanzamiento:</strong> <span th:text="${dateFormated}"></span></p>
+    <div class="info-container">
 
-    <p><strong>Directores:</strong>
-    <ul class="list" th:each="director : ${movie.directors}">
-        <li th:text="${director}"></li>
-    </ul>
-    </p>
+        <h2>Detalles de la Película</h2>
 
-    <p><strong>Sinopsis:</strong> <span th:text="${movie.synopsis}"></span></p>
+        <p><strong>Fecha de Lanzamiento:</strong> <span th:text="${dateFormated}"></span></p>
+        <p><strong>Directores:</strong> <span th:text="${directors}">Nombre de Directores</span></p>
+        <p><strong>Sinopsis:</strong> <span th:text="${movie.synopsis}"></span></p>
+        <p><strong>Categorías:</strong> <span th:text="${categories}">Nombre de Categorías</span></p>
+        <p><strong>Actores:</strong> <span th:text="${actors}">Nombre de Actores</span></p>
+        <p><strong>Duración:</strong> <span th:text="${movie.duration}"></span> minutos</p>
+        <p><strong>Clasificación:</strong> <span th:text="${movie.classification}"></span></p>
 
-    <p><strong>Categorías:</strong>
-    <ul class="list" th:each="category : ${movie.categories}">
-        <li th:text="${category}"></li>
-    </ul>
-    </p>
+    </div>
 
-    <p><strong>Actores:</strong>
-    <ul class="list" th:each="actor : ${movie.actors}">
-        <li th:text="${actor}"></li>
-    </ul>
-    </p>
+    <div th:if="${signed} and ${funciones != null}" class="purchase-container">
+        <h2>Comprar Tickets</h2>
 
-    <p><strong>Duración:</strong> <span th:text="${movie.duration}"></span> minutos</p>
+        <form class="purchase-form" action="/ticket/purchase" method="post">
 
-    <p><strong>Clasificación:</strong> <span th:text="${movie.classification}"></span></p>
+            <input type="hidden" name="title" th:value="${movie.title}" />
 
-    <p>
-        <a href="/movies">Volver a la lista de películas</a>
-    </p>
+            <select id="functionSelect" name="function" required>
+                <option value="">-- Selecciona una función --</option>
+                <option th:each="function : ${funciones}" th:value="${function}" th:text="${function}"></option>
+            </select>
+
+            <button type="submit" class="submit-button">Comprar Tickets</button>
+
+        </form>
+    </div>
+
 </div>
+
 </body>
 </html>
