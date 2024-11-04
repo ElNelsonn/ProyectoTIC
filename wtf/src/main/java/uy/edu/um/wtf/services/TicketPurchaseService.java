@@ -40,7 +40,7 @@ public class TicketPurchaseService {
     @Autowired
     private Validator validator;
 
-    public TicketPurchase addTicketPurchase(Long clientId, List<Integer> seats, LocalDateTime purchaseDateTime, String cinemaName, String screenName, LocalDateTime movieScreeningDate) throws InvalidDataException, EntityNotFoundException {
+    public TicketPurchase addTicketPurchase(Long clientId, List<Seat> seats, LocalDateTime purchaseDateTime, String cinemaName, String screenName, LocalDateTime movieScreeningDate) throws InvalidDataException, EntityNotFoundException {
 
         // Verificar existencia de entidades
         Optional<Client> clientOptional = clientRepo.findClientByIdentityCard(clientId);

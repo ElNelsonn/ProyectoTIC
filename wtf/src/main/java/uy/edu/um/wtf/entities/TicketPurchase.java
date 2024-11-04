@@ -30,7 +30,7 @@ public class TicketPurchase {
     @Column(name = "SEATS", nullable = false)
     @NotNull(message = "La lista de asientos no puede estar vacía (null)")
     @NotEmpty(message = "La lista de asientos no puede estar vacía")
-    private List<Integer> seats;
+    private List<Seat> seats;
 
     @Column(name = "PURCHASE_DATE", nullable = false)
     @Past(message = "La fecha no esta dentro de un rango valido")
