@@ -21,8 +21,7 @@ public interface MovieRepository extends JpaRepository<Movie,Long> {
 
     public List<Movie> findMoviesByClassification(String classification);
 
-    //agregar atributos : Clasificaciones (con id usuario para prevenir review bombing)
-    // y el promedio en si, luego para los rakings ver cuestion de fechas
+
 
     // Poner todos los find de fechas
 

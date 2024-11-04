@@ -60,12 +60,4 @@ public class MovieService {
             return movieRepo.findMovieByCategories(category);
         }
     }
-
-    /*public List<Movie> rankingGlobal(){}
-
-    public List<Movie> rankingFrom(){}
-
-    public List<Movie> rankingTo(){}
-
-    public List<Movie> rankingToFrom(){}*/
 }
