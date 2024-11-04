@@ -76,7 +76,15 @@ public class ClientService {
 
         client.setCardNumber(cardNumber);
         client.setCardExpirationDate(cardExpirationDate);
-        client.setPassword(passwordEncoder.encode(password));
+
+        if (password.length() >= 8) {
+
+            client.setPassword(passwordEncoder.encode(password));
+        }
+
+        if (!password.equals("") && password.length() < 8) {
+            throw new InvalidDataException("Contrasena invalida, debe tener al menos 8 caracteres.");
+        }
 
         ValidationUtil.validate(client, validator);
 

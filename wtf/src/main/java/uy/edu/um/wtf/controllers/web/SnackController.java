@@ -21,6 +21,7 @@ import uy.edu.um.wtf.repository.SnackRepository;
 import uy.edu.um.wtf.repository.UserRepository;
 import uy.edu.um.wtf.services.SnackPurchaseService;
 import uy.edu.um.wtf.services.SnackService;
+import uy.edu.um.wtf.services.UserService;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -34,6 +35,9 @@ public class SnackController {
 
     @Autowired
     private UserRepository userRepo;
+
+    @Autowired
+    private UserService userService;
 
     @Autowired
     private SnackService snackService;
@@ -173,15 +177,31 @@ public class SnackController {
 
     }
 
+    @GetMapping("/compras")
+    public String getPurchases(Model model, @AuthenticationPrincipal org.springframework.security.core.userdetails.User usuario) {
+        List<SnackPurchase> snacks = snackPurchaseService.allPurchasesByUser(usuario.getUsername());
+        List<List<String>> bloqueTodaInfo = new LinkedList<>();
 
+        if (snacks.isEmpty()) {
+            model.addAttribute("errorMessage", "No hay compras realizadas ");
+            return "redirect:/home";
+        }
 
+        for (SnackPurchase snackPurchase : snacks) {
+            List<Snack> allSnacks = snackPurchase.getSnackList();
+            List<String> infoSnack = new LinkedList<>(); // Crear una nueva lista para cada compra
+            infoSnack.add("Compra ID: " + snackPurchase.getId().toString() + ", " + "Fecha: " + snackPurchase.getDate().toString() + ", " + "Snacks: ");
 
+            for (Snack snack : allSnacks) {
+                infoSnack.add(" - " + snack.getName());
+            }
 
+            bloqueTodaInfo.add(infoSnack);
+        }
 
-
-
-
-
+        model.addAttribute("bloqueTodaInfo", bloqueTodaInfo);
+        return "compras";
+    }
 
 
 }
