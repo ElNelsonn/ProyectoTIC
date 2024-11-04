@@ -52,7 +52,7 @@ public class LogInController {
             }
 
             session.setAttribute("loggedInUser", possibleClient);
-            return "client-signup-success";
+            return "redirect:/login";
 
         }
 

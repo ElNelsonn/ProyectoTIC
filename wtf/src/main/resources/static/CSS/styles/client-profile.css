@@ -1,0 +1,206 @@
+/* Reiniciar estilos básicos */
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    width: 100%;
+    background-color: #121212; /* Fondo oscuro para todo el cuerpo */
+    color: #e0e0e0; /* Texto en gris claro */
+}
+
+/* Contenedor principal */
+.container {
+    max-width: 550px;
+    margin: 80px auto 20px;
+    background: rgba(0, 0, 0, 0.85); /* Fondo oscuro para el contenedor */
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Sombra tenue */
+    overflow: hidden;
+    padding: 20px; /* Espaciado adicional */
+}
+
+/* Encabezado */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #000000;
+    padding: 10px 15px;
+    height: 80px;
+    background-color: rgba(0, 0, 0, 0.76); /* Negro con 10% de opacidad */
+}
+
+.logo {
+    height: 60px;
+    width: auto;
+    margin-right: 15px;
+}
+
+.header-links {
+    display: flex;
+    gap: 40px;
+}
+
+.header-links a, .header-links span {
+    color: rgb(204, 204, 204);
+    text-decoration: none;
+    font-size: 1em;
+    font-weight: bold;
+}
+
+.header-links a:hover {
+    color: rgb(255, 255, 255);
+}
+
+.profile-details, .recent-activity {
+    padding: 20px;
+}
+
+/* Títulos de secciones */
+.section-title {
+    margin-bottom: 15px;
+    color: rgba(255, 255, 255);
+    font-weight: bold;
+}
+
+/* Grupo de formulario */
+.form-group {
+    margin-bottom: 25px; /* Mayor espacio entre cada campo */
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    color: rgb(255, 255, 255);
+    margin-bottom: 8px; /* Mayor espacio debajo de las etiquetas */
+}
+
+/* Estilos de campos de entrada */
+input[type="text"], input[type="email"], input[type="tel"], input[type="password"], input[type="date"], input[type="submit"] {
+    width: 100%;
+    padding: 12px;
+    color: #e0e0e0;
+    background-color: #333333;
+    border: 1px solid #444;
+    border-radius: 4px;
+    font-size: 0.95em;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+input[type="text"]:focus, input[type="email"]:focus, input[type="tel"]:focus {
+    background-color: #424242;
+    border-color: #ffffff;
+    outline: none;
+}
+
+/* Botón de envío */
+input[type="submit"] {
+    background-color: #ffffff;
+    color: #121212;
+    cursor: pointer;
+    height: 40px;
+    border: none;
+    border-radius: 4px;
+    font-size: 18px;
+}
+
+input[type="submit"]:hover {
+    background-color: #ffffff;
+}
+
+/* Grupo de botones */
+.button-group {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    width: 100%;
+}
+
+.button {
+    width: 48%;
+    padding: 10px 0;
+    background-color: #333333;
+    color: #ffffff;
+    text-decoration: none;
+    border-radius: 4px;
+    text-align: center;
+    transition: background-color 0.3s;
+    font-size: 18px;
+}
+
+.button:hover {
+    background-color: #424242;
+}
+
+/* Estilo para el cuadro de fecha de expiración */
+.expiration-date-group {
+    padding: 15px;
+    background-color: #2b2b2b;
+    border-radius: 8px;
+    border: 1px solid #444;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    margin-bottom: 25px; /* Espaciado adicional */
+}
+
+.expiration-date-group label {
+    font-weight: bold;
+    color: #b0b0b0;
+    margin-bottom: 8px;
+    display: block;
+}
+
+.expiration-date-group input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    color: #e0e0e0;
+    background-color: #333333;
+    border: 1px solid #555;
+    border-radius: 4px;
+    box-sizing: border-box;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.expiration-date-group input[type="text"]:focus {
+    border-color: #76ff03;
+    box-shadow: 0 0 5px rgba(118, 255, 3, 0.4);
+    outline: none;
+}
+
+.client-name p {
+    margin-bottom: 15px; /* Ajusta el valor según tus necesidades */
+}
+
+.section-subtitle p {
+    margin-bottom: 15px; /* Ajusta el valor según tus necesidades */
+}
+
+.form-group:first-of-type {
+    margin-top: 15px; /* Ajusta el valor según lo que necesites */
+}
+
+.form-group:first-of-type {
+    margin-bottom: 15px; /* Ajusta el valor según lo que necesites */
+}
+
+h3.section-subtitle:nth-of-type(2) {
+    margin-bottom: 10px; /* Ajusta el valor según lo que necesites */
+}
+label[for="cardExpirationDate"] {
+    margin-bottom: 10px; /* Ajusta el valor según lo que necesites */
+}
+
+body {
+    background-image: url("https://res.cloudinary.com/drmjvrs2p/image/upload/fondo_mas_oscur_mocvnj");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+
+}
+
