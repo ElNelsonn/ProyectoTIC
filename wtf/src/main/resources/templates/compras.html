@@ -11,11 +11,15 @@
     <ul>
         <th:block th:if="${bloqueTodaInfo}">
             <li th:each="purchaseInfo : ${bloqueTodaInfo}">
-                <h2 th:text="'Compra ID: ' + ${purchaseInfo.id}"></h2> <!-- Muestra la ID de la compra -->
-                <p th:text="'Fecha: ' + ${purchaseInfo.fecha}"></p>  <!-- Muestra la fecha de la compra -->
-                <h3>Snacks:</h3>
+                <h2 th:text="${purchaseInfo[0]}"></h2> <!-- Muestra la ID de la compra -->
+                <p th:text="${purchaseInfo[1]}"></p>  <!-- Muestra la fecha de la compra -->
                 <ul>
-                    <li th:each="snack : ${purchaseInfo.snacks}" th:text="${snack}"></li> <!-- Muestra cada snack -->
+                    <li th:each="info : ${purchaseInfo}" th:if="${info.contains('Snacks:')}">
+                        <span th:text="${info}"></span> <!-- Muestra el título de Snacks -->
+                    </li>
+                    <li th:each="info : ${purchaseInfo}" th:if="${!info.contains('Snacks:')}">
+                        <span th:text="${info}"></span> <!-- Muestra cada snack -->
+                    </li>
                 </ul>
             </li>
         </th:block>

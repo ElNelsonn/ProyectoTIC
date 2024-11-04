@@ -32,11 +32,6 @@ public class ClientService {
 
     public Client addClient(Long id, String name, String surname, LocalDate birthDate, String cardNumber, LocalDate cardExpiraton, String email, String password) throws EntityAlreadyExistsException, InvalidDataException {
 
-        // Control de duplicados
-        if (cardNumber != null && clientRepo.findClientByCardNumber(cardNumber).isPresent()) {
-            throw new EntityAlreadyExistsException("Ya existe un cliente con ese numero de tarjeta.");
-        }
-
         if (userRepo.findUserByIdentityCard(id).isPresent()) {
             throw new EntityAlreadyExistsException("Ya existe un cliente con esa dni.");
         }

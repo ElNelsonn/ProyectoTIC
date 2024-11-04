@@ -19,7 +19,7 @@ import java.util.List;
 @NoArgsConstructor
 public class Client extends User {
 
-    @Column(name = "CARD_NUMBER", unique = true)
+    @Column(name = "CARD_NUMBER", unique = false)
     @CreditCardNumber(message = "Tarjeta invalida")
     private String cardNumber;
 
