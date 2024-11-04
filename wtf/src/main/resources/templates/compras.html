@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Compras de Snacks</title>
+</head>
+<body>
+<h1>Compras de Snacks</h1>
+
+<div>
+    <ul>
+        <th:block th:if="${bloqueTodaInfo}">
+            <li th:each="purchaseInfo : ${bloqueTodaInfo}">
+                <h2 th:text="'Compra ID: ' + ${purchaseInfo.id}"></h2> <!-- Muestra la ID de la compra -->
+                <p th:text="'Fecha: ' + ${purchaseInfo.fecha}"></p>  <!-- Muestra la fecha de la compra -->
+                <h3>Snacks:</h3>
+                <ul>
+                    <li th:each="snack : ${purchaseInfo.snacks}" th:text="${snack}"></li> <!-- Muestra cada snack -->
+                </ul>
+            </li>
+        </th:block>
+        <th:block th:if="${errorMessage}">
+            <p th:text="${errorMessage}"></p> <!-- Mensaje de error si no hay compras -->
+        </th:block>
+    </ul>
+</div>
+</body>
+</html>

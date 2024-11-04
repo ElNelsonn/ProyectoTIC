@@ -1,6 +1,7 @@
 package uy.edu.um.wtf.services;
 
 import jakarta.validation.Validator;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import uy.edu.um.wtf.entities.Client;
@@ -72,6 +73,8 @@ SnackPurchaseService {
         return true;
     }
 
-    public List<SnackPurchase> allSnackPurchases (){return snackPurchaseRepo.findAll();}
+    public List<SnackPurchase> allPurchasesByUser(String mail){
+        return snackPurchaseRepo.findAllByClient_Email(mail);
+    }
 
 }
