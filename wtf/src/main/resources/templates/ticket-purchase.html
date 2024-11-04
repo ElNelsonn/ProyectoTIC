@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ticket Purchase</title>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const pricePerSeat = 250;
+            const seatSelect = document.getElementById("seatSelect");
+            const totalPriceDisplay = document.getElementById("totalPrice");
+            const selectedSeatsInput = document.getElementById("selectedSeats");
+
+            function updateTotalPrice() {
+                const selectedOptions = Array.from(seatSelect.selectedOptions);
+                const total = selectedOptions.length * pricePerSeat;
+                totalPriceDisplay.textContent = `Total Price: $${total}`;
+
+                // Actualizar el campo oculto con los asientos seleccionados
+                selectedSeatsInput.value = selectedOptions.map(option => option.value).join(",");
+            }
+
+            // Actualizar el precio total cada vez que se selecciona o deselecciona un asiento
+            seatSelect.addEventListener("change", updateTotalPrice);
+        });
+    </script>
+</head>
+<body>
+
+<h1 th:text="'Purchase Tickets for ' + ${title}"></h1>
+
+<form th:action="@{/ticket/confirm}" method="post">
+    <!-- Lista de selección múltiple para asientos disponibles -->
+    <label for="seatSelect">Choose your seats:</label>
+    <select id="seatSelect" name="seats" multiple size="10" style="width: 100%; max-width: 200px;">
+        <option th:each="seat : ${seats}" th:value="${seat}" th:text="${seat}"></option>
+    </select>
+
+    <p id="totalPrice">Total Price: $0</p>
+
+    <!-- Inputs secretos -->
+    <input type="hidden" name="title" th:value="${title}">
+    <input type="hidden" name="movieScreeningId" th:value="${movieScreeningId}">
+    <input type="hidden" id="selectedSeats" name="selectedSeats" value="">
+
+    <!-- Botón de envío -->
+    <button type="submit">Confirm Purchase</button>
+</form>
+
+</body>
+</html>

@@ -83,7 +83,7 @@ public class MovieScreeningService {
 
         List<Seat> seats = new ArrayList<>();
 
-        for (int i = 0; i < (rows * columns); i++) {
+        for (int i = 1; i <= (rows * columns); i++) {
             seats.add(new Seat(i, false));
         }
 
