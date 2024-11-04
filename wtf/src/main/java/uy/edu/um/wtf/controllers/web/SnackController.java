@@ -24,6 +24,7 @@ import uy.edu.um.wtf.services.SnackService;
 import uy.edu.um.wtf.services.UserService;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -177,7 +178,7 @@ public class SnackController {
 
     }
 
-    @GetMapping("/compras")
+    @GetMapping("/mypurchases")
     public String getPurchases(Model model, @AuthenticationPrincipal org.springframework.security.core.userdetails.User usuario) {
         List<SnackPurchase> snacks = snackPurchaseService.allPurchasesByUser(usuario.getUsername());
         List<List<String>> bloqueTodaInfo = new LinkedList<>();
@@ -190,10 +191,18 @@ public class SnackController {
         for (SnackPurchase snackPurchase : snacks) {
             List<Snack> allSnacks = snackPurchase.getSnackList();
             List<String> infoSnack = new LinkedList<>(); // Crear una nueva lista para cada compra
-            infoSnack.add("Compra ID: " + snackPurchase.getId().toString() + ", " + "Fecha: " + snackPurchase.getDate().toString() + ", " + "Snacks: ");
+
+            //cambio tipo de fecha apra caudno la muestre sea mas linda
+
+            DateTimeFormatter fechaIni = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSS");
+            DateTimeFormatter fechaSal = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
+            String nuevaFecha = LocalDateTime.parse(snackPurchase.getDate().toString(), fechaIni).format(fechaSal);
+
+            infoSnack.add("Compra ID: " + snackPurchase.getId().toString() + ", " + "Fecha: " + nuevaFecha + ", " + "Snacks: ");
 
             for (Snack snack : allSnacks) {
-                infoSnack.add(" - " + snack.getName());
+                infoSnack.add(snack.getName());
             }
 
             bloqueTodaInfo.add(infoSnack);
