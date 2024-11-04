@@ -125,7 +125,7 @@ public class ClientController {
 
             if (client.isEmpty()) {
 
-                return "login";
+                return "redirect:/login";
             }
 
             errorMessages.add(e.getMessage());

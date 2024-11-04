@@ -30,7 +30,7 @@ header {
 }
 
 
-.logout-button {
+.home-button {
     background-color: #6a0dad;
     color: white;
     border: none;
@@ -45,7 +45,7 @@ header {
     left: 10px;
 }
 
-.logout-button:hover {
+.home-button:hover {
     background-color: #5a009a;
 }
 

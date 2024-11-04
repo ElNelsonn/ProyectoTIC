@@ -15,10 +15,12 @@ import uy.edu.um.wtf.repository.ClientRepository;
 import uy.edu.um.wtf.repository.MovieScreeningRepository;
 import uy.edu.um.wtf.repository.ScreenRepository;
 
+import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
@@ -51,7 +53,6 @@ public class TicketPurchaseController {
             redirectAttributes.addAttribute("errorMessages", "Método de pago rechazado.");
             return "redirect:/movie/info";
         }
-
 
         String[] strings = function.split(", ");
 
@@ -113,10 +114,44 @@ public class TicketPurchaseController {
     }
 
     @PostMapping("/confirm")
-    public String ticketPurchase(@RequestParam String seat, @RequestParam String movieScreening, @RequestParam String moiveTitle) {
+    public String ticketPurchase(@RequestParam String[] seats, @RequestParam Long movieScreeningId,
+                                 @RequestParam String title, RedirectAttributes redirectAttributes) {
+
+        Optional<MovieScreening> movieScreeningOp = movieScreeningRepo.findMovieScreeningById(movieScreeningId);
+        if (movieScreeningOp.isEmpty()) {
+
+            redirectAttributes.addAttribute("title", title);
+            redirectAttributes.addAttribute("errorMessages", "Error en la compra.");
+            return "redirect:/movie/info";
+        }
+
+        MovieScreening movieScreening = movieScreeningOp.get();
+        Screen screen = movieScreening.getScreen();
+        Integer rows = screen.getRows();
+
+        List<Seat> seatList = new LinkedList<>();
+        for (String seat: seats) {
+
+            String[] parts = seat.split(", ");
+            Integer col = Integer.valueOf(parts[1]);
+            Integer row = Integer.valueOf(parts[0]);
+
+            Integer seatNumber = rows*row + col;
+
+            seatList = movieScreening.getSeats();
+            seatList.get(seatNumber - 1).setIsOccupied(true);
 
 
-        return "sdf";
+        }
+
+
+
+
+
+
+
+
+        return "login";
     }
 
 

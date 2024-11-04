@@ -16,12 +16,18 @@
                 const total = selectedOptions.length * pricePerSeat;
                 totalPriceDisplay.textContent = `Total Price: $${total}`;
 
-                // Actualizar el campo oculto con los asientos seleccionados
                 selectedSeatsInput.value = selectedOptions.map(option => option.value).join(",");
             }
 
-            // Actualizar el precio total cada vez que se selecciona o deselecciona un asiento
             seatSelect.addEventListener("change", updateTotalPrice);
+
+            // Permitir selección con un solo clic
+            Array.from(seatSelect.options).forEach(option => {
+                option.addEventListener("click", function() {
+                    option.selected = !option.selected; // Alternar selección
+                    updateTotalPrice(); // Actualizar el precio
+                });
+            });
         });
     </script>
 </head>
@@ -30,7 +36,7 @@
 <h1 th:text="'Purchase Tickets for ' + ${title}"></h1>
 
 <form th:action="@{/ticket/confirm}" method="post">
-    <!-- Lista de selección múltiple para asientos disponibles -->
+
     <label for="seatSelect">Choose your seats:</label>
     <select id="seatSelect" name="seats" multiple size="10" style="width: 100%; max-width: 200px;">
         <option th:each="seat : ${seats}" th:value="${seat}" th:text="${seat}"></option>
@@ -38,12 +44,10 @@
 
     <p id="totalPrice">Total Price: $0</p>
 
-    <!-- Inputs secretos -->
     <input type="hidden" name="title" th:value="${title}">
     <input type="hidden" name="movieScreeningId" th:value="${movieScreeningId}">
     <input type="hidden" id="selectedSeats" name="selectedSeats" value="">
 
-    <!-- Botón de envío -->
     <button type="submit">Confirm Purchase</button>
 </form>
 

@@ -22,4 +22,6 @@ public interface MovieScreeningRepository extends JpaRepository<MovieScreening, 
 
     public Optional<MovieScreening> findMovieScreeningByScreenAndDate(Screen screen, LocalDateTime dateTime);
 
+    public Optional<MovieScreening> findMovieScreeningById(Long Id);
+
 }
