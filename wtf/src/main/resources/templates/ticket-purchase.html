@@ -37,7 +37,7 @@
 
 <form th:action="@{/ticket/confirm}" method="post">
 
-    <label for="seatSelect">Choose your seats:</label>
+    <label for="seatSelect">Elija sus asientos:</label>
     <select id="seatSelect" name="seats" multiple size="10" style="width: 100%; max-width: 200px;">
         <option th:each="seat : ${seats}" th:value="${seat}" th:text="${seat}"></option>
     </select>
@@ -48,7 +48,7 @@
     <input type="hidden" name="movieScreeningId" th:value="${movieScreeningId}">
     <input type="hidden" id="selectedSeats" name="selectedSeats" value="">
 
-    <button type="submit">Confirm Purchase</button>
+    <button type="submit">Confirmar compra</button>
 </form>
 
 </body>

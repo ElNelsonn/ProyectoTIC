@@ -8,17 +8,17 @@
 
     <form action="/moviescreening/create" method="post">
 
-        <h2> Create Movie Screening </h2>
+        <h2> Crear función </h2>
 
         <div class="formulario_input">
-            <label for="date">Release Date</label>
+            <label for="date">Fecha</label>
             <input type="datetime-local" name="date" placeholder="Ingrese la fecha de la funcion" id="date" required th:min="${todayDate}" >
         </div>
 
         <div class="formulario_input">
-            <label for="screenCinema">Cinema and Screen</label>
+            <label for="screenCinema">Cine y Sala</label>
             <select name="screenCinema" id="screenCinema" required>
-                <option value="">Seleccione un Cinema y Screen</option>
+                <option value="">Seleccione un Cine y una Sala</option>
                 <option th:each="screenCinema : ${screensCinemas}"
                         th:value="${screenCinema}"
                         th:text="${screenCinema}">
@@ -27,7 +27,7 @@
         </div>
 
         <div class="formulario_input">
-            <label for="title">Movie Title</label>
+            <label for="title">Título de Película</label>
             <select name="title" id="title" required>
                 <option value="">Seleccione un Título de Película</option>
                 <option th:each="title : ${moviesTitle}"
