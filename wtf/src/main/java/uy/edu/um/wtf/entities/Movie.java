@@ -82,6 +82,12 @@ public class Movie implements Serializable {
     @URL(message = "URL no valida.")
     private String imageURL;
 
+    @Column(name = "RATINGS")
+    private LinkedList<Rating> lista_ratings;
+
+    @Column(name = "AVERAGE_RATING")
+    private Integer rating;
+
     @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @Builder.Default
     private List<MovieScreening> movieScreenings = new LinkedList<>();

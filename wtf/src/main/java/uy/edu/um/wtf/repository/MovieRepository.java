@@ -3,6 +3,8 @@ package uy.edu.um.wtf.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import uy.edu.um.wtf.entities.Movie;
+
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,11 +23,13 @@ public interface MovieRepository extends JpaRepository<Movie,Long> {
 
     public List<Movie> findMoviesByClassification(String classification);
 
+    public List<Movie> findAllByOrderByRatingDesc();
 
+    public List<Movie> findAllByOrderByRatingAsc();
 
-    // Poner todos los find de fechas
+    public List<Movie> findAllByReleaseDateBetweenOrderByValueDesc(LocalDate startDate, LocalDate finishDate);
 
-
+    public List<Movie> findAllByReleaseDateBetweenOrderByValueAsc(LocalDate startDate, LocalDate finishDate);
 
 
 }
