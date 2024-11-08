@@ -61,14 +61,6 @@ public class MovieService {
         }
     }
 
-    //ratings
-    public List<Movie> allMoviesbyRatingGood(){return movieRepo.findAllByOrderByRatingDesc();}
-
-    public List<Movie> allMoviesbyRatingBad(){return movieRepo.findAllByOrderByRatingAsc();}
-
-    public List<Movie> dateRangeGoodMovies(LocalDate start,LocalDate finish){return movieRepo.findAllByReleaseDateBetweenOrderByValueDesc(start,finish);}
-
-    public List<Movie> dateRangeBadMovies(LocalDate start,LocalDate finish){return movieRepo.findAllByReleaseDateBetweenOrderByValueAsc(start,finish);}
 
 }
 

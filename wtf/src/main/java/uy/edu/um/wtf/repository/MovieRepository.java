@@ -23,13 +23,5 @@ public interface MovieRepository extends JpaRepository<Movie,Long> {
 
     public List<Movie> findMoviesByClassification(String classification);
 
-    public List<Movie> findAllByOrderByRatingDesc();
-
-    public List<Movie> findAllByOrderByRatingAsc();
-
-    public List<Movie> findAllByReleaseDateBetweenOrderByValueDesc(LocalDate startDate, LocalDate finishDate);
-
-    public List<Movie> findAllByReleaseDateBetweenOrderByValueAsc(LocalDate startDate, LocalDate finishDate);
-
 
 }
