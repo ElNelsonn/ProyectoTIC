@@ -1,50 +1,41 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Arial', sans-serif;
-}
+/* signup-style.css */
 
 body {
-    background-color: #151515;
+    background-color: #121212;
     color: #e0e0e0;
+    font-family: Arial, sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
+    margin: 0;
 }
 
 form {
     background-color: #1e1e1e;
-    padding: 2rem;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(93, 93, 93, 0.2);
-    width: 100%;
-    max-width: 400px;
+    padding: 30px;
+    width: 300px;
+    border-radius: 4px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
 }
 
 h2 {
     text-align: center;
-    margin-bottom: 2rem;
-    font-size: 1.5rem;
     color: #ffffff;
-}
-
-h3 {
-    margin-bottom: 2rem;
-    font-size: 1.5rem;
-    color: #ffffff;
+    margin-bottom: 20px;
+    font-weight: 400;
 }
 
 .formulario_input {
-    margin-bottom: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
 }
 
 label {
-    display: block;
-    font-size: 0.9rem;
-    margin-bottom: 0.5rem;
-    color: #9e9e9e;
+    font-size: 0.9em;
+    color: #b0b0b0;
+    margin-bottom: 5px;
 }
 
 input[type="text"],
@@ -52,14 +43,14 @@ input[type="email"],
 input[type="date"],
 input[type="number"],
 input[type="password"] {
-    width: 100%;
-    padding: 0.75rem;
-    background-color: #333333;
-    border: none;
+    padding: 10px;
+    font-size: 0.95em;
+    color: #ffffff;
+    background-color: #2a2a2a;
+    border: 1px solid #3a3a3a;
     border-radius: 4px;
-    color: #e0e0e0;
-    font-size: 1rem;
-    transition: background-color 0.3s ease;
+    outline: none;
+    transition: border 0.3s;
 }
 
 input[type="text"]:focus,
@@ -67,39 +58,31 @@ input[type="email"]:focus,
 input[type="date"]:focus,
 input[type="number"]:focus,
 input[type="password"]:focus {
-    background-color: #444444;
-    outline: none;
+    border: 1px solid #5a5a5a;
 }
 
 input[type="submit"] {
-    width: 100%;
-    padding: 0.75rem;
-    background-color: #6200ea;
+    background-color: #5a5a5a;
+    color: #ffffff;
+    padding: 10px;
+    font-size: 1em;
     border: none;
     border-radius: 4px;
-    color: #ffffff;
-    font-size: 1rem;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s;
 }
 
 input[type="submit"]:hover {
-    background-color: #3700b3;
+    background-color: #4a4a4a;
 }
 
-ul {
-    list-style-type: none;
+span ul {
+    list-style: none;
     padding: 0;
 }
 
-li {
-    margin-bottom: 0.5rem;
-    color: #ff5252;
-    font-size: 0.9rem;
-}
-
-span {
-    display: block;
-    margin-top: 1.5rem;
-    text-align: center;
+span ul li {
+    color: #ff4d4d;
+    font-size: 0.9em;
+    margin-bottom: 5px;
 }
