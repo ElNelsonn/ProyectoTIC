@@ -3,55 +3,135 @@
 <head>
     <meta charset="UTF-8">
     <title> Screen Create | WTF </title>
+    <style>
+        body {
+            background-color: #121212;
+            color: #e0e0e0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            margin: 0;
+            min-height: 100vh;
+            box-sizing: border-box;
+        }
 
+        form {
+            background-color: #1e1e1e;
+            padding: 30px;
+            width: 400px;
+            border-radius: 6px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        h2 {
+            text-align: center;
+            color: #ffffff;
+            margin-bottom: 20px;
+            font-weight: 400;
+        }
+
+        .formulario_input {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 15px;
+        }
+
+        label {
+            font-size: 0.9em;
+            color: #b0b0b0;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        select {
+            padding: 10px;
+            font-size: 0.95em;
+            color: #ffffff;
+            background-color: #2a2a2a;
+            border: 1px solid #3a3a3a;
+            border-radius: 6px;
+            outline: none;
+            transition: border 0.3s;
+        }
+
+        input[type="text"]:focus,
+        input[type="number"]:focus,
+        select:focus {
+            border: 1px solid #5a5a5a;
+        }
+
+        input[type="submit"] {
+            background-color: #5a5a5a;
+            color: #ffffff;
+            padding: 10px;
+            font-size: 1em;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #4a4a4a;
+        }
+
+        span ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        span ul li {
+            color: #ff4d4d;
+            font-size: 0.9em;
+            margin-bottom: 5px;
+        }
+    </style>
 </head>
+
 <body>
-    <form action="/screen/create" method="post">
+<form action="/screen/create" method="post">
+    <input type="hidden" name="cinema" value="1" />
 
-        <input type="hidden" name="cinema" value="1" />
+    <h2> Crear Sala </h2>
 
-        <h2> Crear Sala </h2>
+    <div class="formulario_input">
+        <label for="name">Nombre de la Sala</label>
+        <input type="text" name="name" placeholder="Ingresa el nombre" id="name" required maxlength="30" minlength="2">
+    </div>
 
-        <div class="formulario_input">
-            <label for="name">Nombre de la Sala</label>
-            <input type="text" name="name" placeholder="Ingresa el nombre" id="name" required maxlength="30" minlength="2">
-        </div>
+    <div class="formulario_input">
+        <label for="cinemaSelection"> Cinema </label>
+        <select name="cinemaName" id="cinemaSelection" required>
+            <option value="" disabled selected>Seleccione un cine</option>
+            <option th:each="cinemaName : ${allCinemasNames}" th:value="${cinemaName}" th:text="${cinemaName}"></option>
+        </select>
+    </div>
 
-        <div class="formulario_input">
-            <label for="cinemaSelection"> Cinema </label>
-            <select name="cinemaName" id="cinemaSelection" required>
-                <option value="" disabled selected>Seleccione un cine</option>
-                <option th:each="cinemaName : ${allCinemasNames}" th:value="${cinemaName}" th:text="${cinemaName}"></option>
-            </select>
-        </div>
+    <div class="formulario_input">
+        <label for="rows"> Filas </label>
+        <input type="number" name="rows" placeholder="Ingrese la cantidad de filas" id="rows" required min="1" max="50">
+    </div>
 
-        <div class="formulario_input">
-            <label for="rows"> Filas </label>
-            <input type="number" name="rows" placeholder="Ingrese la cantidad de filas" id="rows" required min="1" max="50">
-        </div>
+    <div class="formulario_input">
+        <label for="columns"> Columnas </label>
+        <input type="number" name="columns" placeholder="Ingrese el precio" id="columns" required min="1" max="40">
+    </div>
 
-        <div class="formulario_input">
-            <label for="columns"> Columnas </label>
-            <input type="number" name="columns" placeholder="Ingrese el precio" id="columns" required min="1" max="40">
-        </div>
+    <div class="formulario_input">
+        <input type="submit" name="enviar" value="Enviar">
+    </div>
+</form>
 
-        <div class="formulario_input">
-            <input type="submit" name="enviar" value="Enviar">
-        </div>
-    </form>
-
-    <div>
+<div>
         <span style="color: red;">
             <ul th:if="${errorMessages != null}">
                 <li th:each="errorMessage : ${errorMessages}" th:text="${errorMessage}"></li>
             </ul>
         </span>
-    </div>
-
-
-
-
-
+</div>
 
 </body>
 </html>
