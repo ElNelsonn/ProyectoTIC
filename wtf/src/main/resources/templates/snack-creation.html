@@ -2,41 +2,127 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title> Snack Create | WTF </title>
+    <title>Snack Create | WTF</title>
+    <style>
+        /* Page Styling */
+        body {
+            background-color: #121212;
+            color: #e0e0e0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 20px; /* Padding around edges */
+            padding-top: 20px;
+            overflow-y: auto; /* Allows body scroll */
+            box-sizing: border-box;
+        }
 
+        /* Form Styling */
+        form {
+            background-color: #1e1e1e;
+            padding: 40px; /* Adds padding inside the form */
+            width: 300px;
+            border-radius: 4px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        h2 {
+            text-align: center;
+            color: #ffffff;
+            margin-bottom: 20px;
+            font-weight: 400;
+        }
+
+        .formulario_input {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 15px;
+        }
+
+        label {
+            font-size: 0.9em;
+            color: #b0b0b0;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        input[type="url"] {
+            padding: 10px;
+            font-size: 0.95em;
+            color: #ffffff;
+            background-color: #2a2a2a;
+            border: 1px solid #3a3a3a;
+            border-radius: 4px;
+            outline: none;
+            transition: border 0.3s;
+        }
+
+        input[type="text"]:focus,
+        input[type="number"]:focus,
+        input[type="url"]:focus {
+            border: 1px solid #5a5a5a;
+        }
+
+        input[type="submit"] {
+            background-color: #5a5a5a;
+            color: #ffffff;
+            padding: 10px;
+            font-size: 1em;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #4a4a4a;
+        }
+
+        span ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        span ul li {
+            color: #ff4d4d;
+            font-size: 0.9em;
+            margin-bottom: 5px;
+        }
+    </style>
 </head>
 <body>
-    <form action="/snack/create" method="post">
+<form action="/snack/create" method="post">
+    <h2>Crear Snack</h2>
 
-        <h2> Crear Snack </h2>
+    <div class="formulario_input">
+        <label for="name">Nombre del Snack</label>
+        <input type="text" name="name" placeholder="Ingresa el nombre" id="name" required maxlength="30" minlength="2">
+    </div>
 
-        <div class="formulario_input">
-            <label for="name">Nombre del Snack</label>
-            <input type="text" name="name" placeholder="Ingresa el nombre" id="name" required maxlength="30" minlength="2">
-        </div>
+    <div class="formulario_input">
+        <label for="price">Precio</label>
+        <input type="number" name="price" placeholder="Ingrese el precio" id="price" required min="0" max="9999">
+    </div>
 
-        <div class="formulario_input">
-            <label for="price"> Precio </label>
-            <input type="number" name="price" placeholder="Ingrese el precio" id="price" required min="0" max="9999">
-        </div>
+    <div class="formulario_input">
+        <label for="imageURL">URL Imagen</label>
+        <input type="url" name="imageURL" placeholder="Ingresa el nombre" id="imageURL" required>
+    </div>
 
-        <div class="formulario_input">
-            <label for="imageURL">URL Imagen</label>
-            <input type="url" name="imageURL" placeholder="Ingresa el nombre" id="imageURL" required>
-        </div>
+    <div class="formulario_input">
+        <input type="submit" name="enviar" value="Enviar">
+    </div>
+</form>
 
-        <div class="formulario_input">
-            <input type="submit" name="enviar" value="Enviar">
-        </div>
-    </form>
-
-    <div>
+<div>
         <span style="color: red;">
             <ul th:if="${errorMessages != null}">
                 <li th:each="errorMessage : ${errorMessages}" th:text="${errorMessage}"></li>
             </ul>
         </span>
-    </div>
-
+</div>
 </body>
 </html>
