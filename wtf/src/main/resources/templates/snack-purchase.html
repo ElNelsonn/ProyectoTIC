@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <title>Snacks | WTF </title>
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
     <style>
         h1 {
@@ -17,25 +16,22 @@
             text-align: center;
             letter-spacing: 1px;
         }
-
         body {
             background-color: #131313;
             color: #ffffff;
         }
-
         header {
             background-color: rgb(59, 55, 55);
-            padding: 20px;
+            padding: 0px;
             display: flex;
             align-items: center;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.49);
         }
-
         .logo {
             max-height: 100px;
-            margin-right: 10px;
+            margin-right: 20px;
+            margin-left: 20px;
         }
-
         .card {
             background-color: #383c41;
             color: #ffffff;
@@ -43,67 +39,136 @@
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
             transition: transform 0.2s, box-shadow 0.2s;
         }
-
         .card:hover {
             transform: translateY(-5px);
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
         }
-
         .btn-primary {
-            background-color: #007bff;
-            border-color: #007bff;
+            font-family: Arial;
+            font-size: 17px;
+            color: rgb(201, 201, 201);
+            margin-right: 20px;
+            background: rgba(0, 216, 255, 0);
+            border: rgba(0, 255, 221, 0);
             transition: background-color 0.2s;
         }
-
         .btn-primary:hover {
-            background-color: #0056b3;
+            margin-right: 20px;
+            background: rgba(0, 216, 255, 0);
+            border: rgba(0, 255, 221, 0);
+            color: #ffffff;
         }
-
         .btn-danger {
             background-color: #dc3545;
             border-color: #dc3545;
             transition: background-color 0.2s;
         }
-
         .btn-danger:hover {
             background-color: #c82333;
         }
-
         #carrito {
             background-color: #373c41;
             padding: 10px;
             border-radius: 8px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
         }
-
         #carrito li {
             background-color: #54595e;
             color: #ffffff;
         }
-
         #total {
             color: #ffffff;
         }
-
         .main-content {
             margin-top: 20px;
         }
-
-        header a {
-            color: #e0e0e0;
-            text-transform: uppercase;
-            font-size: 1rem;
-            padding: 10px 20px;
-            text-decoration: none;  /* Elimina el subrayado */
-            transition: color 0.3s;
-        }
-
-        header a:hover,
-        header a:focus,
-        header a:active {
-            color: #ffffff;
-        }
     </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            let carrito = [];
+            const divisa = '$';
+            const DOMcarrito = document.querySelector('#carrito');
+            const DOMtotal = document.querySelector('#total');
+            const DOMbotonVaciar = document.querySelector('#boton-vaciar');
+            const DOMbotonComprar = document.querySelector('#boton-comprar');
+
+            function renderizarCarrito() {
+                DOMcarrito.textContent = '';
+                const carritoSinDuplicados = [...new Set(carrito.map(item => item.id))]; // Obtener solo los IDs únicos
+                carritoSinDuplicados.forEach((id) => {
+                    const item = carrito.find(item => item.id === id);
+                    const numeroUnidadesItem = carrito.reduce((total, itemId) => {
+                        return itemId.id === id ? total + 1 : total;
+                    }, 0);
+                    const miNodo = document.createElement('li');
+                    miNodo.classList.add('list-group-item', 'd-flex', 'justify-content-between', 'align-items-center'); // Flexbox para alinear
+
+                    miNodo.textContent = `${numeroUnidadesItem} x ${item.name} - ${item.price}${divisa}`;
+                    const miBoton = document.createElement('button');
+                    miBoton.classList.add('btn', 'btn-danger', 'btn-sm');
+                    miBoton.textContent = 'X';
+                    miBoton.addEventListener('click', () => borrarItemCarrito(item.id));
+
+                    miNodo.appendChild(miBoton);
+                    DOMcarrito.appendChild(miNodo);
+                });
+                DOMtotal.textContent = calcularTotal();
+            }
+            function calcularTotal() {
+                return carrito.reduce((total, item) => total + item.price, 0).toFixed(2);
+            }
+            function borrarItemCarrito(id) {
+                carrito = carrito.filter(item => item.id !== id);
+                renderizarCarrito();
+            }
+            function anyadirProductoAlCarrito(snack) {
+                carrito.push(snack);
+                renderizarCarrito();
+            }
+            document.querySelectorAll('.add-to-cart').forEach(button => {
+                button.addEventListener('click', () => {
+                    const id = parseInt(button.dataset.id);
+                    const name = button.dataset.name;
+                    const price = parseFloat(button.dataset.price);
+                    const snack = { id, name, price };
+                    anyadirProductoAlCarrito(snack);
+                });
+            });
+            DOMbotonVaciar.addEventListener('click', () => {
+                carrito = [];
+                renderizarCarrito();
+            });
+
+            DOMbotonComprar.addEventListener('click', () => {
+                if (carrito.length === 0) {
+                    alert('El carrito está vacío. Añade snacks antes de comprar.');
+                    return;
+                }
+                const url = '/snack/purchase';
+                fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(carrito)
+                })
+                    .then(response => {
+                        if (response.ok) {
+                            alert('Compra realizada con éxito');
+                            carrito = [];
+                            renderizarCarrito();
+                        } else {
+                            alert('Hubo un problema al realizar la compra');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('Hubo un error al enviar la compra. Inténtalo de nuevo.');
+                    });
+            });
+            renderizarCarrito();
+        });
+    </script>
 </head>
 <body>
 <header class="d-flex justify-content-between align-items-center">
@@ -111,12 +176,12 @@
         <img src="https://res.cloudinary.com/drmjvrs2p/image/upload/Logo2_xgiikc" alt="Logo" class="logo">
         <h1 class="text-white ml-2">Snacks</h1>
     </div>
-    <a href="URL_DE_TU_ELECCIÓN">Home</a>
+    <a href="/home" class="btn btn-primary"> Home </a>
 </header>
-
 <div class="container main-content">
     <div class="row">
         <main id="items" class="col-sm-8 row">
+
             <div th:each="snack : ${snacks}" class="card col-sm-4">
                 <div class="card-body">
                     <img th:src="@{${snack.imageURL}}" class="img-fluid">
