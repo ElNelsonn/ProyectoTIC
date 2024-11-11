@@ -141,17 +141,9 @@ public class TicketPurchaseController {
             seatList = movieScreening.getSeats();
             seatList.get(seatNumber - 1).setIsOccupied(true);
 
-
         }
 
-
-
-
-
-
-
-
-        return "login";
+        return "redirect:/home";
     }
 
 

@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Snacks | WTF </title>
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
     <style>
         h1 {
@@ -31,8 +32,8 @@
         }
 
         .logo {
-            max-height: 60px;
-            margin-right: 20px;
+            max-height: 100px;
+            margin-right: 10px;
         }
 
         .card {
@@ -87,121 +88,35 @@
         .main-content {
             margin-top: 20px;
         }
+
+        header a {
+            color: #e0e0e0;
+            text-transform: uppercase;
+            font-size: 1rem;
+            padding: 10px 20px;
+            text-decoration: none;  /* Elimina el subrayado */
+            transition: color 0.3s;
+        }
+
+        header a:hover,
+        header a:focus,
+        header a:active {
+            color: #ffffff;
+        }
     </style>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            let carrito = [];
-            const divisa = '$';
-            const DOMcarrito = document.querySelector('#carrito');
-            const DOMtotal = document.querySelector('#total');
-            const DOMbotonVaciar = document.querySelector('#boton-vaciar');
-            const DOMbotonComprar = document.querySelector('#boton-comprar');
-
-            // Funciones
-            function renderizarCarrito() {
-                DOMcarrito.textContent = '';
-                const carritoSinDuplicados = [...new Set(carrito.map(item => item.id))];
-
-                carritoSinDuplicados.forEach((id) => {
-                    const item = carrito.find(item => item.id === id);
-                    const numeroUnidadesItem = carrito.reduce((total, itemId) => {
-                        return itemId.id === id ? total + 1 : total;
-                    }, 0);
-
-                    const miNodo = document.createElement('li');
-                    miNodo.classList.add('list-group-item', 'd-flex', 'justify-content-between', 'align-items-center'); // Flexbox para alinear
-
-                    miNodo.textContent = `${numeroUnidadesItem} x ${item.name} - ${item.price}${divisa}`;
-
-                    const miBoton = document.createElement('button');
-                    miBoton.classList.add('btn', 'btn-danger', 'btn-sm');
-                    miBoton.textContent = 'X';
-                    miBoton.addEventListener('click', () => borrarItemCarrito(item.id));
-
-                    miNodo.appendChild(miBoton);
-                    DOMcarrito.appendChild(miNodo);
-                });
-
-                DOMtotal.textContent = calcularTotal();
-            }
-
-            function calcularTotal() {
-                return carrito.reduce((total, item) => total + item.price, 0).toFixed(2);
-            }
-
-            function borrarItemCarrito(id) {
-                carrito = carrito.filter(item => item.id !== id);
-                renderizarCarrito();
-            }
-
-            function anyadirProductoAlCarrito(snack) {
-                carrito.push(snack);
-                renderizarCarrito();
-            }
-
-            document.querySelectorAll('.add-to-cart').forEach(button => {
-                button.addEventListener('click', () => {
-                    const id = parseInt(button.dataset.id);
-                    const name = button.dataset.name;
-                    const price = parseFloat(button.dataset.price);
-                    const snack = { id, name, price };
-                    anyadirProductoAlCarrito(snack);
-                });
-            });
-
-            DOMbotonVaciar.addEventListener('click', () => {
-                carrito = [];
-                renderizarCarrito();
-            });
-
-            // Evento para comprar
-            DOMbotonComprar.addEventListener('click', () => {
-                if (carrito.length === 0) {
-                    alert('El carrito está vacío. Añade snacks antes de comprar.');
-                    return;
-                }
-
-                const url = '/snack/purchase';
-
-                fetch(url, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(carrito)
-                })
-                    .then(response => {
-                        if (response.ok) {
-                            alert('Compra realizada con éxito');
-                            carrito = [];
-                            renderizarCarrito();
-                        } else {
-                            alert('Hubo un problema al realizar la compra');
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                        alert('Hubo un error al enviar la compra. Inténtalo de nuevo.');
-                    });
-            });
-
-            renderizarCarrito();
-        });
-    </script>
 </head>
 <body>
 <header class="d-flex justify-content-between align-items-center">
     <div class="d-flex align-items-center">
-        <img src="https://static.vecteezy.com/system/resources/thumbnails/008/505/808/small/cinema-projector-and-film-strip-illustration-png.png" alt="Logo" class="logo"> <!-- Cambia la ruta a tu logo -->
-        <h1 class="text-white ml-2">SNACKS</h1>
+        <img src="https://res.cloudinary.com/drmjvrs2p/image/upload/Logo2_xgiikc" alt="Logo" class="logo">
+        <h1 class="text-white ml-2">Snacks</h1>
     </div>
-    <a href="URL_DE_TU_ELECCIÓN" class="btn btn-primary"> Home Page</a>
+    <a href="URL_DE_TU_ELECCIÓN">Home</a>
 </header>
 
 <div class="container main-content">
     <div class="row">
         <main id="items" class="col-sm-8 row">
-
             <div th:each="snack : ${snacks}" class="card col-sm-4">
                 <div class="card-body">
                     <img th:src="@{${snack.imageURL}}" class="img-fluid">

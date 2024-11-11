@@ -116,11 +116,9 @@ public class SnackController {
     @PostMapping("/purchase")
     public String getSnacks(@RequestBody List<Snack> carrito, Model model) {
 
-        System.out.println("Purchase!");
-
         if (carrito.isEmpty()) {
 
-            return "snack-purchase";
+            return "redirect:/snack/purchase";
         }
 
         List<Snack> snacks = new LinkedList<>();
@@ -142,7 +140,7 @@ public class SnackController {
 
         } else {
 
-            return "snack-purchase";
+            return "redirect:/snack/purchase";
         }
 
         Optional<User> clientOpt = userRepo.findUserByEmail(email);
@@ -161,9 +159,9 @@ public class SnackController {
                     LocalDateTime.now()
             );
 
-            System.out.println("qqq");
+            System.out.println("Snacks comprados");
 
-            return "client-signup-success";
+            return "redirect:/snack/purchase";
 
         } catch (EntityNotFoundException | InvalidDataException e) {
 
@@ -172,11 +170,20 @@ public class SnackController {
             errorMessages.add(e.getMessage());
 
             model.addAttribute("errorMessages", errorMessages);
+            model.addAttribute("snacks", snacks);
             System.out.println(errorMessages.get(0));
             return "snack-purchase";
         }
 
     }
+
+
+
+
+
+
+
+
 
     @GetMapping("/mypurchases")
     public String getPurchases(Model model, @AuthenticationPrincipal org.springframework.security.core.userdetails.User usuario) {
