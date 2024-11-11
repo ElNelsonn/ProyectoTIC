@@ -3,108 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <title>Compras de Snacks</title>
-    <style>
-        /* Estilos generales */
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f7f7f7;
-            color: #333;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
+    <link rel="stylesheet" href="/CSS/styles/snack-cada-perfil-comprados.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap" rel="stylesheet">
 
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background-color: #000000;
-            padding: 10px 15px;
-            height: 60px;
-            background-color: rgba(0, 0, 0, 0.76); /* Negro con 10% de opacidad */
-            width: 1810px;
-        }
-
-        .logo {
-            height: 60px;
-            width: auto;
-            margin-right: 15px;
-        }
-
-        .homelink {
-            color: rgb(204, 204, 204);
-            display: flex;
-            gap: 40px;
-        }
-
-        .homelink a, .homelink span {
-            color: rgb(204, 204, 204);
-            text-decoration: none;
-            font-size: 1em;
-            font-weight: bold;
-        }
-
-        .homelink a:hover {
-            color: rgb(255, 255, 255);
-        }
-
-        /* Contenedor principal */
-        div {
-            background-color: rgba(2, 0, 0, 0.71);
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(33, 1, 1, 0.1);
-            padding: 20px;
-            width: 90%;
-            max-width: 600px;
-            margin-top: 20px;
-        }
-
-        ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        li {
-            margin-bottom: 15px;
-        }
-
-        /* Encabezado de cada compra */
-        h2 {
-            font-size: 1.2em;
-            color: #ffffff;
-            border-bottom: 2px solid #ffffff;
-            padding-bottom: 5px;
-            margin-top: 0;
-        }
-
-        /* Información de cada compra */
-        ul li span {
-            display: block;
-            padding: 8px;
-            background-color: #f0f0f0;
-            border-radius: 5px;
-            color: #666;
-            margin: 5px 0;
-        }
-
-        /* Mensaje de error */
-        p {
-            color: #d00000;
-            font-weight: bold;
-            text-align: center;
-            margin: 20px 0;
-        }
-    </style>
 </head>
 <body>
 
 <header class="header">
     <img src="https://res.cloudinary.com/drmjvrs2p/image/upload/Logo2_xgiikc" alt="Logo" class="logo">
-    <div class="homelink">
         <a href="/home">Home</a>
-    </div>
 </header>
 
 
@@ -123,7 +30,7 @@
             </li>
         </th:block>
         <th:block th:if="${errorMessage}">
-            <p th:text="${errorMessage}"></p> <!-- Mensaje de error si no hay compras -->
+            <p th:text="${errorMessage}"></p>
         </th:block>
     </ul>
 </div>

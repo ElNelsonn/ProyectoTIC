@@ -1,0 +1,67 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f7f7f7;
+    color: #ffffff;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-image: url('https://cdn.hobbyconsolas.com/sites/navi.axelspringer.es/public/media/image/2023/03/palomitas-sala-cine-2992264.jpg?tf=3840x'); /* Ruta de la imagen */
+    background-size: cover;
+    background-position: center center;
+    background-attachment: fixed;
+}
+
+h1 {
+    color: #ffffff;
+
+    font-family: 'Roboto', sans-serif;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #ff0000;
+    padding: 10px 15px;
+    height: 60px;
+    background-color: rgba(0, 0, 0, 0.76);
+    width: 1873px;
+
+}
+
+.header a {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 1em;
+    font-weight: bold;
+    padding: 10px 15px;
+    background-color: transparent;
+}
+
+.header a:hover {
+    color: #b9b9b9;
+}
+
+
+.logo {
+    height: 60px;
+    width: auto;
+    margin-right: 15px;
+}
+
+
+div {
+    background-color: rgba(2, 0, 0, 0.71);
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(33, 1, 1, 0.1);
+    padding: 20px;
+    width: 90%;
+    max-width: 600px;
+    margin-top: 20px;
+}
+
+li {
+    margin-bottom: 15px;
+}

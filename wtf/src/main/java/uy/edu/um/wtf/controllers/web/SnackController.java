@@ -25,10 +25,7 @@ import uy.edu.um.wtf.services.UserService;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Controller
 @RequestMapping("/snack")
@@ -177,14 +174,6 @@ public class SnackController {
 
     }
 
-
-
-
-
-
-
-
-
     @GetMapping("/mypurchases")
     public String getPurchases(Model model, @AuthenticationPrincipal org.springframework.security.core.userdetails.User usuario) {
         List<SnackPurchase> snacks = snackPurchaseService.allPurchasesByUser(usuario.getUsername());
@@ -197,9 +186,17 @@ public class SnackController {
 
         for (SnackPurchase snackPurchase : snacks) {
             List<Snack> allSnacks = snackPurchase.getSnackList();
-            List<String> infoSnack = new LinkedList<>(); // Crear una nueva lista para cada compra
+            Map<String, Integer> contadorDeCadaSnack = new HashMap<>();
 
-            //cambio tipo de fecha apra caudno la muestre sea mas linda
+            for (Snack snack : allSnacks) {
+                if (contadorDeCadaSnack.containsKey(snack.getName())) {
+                    contadorDeCadaSnack.put(snack.getName(), contadorDeCadaSnack.get(snack.getName()).intValue() + 1);
+                } else {
+                    contadorDeCadaSnack.put(snack.getName(), 1);
+                }
+            }
+
+            List<String> infoSnack = new LinkedList<>();
 
             DateTimeFormatter fechaIni = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSS");
             DateTimeFormatter fechaSal = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
@@ -208,8 +205,8 @@ public class SnackController {
 
             infoSnack.add("Compra ID: " + snackPurchase.getId().toString() + ", " + "Fecha: " + nuevaFecha + ", " + "Snacks: ");
 
-            for (Snack snack : allSnacks) {
-                infoSnack.add(snack.getName());
+            for (Map.Entry<String, Integer> entry : contadorDeCadaSnack.entrySet()) {
+                infoSnack.add(entry.getKey() + " x" + entry.getValue());
             }
 
             bloqueTodaInfo.add(infoSnack);
