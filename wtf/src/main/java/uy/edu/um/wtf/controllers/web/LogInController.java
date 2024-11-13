@@ -16,7 +16,7 @@ import uy.edu.um.wtf.services.AdministratorService;
 import uy.edu.um.wtf.services.ClientService;
 
 @Controller
-@RequestMapping("/user")
+@RequestMapping("/")
 public class LogInController {
 
     @Autowired
@@ -32,50 +32,14 @@ public class LogInController {
     private ClientConverter clientConverter;
 
 
-    @GetMapping("/login")
-    public String getLogIn() {
+    @Controller
+    public class LoginController {
 
-        return "login";
-    }
-
-    @PostMapping("/login")
-    public String logInClient(@RequestParam String email, @RequestParam String password, Model model, HttpSession session) {
-
-        Client possibleClient = clientConverter.convert(email);
-
-        if (possibleClient != null) {
-
-            if (!possibleClient.getPassword().equals(password)) {
-
-                model.addAttribute("errorMessages", "Contraseña incorrecta.");
-                return "login";
-            }
-
-            session.setAttribute("loggedInUser", possibleClient);
-            return "redirect:/login";
-
+        @GetMapping("/login")
+        public String loginPage() {
+            return "login";
         }
-
-        Administrator possibleAdministrator = administratorConverter.convert(email);
-
-        if (possibleAdministrator != null) {
-
-            if (!possibleAdministrator.getPassword().equals(password)) {
-
-                model.addAttribute("errorMessages", "Contraseña incorrecta.");
-                return "login";
-            }
-
-
-            session.setAttribute("loggedInUser", possibleAdministrator);
-            return "client-signup-success";
-
-        }
-
-        model.addAttribute("errorMessages", "Usuario no encontrado.");
-        return "login";
     }
-
 
 
 }
