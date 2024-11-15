@@ -6,25 +6,33 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 20px;
-    margin: 0;
     min-height: 100vh;
+    margin: 20px; /* Padding around screen edges */
+    padding-top: 20px;
+    overflow-y: auto; /* Allows body scroll */
     box-sizing: border-box;
 }
 
+/* Form Styling */
 form {
     background-color: #1e1e1e;
-    padding: 30px;
-    width: 400px;
+    padding: 40px; /* Added padding to make the form visually centered */
+    width: 300px;
     border-radius: 4px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
 }
 
-h2 {
+h2, h3 {
     text-align: center;
     color: #ffffff;
     margin-bottom: 20px;
     font-weight: 400;
+}
+
+h3 {
+    font-size: 1em;
+    color: #ff4d4d;
+    margin-bottom: 10px;
 }
 
 .formulario_input {
@@ -41,7 +49,9 @@ label {
 
 input[type="text"],
 input[type="email"],
-input[type="number"] {
+input[type="date"],
+input[type="number"],
+input[type="password"] {
     padding: 10px;
     font-size: 0.95em;
     color: #ffffff;
@@ -54,7 +64,9 @@ input[type="number"] {
 
 input[type="text"]:focus,
 input[type="email"]:focus,
-input[type="number"]:focus {
+input[type="date"]:focus,
+input[type="number"]:focus,
+input[type="password"]:focus {
     border: 1px solid #5a5a5a;
 }
 

@@ -1,4 +1,4 @@
-/* Reiniciar estilos básicos */
+
 
 * {
     margin: 0;
@@ -10,11 +10,11 @@
 body {
     font-family: Arial, sans-serif;
     width: 100%;
-    background-color: #121212; /* Fondo oscuro para todo el cuerpo */
-    color: #e0e0e0; /* Texto en gris claro */
+    background-color: #121212;
+    color: #e0e0e0;
 }
 
-/* Contenedor principal */
+
 .container {
     max-width: 550px;
     margin: 80px auto 20px;
@@ -25,7 +25,7 @@ body {
     padding: 20px; /* Espaciado adicional */
 }
 
-/* Encabezado */
+
 .header {
     display: flex;
     justify-content: space-between;
@@ -62,26 +62,26 @@ body {
     padding: 20px;
 }
 
-/* Títulos de secciones */
+
 .section-title {
     margin-bottom: 15px;
     color: rgba(255, 255, 255);
     font-weight: bold;
 }
 
-/* Grupo de formulario */
+
 .form-group {
-    margin-bottom: 25px; /* Mayor espacio entre cada campo */
+    margin-bottom: 25px;
 }
 
 label {
     display: block;
     font-weight: bold;
     color: rgb(255, 255, 255);
-    margin-bottom: 8px; /* Mayor espacio debajo de las etiquetas */
+    margin-bottom: 8px;
 }
 
-/* Estilos de campos de entrada */
+
 input[type="text"], input[type="email"], input[type="tel"], input[type="password"], input[type="date"], input[type="submit"] {
     width: 100%;
     padding: 12px;
@@ -99,7 +99,7 @@ input[type="text"]:focus, input[type="email"]:focus, input[type="tel"]:focus {
     outline: none;
 }
 
-/* Botón de envío */
+
 input[type="submit"] {
     background-color: #ffffff;
     color: #121212;
@@ -114,7 +114,7 @@ input[type="submit"]:hover {
     background-color: #ffffff;
 }
 
-/* Grupo de botones */
+
 .button-group {
     display: flex;
     justify-content: space-between;
@@ -138,14 +138,14 @@ input[type="submit"]:hover {
     background-color: #424242;
 }
 
-/* Estilo para el cuadro de fecha de expiración */
+
 .expiration-date-group {
     padding: 15px;
     background-color: #2b2b2b;
     border-radius: 8px;
     border: 1px solid #444;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-    margin-bottom: 25px; /* Espaciado adicional */
+    margin-bottom: 25px;
 }
 
 .expiration-date-group label {
@@ -174,26 +174,26 @@ input[type="submit"]:hover {
 }
 
 .client-name p {
-    margin-bottom: 15px; /* Ajusta el valor según tus necesidades */
+    margin-bottom: 15px;
 }
 
 .section-subtitle p {
-    margin-bottom: 15px; /* Ajusta el valor según tus necesidades */
+    margin-bottom: 15px;
 }
 
 .form-group:first-of-type {
-    margin-top: 15px; /* Ajusta el valor según lo que necesites */
+    margin-top: 15px;
 }
 
 .form-group:first-of-type {
-    margin-bottom: 15px; /* Ajusta el valor según lo que necesites */
+    margin-bottom: 15px;
 }
 
 h3.section-subtitle:nth-of-type(2) {
-    margin-bottom: 10px; /* Ajusta el valor según lo que necesites */
+    margin-bottom: 10px;
 }
 label[for="cardExpirationDate"] {
-    margin-bottom: 10px; /* Ajusta el valor según lo que necesites */
+    margin-bottom: 10px;
 }
 
 body {
