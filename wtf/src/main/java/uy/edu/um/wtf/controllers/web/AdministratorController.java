@@ -28,6 +28,13 @@ public class AdministratorController {
     @Autowired
     private AdministratorService administratorService;
 
+
+    @GetMapping("/home")
+    public String showAdminHomePage(Model model) {
+
+        return "admin-homepage";
+    }
+
     @GetMapping("/signup")
     public String getLogin(Model model){
 

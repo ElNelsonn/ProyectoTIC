@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import uy.edu.um.wtf.entities.Client;
 import uy.edu.um.wtf.entities.Snack;
 import uy.edu.um.wtf.entities.SnackPurchase;
@@ -56,7 +57,7 @@ public class SnackController {
     }
 
     @PostMapping("/create")
-    public String crateSnack(@ModelAttribute @Valid Snack snack, BindingResult result, Model model) {
+    public String crateSnack(@ModelAttribute @Valid Snack snack, BindingResult result, Model model, RedirectAttributes redirectAttributes) {
 
         List<String> errorMessages = new ArrayList<>();
 
@@ -78,7 +79,9 @@ public class SnackController {
                     snack.getImageURL()
             );
 
-            return "client-signup-success";
+
+            redirectAttributes.addFlashAttribute("message", "Nuevo snack agregado con exito.");
+            return "redirect:/administrator/home";
 
         } catch (EntityAlreadyExistsException | InvalidDataException e) {
 
@@ -156,7 +159,6 @@ public class SnackController {
                     LocalDateTime.now()
             );
 
-            System.out.println("Snacks comprados");
 
             return "redirect:/snack/purchase";
 
@@ -168,7 +170,7 @@ public class SnackController {
 
             model.addAttribute("errorMessages", errorMessages);
             model.addAttribute("snacks", snacks);
-            System.out.println(errorMessages.get(0));
+
             return "snack-purchase";
         }
 

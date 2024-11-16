@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import uy.edu.um.wtf.DTO.ScreenForController;
 import uy.edu.um.wtf.converters.CinemaConverter;
 import uy.edu.um.wtf.entities.Cinema;
@@ -33,13 +34,18 @@ public class ScreenController {
     @Autowired
     private CinemaRepository cinemaRepo;
 
+
+
+
     @GetMapping("/create")
-    public String getCreateScreen(Model model){
+    public String getCreateScreen(Model model, RedirectAttributes redirectAttributes){
 
         List<String> allCinemasNames = allCinemasNames();
 
         if (allCinemasNames == null) {
-            return "login";
+
+            redirectAttributes.addFlashAttribute("message", "No hay cine creados.");
+            return "redirect:/administrator/home";
         }
 
         model.addAttribute("allCinemasNames", allCinemasNames);
@@ -47,15 +53,18 @@ public class ScreenController {
     }
 
     @PostMapping("/create")
-    public String createScreen(@ModelAttribute @Valid ScreenForController screen, BindingResult result, Model model) {
+    public String createScreen(@ModelAttribute @Valid ScreenForController screen, BindingResult result, Model model, RedirectAttributes redirectAttributes) {
 
         List<String> errorMessages = new ArrayList<>();
+
+        System.out.println(screen.getCinemaName());
 
         if (result.hasErrors()) {
 
             for (FieldError error : result.getFieldErrors()) {
                 errorMessages.add(error.getDefaultMessage());
             }
+
             model.addAttribute("errorMessages", errorMessages);
 
             List<String> allCinemasNames = allCinemasNames();
@@ -64,18 +73,19 @@ public class ScreenController {
             return "screen-creation";
         }
 
-        System.out.println("2");
-
         try {
+
+            System.out.println(screen.getCinemaName());
 
             Screen newScreen = screenService.addScreen(
                     screen.getName(),
                     screen.getCinemaName(),
-                    screen.getRows(),
-                    screen.getColumns()
+                    screen.getColumns(),
+                    screen.getRows()
             );
 
-            return "client-signup-success";
+            redirectAttributes.addFlashAttribute("message", "Sala creada con exito.");
+            return "redirect:/administrator/home";
 
         } catch (EntityAlreadyExistsException | InvalidDataException | EntityNotFoundException e) {
 

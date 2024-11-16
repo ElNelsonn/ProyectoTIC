@@ -38,7 +38,8 @@
 
     </div>
 
-    <div th:if="${signed} and ${funciones != null}" class="purchase-container">
+    <div th:if="${signed} and ${isClient} and ${funciones != null}" class="purchase-container">
+
         <h2>Comprar Tickets</h2>
 
         <form class="purchase-form" action="/ticket/purchase" method="post">

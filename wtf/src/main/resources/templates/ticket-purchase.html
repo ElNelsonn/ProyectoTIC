@@ -3,31 +3,89 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ticket Purchase | WTF </title>
-    <link rel="icon" href="/images/LogoWTF.png" type="image/png" >
+    <title>Compra de tickets | WTF</title>
+    <link rel="icon" href="/images/LogoWTF.png" type="image/png">
+
+    <style>
+        .seat-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            max-width: 400px;
+            margin: 20px 0;
+        }
+
+        .seat {
+            padding: 10px;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            text-align: center;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .occupied {
+            background-color: #f44336;
+            color: white;
+            border-color: #f44336;
+            cursor: not-allowed;
+        }
+
+        .selected {
+            background-color: #4CAF50;
+            color: white;
+            border-color: #4CAF50;
+        }
+
+        .seat.available {
+            background-color: #fff;
+            color: #000;
+            border-color: #ccc;
+        }
+    </style>
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            const pricePerSeat = 250;
-            const seatSelect = document.getElementById("seatSelect");
-            const totalPriceDisplay = document.getElementById("totalPrice");
+            const seatElements = document.querySelectorAll(".seat");
             const selectedSeatsInput = document.getElementById("selectedSeats");
+            const totalPriceDisplay = document.getElementById("totalPrice");
+            const pricePerSeat = 250;
 
+            let selectedSeats = [];
+
+            // Actualiza la visualización del precio total
             function updateTotalPrice() {
-                const selectedOptions = Array.from(seatSelect.selectedOptions);
-                const total = selectedOptions.length * pricePerSeat;
-                totalPriceDisplay.textContent = `Total Price: $${total}`;
-
-                selectedSeatsInput.value = selectedOptions.map(option => option.value).join(",");
+                const total = selectedSeats.length * pricePerSeat;
+                totalPriceDisplay.textContent = `Precio total: $${total}`;
+                selectedSeatsInput.value = selectedSeats.join(",");
             }
 
-            seatSelect.addEventListener("change", updateTotalPrice);
+            // Alternar selección de asiento
+            seatElements.forEach(seat => {
+                seat.addEventListener("click", function () {
+                    if (this.classList.contains("occupied")) {
+                        // No hacer nada si el asiento está ocupado
+                        return;
+                    }
 
-            // Permitir selección con un solo clic
-            Array.from(seatSelect.options).forEach(option => {
-                option.addEventListener("click", function() {
-                    option.selected = !option.selected; // Alternar selección
-                    updateTotalPrice(); // Actualizar el precio
+                    const seatValue = this.getAttribute("data-seat");
+
+                    if (selectedSeats.includes(seatValue)) {
+                        // Deseleccionar asiento
+                        selectedSeats = selectedSeats.filter(s => s !== seatValue);
+                        this.classList.remove("selected");
+                    } else {
+                        // Seleccionar asiento
+                        selectedSeats.push(seatValue);
+                        this.classList.add("selected");
+                    }
+
+                    updateTotalPrice();
                 });
             });
         });
@@ -35,16 +93,29 @@
 </head>
 <body>
 
-<h1 th:text="'Purchase Tickets for ' + ${title}"></h1>
+<h1 th:text="'Compra de tickets para ' + ${title}"></h1>
 
 <form th:action="@{/ticket/confirm}" method="post">
 
-    <label for="seatSelect">Elija sus asientos:</label>
-    <select id="seatSelect" name="seats" multiple size="10" style="width: 100%; max-width: 200px;">
-        <option th:each="seat : ${seats}" th:value="${seat}" th:text="${seat}"></option>
-    </select>
+    <div class="seat-container">
+        <!-- Asientos ocupados -->
+        <div th:each="seat : ${seats}"
+             th:if="${seat.isOccupied}"
+             class="seat occupied"
+             th:data-seat="${seat.seatsRowCol}"
+             th:text="${seat.seatsRowCol}">
+        </div>
 
-    <p id="totalPrice">Total Price: $0</p>
+        <!-- Asientos disponibles -->
+        <div th:each="seat : ${seats}"
+             th:if="${!seat.isOccupied}"
+             class="seat available"
+             th:data-seat="${seat.seatsRowCol}"
+             th:text="${seat.seatsRowCol}">
+        </div>
+    </div>
+
+    <p id="totalPrice">Precio total: $0</p>
 
     <input type="hidden" name="title" th:value="${title}">
     <input type="hidden" name="movieScreeningId" th:value="${movieScreeningId}">

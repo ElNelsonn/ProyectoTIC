@@ -23,7 +23,7 @@ public class ScreenForController {
     private String name;
 
     @NotNull(message = "El cine no puede estar vacío.")
-    @Size(min = 1, max = 8, message = "El nombre del cine debe tener entre 2 y 30 caracteres")
+    @Size(min = 1, max = 30, message = "El nombre del cine debe tener entre 2 y 30 caracteres")
     private String cinemaName;
 
     @NotNull(message = "Dimensiones no validas")

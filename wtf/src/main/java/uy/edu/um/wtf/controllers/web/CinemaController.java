@@ -57,7 +57,7 @@ public class CinemaController {
 
 
             redirectAttributes.addFlashAttribute("message", "Cine creado con exito.");
-            return "redirect:/adminHomepage";
+            return "redirect:/administrator/home";
 
         } catch (EntityAlreadyExistsException | InvalidDataException e) {
 

@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import uy.edu.um.wtf.DTO.MovieForController;
 import uy.edu.um.wtf.entities.*;
 import uy.edu.um.wtf.exceptions.EntityAlreadyExistsException;
@@ -43,7 +44,7 @@ public class MovieController {
     }
 
     @PostMapping("/add")
-    public String addMovie(@ModelAttribute @Valid MovieForController movie, BindingResult result, Model model) {
+    public String addMovie(@ModelAttribute @Valid MovieForController movie, BindingResult result, Model model, RedirectAttributes redirectAttributes) {
 
         List<String> errorMessages = new ArrayList<>();
 
@@ -73,7 +74,8 @@ public class MovieController {
                     movie.getImageURL()
             );
 
-            return "client-signup-success";
+            redirectAttributes.addFlashAttribute("message", "Película agregada con exito.");
+            return "redirect:/administrator/home";
 
         } catch (EntityAlreadyExistsException | InvalidDataException e) {
 
@@ -86,6 +88,12 @@ public class MovieController {
 
     }
 
+
+
+
+
+
+
     @GetMapping("/info")
     public String getMovieinfo(Model model, @RequestParam String title, @AuthenticationPrincipal org.springframework.security.core.userdetails.User usuario) {
 
@@ -96,6 +104,12 @@ public class MovieController {
             model.addAttribute("errorMessage", "No se encontró la película con el título: " + title);
             return "redirect:/home";
         }
+
+        boolean isClient = usuario.getAuthorities().stream()
+                .anyMatch(authority -> authority.getAuthority().equals("ROLE_CLIENT"));
+
+        System.out.println(isClient);
+
 
         Movie movie = movieOp.get();
 
@@ -127,6 +141,8 @@ public class MovieController {
         String formattedReleaseDate = movie.getReleaseDate().format(formatter2);
 
 
+
+        model.addAttribute("isClient", isClient);
         model.addAttribute("funciones", infoMovieScreening);
         model.addAttribute("actors", actors);
         model.addAttribute("directors", directors);

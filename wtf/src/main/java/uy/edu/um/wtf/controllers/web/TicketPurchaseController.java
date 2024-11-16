@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import uy.edu.um.wtf.DTO.SeatForPurchase;
 import uy.edu.um.wtf.entities.*;
 import uy.edu.um.wtf.repository.CinemaRepository;
 import uy.edu.um.wtf.repository.ClientRepository;
@@ -87,26 +88,42 @@ public class TicketPurchaseController {
         }
         MovieScreening movieScreening = movieScreeningOp.get();
 
-        List<String> seatsFilaCol = new ArrayList<>();
+        List<SeatForPurchase> seatsForPurchase = new ArrayList<>();
 
 
         Integer col = screen.getColumns();
         Integer rows = screen.getRows();
+
         for (Seat seat: movieScreening.getSeats()) {
 
-            if (!seat.getIsOccupied()) {
+            SeatForPurchase newSeatForPurchase = new SeatForPurchase();
 
-                Integer seatR = (screen.getColumns()*screen.getColumns())/seat.getSeatNumber();
-                String seatRS = Integer.toString(seatR);
+            newSeatForPurchase.setIsOccupied(seat.getIsOccupied());
 
-                Integer seatC = (screen.getColumns()*screen.getColumns())%seat.getSeatNumber();
-                String seatCS = Integer.toString(seatC);
+            Integer seatC = null;
+            Integer seatR = null;
 
-                seatsFilaCol.add(seatRS + ", " + seatCS);
+            if ((seat.getSeatNumber() % col) == 0) {
+
+                seatC = col;
+                seatR = seat.getSeatNumber()/col;
+
+            } else {
+
+                seatR = (seat.getSeatNumber()/col) + 1;
+                seatC = seat.getSeatNumber()%col;
+
             }
+
+            String seatRS = Integer.toString(seatR);
+            String seatCS = Integer.toString(seatC);
+
+            newSeatForPurchase.setSeatsRowCol(seatRS + ", " + seatCS);
+
+            seatsForPurchase.add(newSeatForPurchase);
         }
 
-        model.addAttribute("seats", seatsFilaCol);
+        model.addAttribute("seats", seatsForPurchase);
         model.addAttribute("title", title);
         model.addAttribute("movieScreeningId", movieScreening.getId());
         model.addAttribute("price", 250);
