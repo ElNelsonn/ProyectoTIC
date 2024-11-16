@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import uy.edu.um.wtf.entities.Administrator;
 import uy.edu.um.wtf.entities.Client;
 import uy.edu.um.wtf.exceptions.EntityAlreadyExistsException;
@@ -35,7 +36,7 @@ public class AdministratorController {
     }
 
     @PostMapping("/signup")
-    public String registerClient(@ModelAttribute @Valid Administrator admin, BindingResult result, @RequestParam String password2, Model model) {
+    public String registerAdmin(@ModelAttribute @Valid Administrator admin, BindingResult result, @RequestParam String password2, Model model, RedirectAttributes redirectAttributes) {
 
         List<String> errorMessages = new ArrayList<>();
 
@@ -44,8 +45,6 @@ public class AdministratorController {
             for (FieldError error : result.getFieldErrors()) {
                 errorMessages.add(error.getDefaultMessage());
             }
-
-            System.out.println(errorMessages);
 
             model.addAttribute("todayDate", LocalDate.now());
             model.addAttribute("errorMessages", errorMessages);
@@ -61,7 +60,6 @@ public class AdministratorController {
 
         try {
 
-            System.out.println("Intento de sign up.");
 
             Administrator newAdmin = administratorService.addAdministrator(
                     admin.getIdentityCard(),
@@ -72,9 +70,10 @@ public class AdministratorController {
                     admin.getPassword()
             );
 
-            System.out.println("Sign up exitoso.");
 
-            return "redirect:/client/signup";
+
+            redirectAttributes.addFlashAttribute("message", "Admin creado con exito.");
+            return "redirect:/adminHomepage";
 
         } catch (EntityAlreadyExistsException | InvalidDataException e) {
 

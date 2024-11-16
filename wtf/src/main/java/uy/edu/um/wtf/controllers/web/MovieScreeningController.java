@@ -44,7 +44,9 @@ public class MovieScreeningController {
         List<String> movieTitle = allMoviesNames();
 
         if (movieTitle.isEmpty() || screenAndCinema.isEmpty()) {
-            return "snack-purchase";
+
+
+            return "redirect:/home";
         }
 
         model.addAttribute("todayDate", LocalDateTime.now());

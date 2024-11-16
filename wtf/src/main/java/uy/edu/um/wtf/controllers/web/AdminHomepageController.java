@@ -3,6 +3,7 @@ package uy.edu.um.wtf.controllers.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import uy.edu.um.wtf.services.AdministratorService;
@@ -12,13 +13,14 @@ import uy.edu.um.wtf.services.AdministratorService;
 public class AdminHomepageController {
 
     @GetMapping
-    public String showAdminHomePage() {
+    public String showAdminHomePage(Model model) {
+
         return "admin-homepage";
     }
 
     @GetMapping("/createAdmin")
     public String createAdmin() {
-        return "admin-creation";
+        return "redirect:/administrator/signup";
     }
 
     @GetMapping("/createSnack")

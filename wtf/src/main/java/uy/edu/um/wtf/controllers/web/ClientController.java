@@ -63,7 +63,6 @@ public class ClientController {
 
         try {
 
-            System.out.println("Intento de sign up.");
 
             Client newClient = clientService.addClient(
                     client.getIdentityCard(),
@@ -75,8 +74,6 @@ public class ClientController {
                     client.getEmail(),
                     client.getPassword()
             );
-
-            System.out.println("Sign up exitoso.");
 
             return "redirect:/login";
 

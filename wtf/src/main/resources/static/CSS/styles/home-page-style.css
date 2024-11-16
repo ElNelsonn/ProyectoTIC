@@ -1,0 +1,155 @@
+
+*
+{
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    box-sizing: border-box;
+}
+
+body {
+    background: #000000FF;
+    overflow-x: hidden;
+}
+
+.gallery {
+    display: flex;
+    overflow-x: auto;
+}
+
+.gallery-item {
+    margin-right: 20px;
+}
+
+.gallery img {
+    width: 300px;
+    height: auto;
+    max-height: 400px;
+    filter: grayscale(30%);
+    transition: transform 0.5s;
+}
+
+.gallery::-webkit-scrollbar {
+    display: none;
+}
+
+.gallery-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 10% auto;
+    margin-top: 80px;
+    position: relative;
+    z-index: 1;
+}
+
+#backBtn, #nextBtn {
+    width: 50px;
+    cursor: pointer;
+    margin: 40px;
+}
+
+.gallery img:hover {
+    filter: grayscale(0);
+    cursor: pointer;
+    transform: scale(1.1);
+}
+
+/* encabezado */
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.76);
+    padding: 10px 15px;
+    position: fixed;
+    z-index: 2;
+    width: 100%;
+    max-width: 100%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    height: 80px;
+}
+
+.logo {
+    height: 60px;
+    width: auto;
+    margin-right: 15px;
+}
+
+
+
+.header-links {
+    display: flex;
+    gap: 40px;
+}
+
+.header-links a, .header-links span {
+    color: #cecece;
+    text-decoration: none;
+}
+
+.header-links a:hover {
+    text-decoration: None;
+    color: #ffffff;
+}
+
+.header-links a:not(:last-child) {
+    margin-right: 15px;
+}
+
+/* imagen gigante */
+
+.imagen-Grande {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+}
+
+
+
+.gallery-wrap {
+    position: relative;
+    z-index: 1;
+}
+
+.imagen-Grande-container {
+    position: relative;
+    overflow: hidden;
+}
+
+.imagen-Grande-container::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to bottom, rgba(25, 25, 25, 0) 0%, rgb(0, 0, 0) 100%);
+    pointer-events: none;
+    z-index: 1;
+}
+
+.imagen-Central-container {
+    position: absolute;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 2;
+}
+
+.imagen-Central {
+    max-width: 60%;
+    z-index: 3;
+}
+
+.imagen-Secundaria {
+    max-width: 20%;
+    opacity: 0.8;
+    margin-top: 10px;
+    z-index: 1; 
+}

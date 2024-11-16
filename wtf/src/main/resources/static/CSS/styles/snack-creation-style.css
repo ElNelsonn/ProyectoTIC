@@ -1,21 +1,22 @@
-
-body {
+body{
     background-color: #121212;
     color: #e0e0e0;
     font-family: Arial, sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 20px;
-    margin: 0;
     min-height: 100vh;
+    margin: 20px;
+    padding-top: 20px;
+    overflow-y: auto;
     box-sizing: border-box;
 }
 
+
 form {
     background-color: #1e1e1e;
-    padding: 30px;
-    width: 400px;
+    padding: 40px;
+    width: 300px;
     border-radius: 4px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
 }
@@ -40,8 +41,8 @@ label {
 }
 
 input[type="text"],
-input[type="email"],
-input[type="number"] {
+input[type="number"],
+input[type="url"] {
     padding: 10px;
     font-size: 0.95em;
     color: #ffffff;
@@ -53,8 +54,8 @@ input[type="number"] {
 }
 
 input[type="text"]:focus,
-input[type="email"]:focus,
-input[type="number"]:focus {
+input[type="number"]:focus,
+input[type="url"]:focus {
     border: 1px solid #5a5a5a;
 }
 

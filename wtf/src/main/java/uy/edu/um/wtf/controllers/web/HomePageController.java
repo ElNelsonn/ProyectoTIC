@@ -8,7 +8,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import uy.edu.um.wtf.entities.Movie;
 import uy.edu.um.wtf.repository.MovieRepository;
 
@@ -60,7 +59,7 @@ public class HomePageController {
 //         } else
 //             model.addAttribute("signed", false);
 
-        return "test-home-page";
+        return "home-page";
     }
 }
 

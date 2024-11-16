@@ -9,6 +9,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import uy.edu.um.wtf.entities.Cinema;
 import uy.edu.um.wtf.exceptions.EntityAlreadyExistsException;
 import uy.edu.um.wtf.exceptions.InvalidDataException;
@@ -27,12 +28,12 @@ public class CinemaController {
 
     @GetMapping("/create")
     public String getCreateCinema(Model model){
-        model.addAttribute("todayDate", LocalDate.now());
+
         return "cinema-creation";
     }
 
     @PostMapping("/create")
-    public String createCinema(@ModelAttribute @Valid Cinema cinema, BindingResult result, Model model){
+    public String createCinema(@ModelAttribute @Valid Cinema cinema, BindingResult result, Model model, RedirectAttributes redirectAttributes){
 
         List<String> errorMessages = new ArrayList<>();
 
@@ -54,7 +55,9 @@ public class CinemaController {
                     cinema.getEmail()
             );
 
-            return "client-signup-success";
+
+            redirectAttributes.addFlashAttribute("message", "Cine creado con exito.");
+            return "redirect:/adminHomepage";
 
         } catch (EntityAlreadyExistsException | InvalidDataException e) {
 
