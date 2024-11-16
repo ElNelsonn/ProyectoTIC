@@ -7,7 +7,23 @@
     <link rel="icon" href="/images/LogoWTF.png" type="image/png" >
     <title>Client Profile | WTF</title>
 </head>
+
+<script>
+    window.onload = function() {
+
+        const messageContainer = document.getElementById('message-container');
+        const message = messageContainer.getAttribute('data-message');
+
+
+        if (message && message !== "null") {
+            alert(message);
+        }
+    };
+</script>
+
 <body>
+
+<div id="message-container" th:attr="data-message=${message}"></div>
 
 <header class="header">
     <img src="https://res.cloudinary.com/drmjvrs2p/image/upload/Logo2_xgiikc" alt="Logo" class="logo">
@@ -55,7 +71,7 @@
         </form>
 
         <div class="button-group">
-            <a href="/tickets" class="button">Ver mis tickets</a>
+            <a href="/ticket/mytickets" class="button">Ver mis tickets</a>
             <a href="/snack/mypurchases" class="button">Ver mis compras</a>
         </div>
     </div>

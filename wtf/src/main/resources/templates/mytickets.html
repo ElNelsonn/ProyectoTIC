@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Mis Tickets | WTF</title>
+    <link rel="stylesheet" href="/CSS/styles/mytickets-style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap" rel="stylesheet">
+    <link rel="icon" href="/images/LogoWTF.png" type="image/png" >
+
+</head>
+
+<script>
+    window.onload = function() {
+
+        const messageContainer = document.getElementById('message-container');
+        const message = messageContainer.getAttribute('data-message');
+
+
+        if (message && message !== "null") {
+            alert(message);
+        }
+    };
+</script>
+
+<body>
+
+<header class="header">
+    <img src="https://res.cloudinary.com/drmjvrs2p/image/upload/Logo2_xgiikc" alt="Logo" class="logo">
+
+    <div class="nav-links">
+        <a href="/home">Home</a>
+        <a href="/client/profile">Mi perfil</a>
+    </div>
+</header>
+
+<div class="message" id="message-container" th:attr="data-message=${message}"></div>
+
+
+<h1>Mis Tickets</h1>
+
+<div>
+    <ul>
+        <th:block th:if="${bloqueInfo}">
+            <li th:each="purchaseInfo : ${bloqueInfo}">
+                <h2 th:text="${purchaseInfo[1]}"></h2>
+                <span th:text="${purchaseInfo[2]}"></span>
+
+                <form action="/ticket/cancel" method="post">
+                    <input type="hidden" name="ticketId" th:value="${purchaseInfo[0]}" />
+                    <button type="submit">Cancelar</button>
+                </form>
+
+            </li>
+        </th:block>
+
+        <th:block th:if="${errorMessage}">
+            <p th:text="${errorMessage}"></p>
+        </th:block>
+    </ul>
+</div>
+</body>
+</html>

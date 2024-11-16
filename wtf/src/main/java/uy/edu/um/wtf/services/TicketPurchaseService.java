@@ -30,6 +30,9 @@ public class TicketPurchaseService {
     private MovieScreeningRepository movieScreeningRepo;
 
     @Autowired
+    private MovieScreeningService movieScreeningService;
+
+    @Autowired
     private Validator validator;
 
 
@@ -111,6 +114,33 @@ public class TicketPurchaseService {
         return ticketPurchaseRepo.save(newTicketPurchase);
 
     }
+
+    public List<TicketPurchase> purchasesByClient(String email) throws EntityNotFoundException {
+
+
+        Optional<Client> clientOptional = clientRepo.findClientByEmail(email);
+        if (clientOptional.isEmpty()) {
+
+            throw new EntityNotFoundException("No se encontró un cliente con ese id.");
+        }
+        Client client = clientOptional.get();
+
+        return ticketPurchaseRepo.findTicketPurchasesByClient(client);
+    }
+
+    public void cancelTicket(TicketPurchase ticketPurchase) {
+
+        movieScreeningService.liberarAsientos(ticketPurchase);
+
+        ticketPurchaseRepo.delete(ticketPurchase);
+    }
+
+
+
+
+
+
+
 
 
 }

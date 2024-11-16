@@ -113,6 +113,27 @@ public class MovieScreeningService {
         return movieScreeningRepo.findAll();
     }
 
+    public MovieScreening liberarAsientos(TicketPurchase ticketPurchase) {
+
+        MovieScreening movieScreening = ticketPurchase.getMovieScreening();
+
+        for (Seat seat: movieScreening.getSeats()) {
+
+            for (Seat seatTickets: ticketPurchase.getSeats()) {
+
+                if (seat.getSeatNumber().equals(seatTickets.getSeatNumber())) {
+
+                    seat.setIsOccupied(false);
+                    break;
+                }
+            }
+        }
+
+        return movieScreeningRepo.save(movieScreening);
+    }
+
+
+
 
 
 
