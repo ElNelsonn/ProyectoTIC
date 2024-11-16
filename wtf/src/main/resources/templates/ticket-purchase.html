@@ -7,18 +7,55 @@
     <link rel="icon" href="/images/LogoWTF.png" type="image/png">
 
     <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+        }
+
+        header {
+            background-color: #343a40;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2rem;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        .main-container {
+            padding: 20px;
+            max-width: 850px;
+            margin: auto;
+        }
+
+        h2 {
+            text-align: center;
+            color: #343a40;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
         .seat-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            max-width: 100%;
+            display: grid;
+            grid-gap: 6px; /* Menos separación entre columnas */
+            justify-content: center;
             margin: 20px 0;
         }
 
         .seat {
-            padding: 10px;
-            width: 40px;
-            height: 40px;
+            width: 50px; /* Aumentar tamaño de los asientos */
+            height: 50px; /* Aumentar tamaño de los asientos */
             display: flex;
             align-items: center;
             justify-content: center;
@@ -27,6 +64,8 @@
             text-align: center;
             cursor: pointer;
             user-select: none;
+            font-size: 0.9rem; /* Ajustar tamaño de fuente */
+            font-weight: bold;
         }
 
         .occupied {
@@ -46,6 +85,36 @@
             background-color: #ffffff;
             color: #000;
             border-color: #ccc;
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .seat.available:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        p#totalPrice {
+            font-size: 1.2rem;
+            text-align: center;
+            margin-top: 20px;
+            color: #333;
+        }
+
+        button {
+            display: block;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1rem;
+            margin: 20px auto;
+            border-radius: 5px;
+            cursor: pointer;
+            text-transform: uppercase;
+        }
+
+        button:hover {
+            background-color: #0056b3;
         }
     </style>
 
@@ -54,7 +123,9 @@
             const seatElements = document.querySelectorAll(".seat");
             const selectedSeatsInput = document.getElementById("selectedSeats");
             const totalPriceDisplay = document.getElementById("totalPrice");
-            const pricePerSeat = 250;
+
+            // Usamos el precio dinámico que pasa el controlador
+            const pricePerSeat = [[${price}]];
 
             let selectedSeats = [];
 
@@ -67,18 +138,15 @@
             seatElements.forEach(seat => {
                 seat.addEventListener("click", function () {
                     if (this.classList.contains("occupied")) {
-
                         return;
                     }
 
                     const seatValue = this.getAttribute("data-seat");
 
                     if (selectedSeats.includes(seatValue)) {
-
                         selectedSeats = selectedSeats.filter(s => s !== seatValue);
                         this.classList.remove("selected");
                     } else {
-
                         selectedSeats.push(seatValue);
                         this.classList.add("selected");
                     }
@@ -91,35 +159,33 @@
 </head>
 <body>
 
-<h1 th:text="'Compra de tickets para ' + ${title}"></h1>
+<header>
+    <h1>WTF Cinema</h1>
+</header>
 
-<form th:action="@{/ticket/confirm}" method="post">
+<div class="main-container">
+    <h2 th:text="'Compra de tickets para ' + ${title}"></h2>
 
-    <div class="seat-container">
-
-        <div th:each="seat : ${seats}"
-             th:if="${seat.isOccupied}"
-             class="seat occupied"
-             th:data-seat="${seat.seatsRowCol}"
-             th:text="${seat.seatsRowCol}">
+    <form th:action="@{/ticket/confirm}" method="post">
+        <div class="seat-container"
+             th:style="'grid-template-columns: repeat(' + ${maxColumns} + ', 1fr);'">
+            <div th:each="seat : ${seats}"
+                 th:classappend="${seat.isOccupied} ? 'occupied' : 'available'"
+                 class="seat"
+                 th:data-seat="${seat.seatsRowCol}"
+                 th:text="${seat.seatsRowCol}">
+            </div>
         </div>
 
-        <div th:each="seat : ${seats}"
-             th:if="${!seat.isOccupied}"
-             class="seat available"
-             th:data-seat="${seat.seatsRowCol}"
-             th:text="${seat.seatsRowCol}">
-        </div>
-    </div>
+        <p id="totalPrice">Precio total: $0</p>
 
-    <p id="totalPrice">Precio total: $0</p>
+        <input type="hidden" name="title" th:value="${title}">
+        <input type="hidden" name="movieScreeningId" th:value="${movieScreeningId}">
+        <input type="hidden" id="selectedSeats" name="selectedSeats" value="">
 
-    <input type="hidden" name="title" th:value="${title}">
-    <input type="hidden" name="movieScreeningId" th:value="${movieScreeningId}">
-    <input type="hidden" id="selectedSeats" name="selectedSeats" value="">
-
-    <button type="submit">Confirmar compra</button>
-</form>
+        <button type="submit">Confirmar compra</button>
+    </form>
+</div>
 
 </body>
 </html>

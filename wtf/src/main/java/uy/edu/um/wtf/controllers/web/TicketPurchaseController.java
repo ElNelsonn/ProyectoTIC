@@ -129,10 +129,18 @@ public class TicketPurchaseController {
             seatsForPurchase.add(newSeatForPurchase);
         }
 
+        LocalDate fechaGratisHasta = LocalDate.of(2025, 5, 16);
+        int price = 300;
+
+        if (LocalDate.now().isBefore(fechaGratisHasta)) {
+            price = 0;
+        }
+
         model.addAttribute("seats", seatsForPurchase);
         model.addAttribute("title", title);
         model.addAttribute("movieScreeningId", movieScreening.getId());
-        model.addAttribute("price", 250);
+        model.addAttribute("price", price);
+        model.addAttribute("maxColumns", col);
         return "ticket-purchase";
     }
 
