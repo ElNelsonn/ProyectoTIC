@@ -105,11 +105,14 @@ public class MovieController {
             return "redirect:/home";
         }
 
-        boolean isClient = usuario.getAuthorities().stream()
-                .anyMatch(authority -> authority.getAuthority().equals("ROLE_CLIENT"));
 
-        System.out.println(isClient);
+        boolean isClient = false;
 
+        if (!(usuario == null)) {
+
+            isClient = usuario.getAuthorities().stream()
+                    .anyMatch(authority -> authority.getAuthority().equals("ROLE_CLIENT"));
+        }
 
         Movie movie = movieOp.get();
 

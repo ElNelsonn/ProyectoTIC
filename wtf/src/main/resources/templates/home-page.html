@@ -10,6 +10,8 @@
 </head>
 <body>
 
+<div id="message-container" th:attr="data-message=${message}"></div>
+
 <header class="header">
     <img src="https://res.cloudinary.com/drmjvrs2p/image/upload/Logo2_xgiikc" alt="Logo" class="logo">
 
@@ -31,6 +33,7 @@
         </div>
     </div>
 </header>
+
 
 
 <div class="imagen-Grande-container">
@@ -58,6 +61,17 @@
     let scrollContainer = document.querySelector(".gallery");
     let backBtn = document.getElementById("backBtn");
     let nextBtn = document.getElementById("nextBtn");
+
+    window.onload = function() {
+
+        const messageContainer = document.getElementById('message-container');
+        const message = messageContainer.getAttribute('data-message');
+
+
+        if (message && message !== "null") {
+            alert(message);
+        }
+    };
 
     scrollContainer.addEventListener("wheel", (evt) => {
         evt.preventDefault();

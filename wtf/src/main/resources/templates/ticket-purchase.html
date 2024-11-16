@@ -11,7 +11,7 @@
             display: flex;
             flex-wrap: wrap;
             gap: 10px;
-            max-width: 400px;
+            max-width: 100%;
             margin: 20px 0;
         }
 
@@ -36,14 +36,14 @@
             cursor: not-allowed;
         }
 
-        .selected {
-            background-color: #4CAF50;
+        .seat.selected {
+            background-color: #4CAF50 !important;
             color: white;
             border-color: #4CAF50;
         }
 
         .seat.available {
-            background-color: #fff;
+            background-color: #ffffff;
             color: #000;
             border-color: #ccc;
         }
@@ -58,29 +58,27 @@
 
             let selectedSeats = [];
 
-            // Actualiza la visualización del precio total
             function updateTotalPrice() {
                 const total = selectedSeats.length * pricePerSeat;
                 totalPriceDisplay.textContent = `Precio total: $${total}`;
-                selectedSeatsInput.value = selectedSeats.join(",");
+                selectedSeatsInput.value = selectedSeats.join(";");
             }
 
-            // Alternar selección de asiento
             seatElements.forEach(seat => {
                 seat.addEventListener("click", function () {
                     if (this.classList.contains("occupied")) {
-                        // No hacer nada si el asiento está ocupado
+
                         return;
                     }
 
                     const seatValue = this.getAttribute("data-seat");
 
                     if (selectedSeats.includes(seatValue)) {
-                        // Deseleccionar asiento
+
                         selectedSeats = selectedSeats.filter(s => s !== seatValue);
                         this.classList.remove("selected");
                     } else {
-                        // Seleccionar asiento
+
                         selectedSeats.push(seatValue);
                         this.classList.add("selected");
                     }
@@ -98,7 +96,7 @@
 <form th:action="@{/ticket/confirm}" method="post">
 
     <div class="seat-container">
-        <!-- Asientos ocupados -->
+
         <div th:each="seat : ${seats}"
              th:if="${seat.isOccupied}"
              class="seat occupied"
@@ -106,7 +104,6 @@
              th:text="${seat.seatsRowCol}">
         </div>
 
-        <!-- Asientos disponibles -->
         <div th:each="seat : ${seats}"
              th:if="${!seat.isOccupied}"
              class="seat available"

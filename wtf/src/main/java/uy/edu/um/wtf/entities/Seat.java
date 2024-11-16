@@ -3,6 +3,7 @@ package uy.edu.um.wtf.entities;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
+import jakarta.persistence.Id;
 import jakarta.persistence.NamedEntityGraph;
 import lombok.*;
 
@@ -13,6 +14,7 @@ import lombok.*;
 @Setter
 @Builder
 public class Seat {
+
 
     @Column(name = "SEAT_NUMBER", nullable = false)
     private Integer seatNumber;

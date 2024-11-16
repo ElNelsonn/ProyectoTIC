@@ -11,19 +11,19 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import uy.edu.um.wtf.DTO.SeatForPurchase;
 import uy.edu.um.wtf.entities.*;
+import uy.edu.um.wtf.exceptions.EntityNotFoundException;
+import uy.edu.um.wtf.exceptions.InvalidDataException;
 import uy.edu.um.wtf.repository.CinemaRepository;
 import uy.edu.um.wtf.repository.ClientRepository;
 import uy.edu.um.wtf.repository.MovieScreeningRepository;
 import uy.edu.um.wtf.repository.ScreenRepository;
+import uy.edu.um.wtf.services.TicketPurchaseService;
 
 import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Controller
 @RequestMapping("/ticket")
@@ -41,6 +41,10 @@ public class TicketPurchaseController {
 
     @Autowired
     private ClientRepository clientRepo;
+
+    @Autowired
+    private TicketPurchaseService ticketPurchaseService;
+
 
     @PostMapping("/purchase")
     public String getTicketPurchase(@RequestParam String title, @RequestParam String function, Model model,
@@ -67,7 +71,7 @@ public class TicketPurchaseController {
         Optional<Cinema> cinemaOp = cinemaRepo.findCinemaByName(cinemaName);
         if (cinemaOp.isEmpty()) {
 
-            // Poner los errores
+            redirectAttributes.addFlashAttribute("message", "Uy ha surgido un error.");
             return "redirect:/home";
         }
         Cinema cinema = cinemaOp.get();
@@ -75,7 +79,7 @@ public class TicketPurchaseController {
         Optional<Screen> screenOp = screenRepo.findScreenByNameAndCinema(screenName, cinema);
         if (screenOp.isEmpty()) {
 
-            // Poner los errores
+            redirectAttributes.addFlashAttribute("message", "Uy ha surgido un error.");
             return "redirect:/home";
         }
         Screen screen = screenOp.get();
@@ -83,18 +87,21 @@ public class TicketPurchaseController {
         Optional<MovieScreening> movieScreeningOp = movieScreeningRepo.findMovieScreeningByScreenAndDate(screen, fechaHora);
         if (movieScreeningOp.isEmpty()) {
 
-            // Poner los errores
+            redirectAttributes.addFlashAttribute("message", "Uy ha surgido un error.");
             return "redirect:/home";
         }
         MovieScreening movieScreening = movieScreeningOp.get();
 
         List<SeatForPurchase> seatsForPurchase = new ArrayList<>();
 
+        List<Seat> seatsFromMoviescreening = movieScreening.getSeats();
+        seatsFromMoviescreening.sort(Comparator.comparingInt(Seat::getSeatNumber));
+
 
         Integer col = screen.getColumns();
         Integer rows = screen.getRows();
 
-        for (Seat seat: movieScreening.getSeats()) {
+        for (Seat seat: seatsFromMoviescreening) {
 
             SeatForPurchase newSeatForPurchase = new SeatForPurchase();
 
@@ -131,41 +138,24 @@ public class TicketPurchaseController {
     }
 
     @PostMapping("/confirm")
-    public String ticketPurchase(@RequestParam String[] seats, @RequestParam Long movieScreeningId,
-                                 @RequestParam String title, RedirectAttributes redirectAttributes) {
+    public String ticketPurchase(@RequestParam String selectedSeats, @RequestParam Long movieScreeningId,
+                                 @RequestParam String title, RedirectAttributes redirectAttributes,
+                                 @AuthenticationPrincipal org.springframework.security.core.userdetails.User usuario) {
 
-        Optional<MovieScreening> movieScreeningOp = movieScreeningRepo.findMovieScreeningById(movieScreeningId);
-        if (movieScreeningOp.isEmpty()) {
+        String[] seatArray = selectedSeats.split(";");
 
-            redirectAttributes.addAttribute("title", title);
-            redirectAttributes.addAttribute("errorMessages", "Error en la compra.");
-            return "redirect:/movie/info";
+        try {
+
+            ticketPurchaseService.addTicketPurchase(usuario.getUsername(), seatArray, movieScreeningId);
+
+            redirectAttributes.addFlashAttribute("message", "Compra de tickets con exito.");
+            return "redirect:/home";
+
+        } catch (InvalidDataException | EntityNotFoundException e) {
+
+            System.out.println(e.getMessage());
+            redirectAttributes.addFlashAttribute("message", "Error al realizar la compra.");
+            return "redirect:/home";
         }
-
-        MovieScreening movieScreening = movieScreeningOp.get();
-        Screen screen = movieScreening.getScreen();
-        Integer rows = screen.getRows();
-
-        List<Seat> seatList = new LinkedList<>();
-        for (String seat: seats) {
-
-            String[] parts = seat.split(", ");
-            Integer col = Integer.valueOf(parts[1]);
-            Integer row = Integer.valueOf(parts[0]);
-
-            Integer seatNumber = rows*row + col;
-
-            seatList = movieScreening.getSeats();
-            seatList.get(seatNumber - 1).setIsOccupied(true);
-
-        }
-
-        return "redirect:/home";
     }
-
-
-
-
-
-
 }
