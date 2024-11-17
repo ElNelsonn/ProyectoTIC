@@ -47,4 +47,5 @@ public class Cinema {
     @Builder.Default
     private List<Screen> screenList = new LinkedList<>();
 
+
 }

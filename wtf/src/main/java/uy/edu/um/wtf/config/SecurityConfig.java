@@ -32,13 +32,32 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests((authorizeRequests ) -> authorizeRequests
-                        .requestMatchers("/h2-console").permitAll()
-//                        .requestMatchers("/static/**").permitAll()
-//                        .requestMatchers(HttpMethod.GET, "/administrator/signup").hasRole("CLIENT")
-//                        .requestMatchers(HttpMethod.POST, "/administrator/signup").hasRole("CLIENT")
-//                        .requestMatchers(HttpMethod.GET, "/client/signup").permitAll()
-//                        .requestMatchers(HttpMethod.POST, "/client/signup").permitAll()
-//                        .requestMatchers("/movie/**").hasRole("ADMIN")
+                        .requestMatchers("/static/**").permitAll()
+
+                        .requestMatchers("/administrator/**").hasRole("ADMIN")
+
+                        .requestMatchers("/cinema/**").hasRole("ADMIN")
+
+                        .requestMatchers( "/client/**").permitAll()
+                        .requestMatchers("/client/profile").hasRole("CLIENT")
+
+                        .requestMatchers("/login").permitAll()
+
+                        .requestMatchers("/movie/add").hasRole("ADMIN")
+                        .requestMatchers("/movie/info").permitAll()
+
+                        .requestMatchers("/moviescreening/**").hasRole("ADMIN")
+
+                        .requestMatchers("/screen/**").hasRole("ADMIN")
+
+                        .requestMatchers("/snack/create").hasRole("ADMIN")
+                        .requestMatchers("/snack/purchase").hasRole("CLIENT")
+                        .requestMatchers("/snack/mypurchases").hasRole("CLIENT")
+
+                        .requestMatchers("/ticket/**").hasRole("CLIENT")
+
+                        .requestMatchers("/home").permitAll()
+
                         .anyRequest().permitAll()
                 )
 
