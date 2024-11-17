@@ -103,8 +103,8 @@ public class SecurityConfig {
 
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
 
-        authProvider.setUserDetailsService(customUserDetailsService);  // Aquí utilizamos tu servicio personalizado
-        authProvider.setPasswordEncoder(passwordEncoder());           // Aquí configuramos el encoder
+        authProvider.setUserDetailsService(customUserDetailsService);
+        authProvider.setPasswordEncoder(passwordEncoder());
 
         return authProvider;
     }
@@ -112,7 +112,7 @@ public class SecurityConfig {
     @Bean
     public AuthenticationManager authenticationManager(HttpSecurity http) throws Exception {
         return http.getSharedObject(AuthenticationManagerBuilder.class)
-                .authenticationProvider(authenticationProvider())     // Usamos el authentication provider
+                .authenticationProvider(authenticationProvider())
                 .build();
     }
 
