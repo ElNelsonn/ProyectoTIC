@@ -101,9 +101,9 @@ a {
     margin-right: 20px;
     width: 50%;
     box-sizing: border-box;
-    display: flex; /* Usar Flexbox en el contenedor de compra */
-    flex-direction: column; /* Colocar los elementos en columna */
-    justify-content: center; /* Centrar verticalmente */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 p {
@@ -133,45 +133,45 @@ strong {
 .purchase-form {
     display: flex;
     flex-direction: column;
-    gap: 15px; /* Espacio entre los elementos del formulario */
-    height: 100%; /* Asegura que el formulario ocupe toda la altura del contenedor */
+    gap: 15px;
+    height: 100%;
 }
 
 label {
     font-size: 18px;
-    color: #ffffff; /* Color del texto del label */
+    color: #ffffff
 }
 
 select {
-    padding: 10px; /* Espaciado interno del select */
-    border: 1px solid #4a90e2; /* Borde del select */
-    border-radius: 2px; /* Bordes redondeados */
-    background-color: #2a2a2a; /* Color de fondo del select */
-    color: #ffffff; /* Color del texto dentro del select */
-    font-size: 16px; /* Tamaño de fuente del select */
-    transition: border-color 0.3s; /* Transición suave para el borde */
+    padding: 10px;
+    border: 1px solid #4a90e2;
+    border-radius: 2px;
+    background-color: #2a2a2a;
+    color: #ffffff;
+    font-size: 16px;
+    transition: border-color 0.3s;
 }
 
 select:focus {
-    border-color: #5bc0de; /* Cambia el color del borde al hacer foco */
-    outline: none; /* Quitar el contorno predeterminado */
+    border-color: #5bc0de;
+    outline: none;
 }
 
 .submit-button {
-    padding: 10px 15px; /* Espaciado interno del botón */
-    background-color: #4a90e2; /* Color de fondo del botón */
-    color: white; /* Color del texto del botón */
-    border: none; /* Sin borde */
-    border-radius: 2px; /* Bordes redondeados */
-    font-size: 16px; /* Tamaño de fuente del botón */
-    cursor: pointer; /* Cambia el cursor al pasar el ratón sobre el botón */
-    transition: background-color 0.3s; /* Transición suave para el fondo */
-    width: 200px; /* Establece el ancho del botón */
-    margin-top: 20px; /* Espacio superior para el botón */
-    align-self: center; /* Centra el botón en el contenedor */
+    padding: 10px 15px;
+    background-color: #4a90e2;
+    color: white;
+    border: none;
+    border-radius: 2px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: 200px;
+    margin-top: 20px;
+    align-self: center;
 }
 
 .submit-button:hover {
-    background-color: #357ab8; /* Color del botón al pasar el ratón */
+    background-color: #357ab8;
 }
 
