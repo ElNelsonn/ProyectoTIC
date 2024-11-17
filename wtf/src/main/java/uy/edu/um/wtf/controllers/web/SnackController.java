@@ -24,6 +24,7 @@ import uy.edu.um.wtf.services.SnackPurchaseService;
 import uy.edu.um.wtf.services.SnackService;
 import uy.edu.um.wtf.services.UserService;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -100,24 +101,41 @@ public class SnackController {
 
 
     @GetMapping("/purchase")
-    public String getSnacks(Model model, @AuthenticationPrincipal org.springframework.security.core.userdetails.User usuario) {
+    public String getSnacks(Model model, @AuthenticationPrincipal org.springframework.security.core.userdetails.User usuario,
+                            RedirectAttributes redirectAttributes) {
+
+        Optional<User> clientOpt = userRepo.findUserByEmail(usuario.getUsername());
+        Client client = null;
+
+        if (clientOpt.isPresent() && clientOpt.get() instanceof Client) {
+            client = (Client) clientOpt.get();
+        }
+
+        Boolean valido = true;
+        if (client.getCardNumber() == null || client.getCardExpirationDate() == null || client.getCardExpirationDate().isBefore(LocalDate.now())) {
+
+            valido = false;
+        }
 
         List<Snack> snacks = snackRepo.findAll();
 
         if (snacks.isEmpty()) {
 
+            redirectAttributes.addFlashAttribute("message", "No tienes un método de pago valido para realizar la compra.");
             return "redirect:/home";
         }
 
+
+        model.addAttribute("valido", valido);
         model.addAttribute("snacks", snacks);
         return "snack-purchase";
     }
 
     @PostMapping("/purchase")
-    public String getSnacks(@RequestBody List<Snack> carrito, Model model) {
+    public String getSnacks(@RequestBody List<Snack> carrito, Model model, RedirectAttributes redirectAttributes) {
 
         if (carrito.isEmpty()) {
-
+            redirectAttributes.addFlashAttribute("message", "No tienes un método de pago valido para realizar la compra.");
             return "redirect:/snack/purchase";
         }
 
@@ -150,6 +168,12 @@ public class SnackController {
             client = (Client) clientOpt.get();
         }
 
+        if (client.getCardNumber() == null || client.getCardExpirationDate() == null || client.getCardExpirationDate().isBefore(LocalDate.now())) {
+
+            redirectAttributes.addFlashAttribute("message", "No tienes un método de pago valido para realizar la compra.");
+            return "redirect:/home";
+        }
+
 
         try {
 
@@ -177,13 +201,14 @@ public class SnackController {
     }
 
     @GetMapping("/mypurchases")
-    public String getPurchases(Model model, @AuthenticationPrincipal org.springframework.security.core.userdetails.User usuario) {
+    public String getPurchases(Model model, @AuthenticationPrincipal org.springframework.security.core.userdetails.User usuario, RedirectAttributes redirectAttributes) {
         List<SnackPurchase> snacks = snackPurchaseService.allPurchasesByUser(usuario.getUsername());
         List<List<String>> bloqueTodaInfo = new LinkedList<>();
 
         if (snacks.isEmpty()) {
-            model.addAttribute("errorMessage", "No hay compras realizadas ");
-            return "redirect:/home";
+
+            redirectAttributes.addFlashAttribute("message", "No has comprado ningún snack.");
+            return "redirect:/client/profile";
         }
 
         for (SnackPurchase snackPurchase : snacks) {

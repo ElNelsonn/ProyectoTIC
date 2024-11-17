@@ -179,7 +179,7 @@ public class TicketPurchaseController {
             if (ticketPurchases.isEmpty()) {
 
                 redirectAttributes.addFlashAttribute("message", "No has comprado ningún ticket.");
-                return "redirect:/profile";
+                return "redirect:/client/profile";
             }
 
             List<List<String>> bloqueInfo = new LinkedList<>();
