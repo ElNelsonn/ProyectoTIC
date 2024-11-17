@@ -7,7 +7,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-image: url('https://res.cloudinary.com/drmjvrs2p/image/upload/fondo_mas_oscur_mocvnj');
+    background-image: url("/images/Fondo2.png");
     background-size: cover;
     background-position: center center;
     background-attachment: fixed;
@@ -23,6 +23,7 @@ body {
 }
 h1 {
     color: #ffffff;
+    text-align: center;
     font-family: 'Roboto', sans-serif;
 }
 

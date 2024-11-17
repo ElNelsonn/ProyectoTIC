@@ -1,7 +1,12 @@
 
 body {
-    background-color: #121212;
-    color: #e0e0e0;
+    background-color: #000000;
+    background-image: url("/images/Fondo2.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed;
+    color: #ffffff;
     font-family: Arial, sans-serif;
     display: flex;
     justify-content: center;
@@ -9,6 +14,28 @@ body {
     min-height: 100vh;
     margin: 0;
 }
+
+.logo-form {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.logo-form a {
+    text-decoration: none;
+}
+
+.logo-form img {
+    cursor: pointer;
+    max-width: 140px;
+    height: auto;
+    transition: transform 0.3s ease;
+}
+
+.logo-form img:hover {
+    transform: scale(1.05);
+}
+
 
 form {
     background-color: #1e1e1e;
@@ -34,6 +61,11 @@ label {
     font-size: 0.9em;
     color: #b0b0b0;
     margin-bottom: 5px;
+}
+
+.logo-form {
+
+
 }
 
 input[type="email"], input[type="password"] {

@@ -1,6 +1,11 @@
 
 body {
     background-color: #121212;
+    background-image: url("/images/Fondo2.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed;
     color: #e0e0e0;
     font-family: Arial, sans-serif;
     display: flex;
@@ -19,6 +24,27 @@ form {
     border-radius: 4px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
     margin-bottom: 20px;
+}
+
+.logo-form {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.logo-form a {
+    text-decoration: none;
+}
+
+.logo-form img {
+    cursor: pointer;
+    max-width: 140px;
+    height: auto;
+    transition: transform 0.3s ease;
+}
+
+.logo-form img:hover {
+    transform: scale(1.05);
 }
 
 h2 {

@@ -11,24 +11,60 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f8f9fa;
+            background-image: url("/images/Fondo2.png");
+            background-size: cover;
+            background-position: center center;
+            background-attachment: fixed;
         }
 
-        header {
-            background-color: #343a40;
-            color: white;
-            padding: 20px;
-            text-align: center;
-            position: sticky;
-            top: 0;
-            z-index: 10;
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #ff0000;
+
+            height: 60px;
+            background-color: rgba(0, 0, 0, 0.76);
+            width: 100%;
+
         }
 
-        header h1 {
+        .header a {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 1em;
+            margin-right: 15px;
+            background-color: transparent;
+        }
+
+        .header a:hover {
+            color: #b9b9b9;
+        }
+
+
+        .logo {
+            height: 60px;
+            width: auto;
+            margin-left: 25px;
+        }
+
+        .header .nav-links {
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
             margin: 0;
-            font-size: 2rem;
-            font-weight: bold;
-            letter-spacing: 2px;
+        }
+
+        .header .nav-links a {
+            color: #c4c4c4;
+            text-decoration: none;
+            font-size: 1em;
+            padding: 0 10px;
+            background-color: transparent;
+        }
+
+        .header .nav-links a:hover {
+            color: #ffffff;
         }
 
         .main-container {
@@ -37,25 +73,42 @@
             margin: auto;
         }
 
+        .screen-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .screen-image {
+            width: 100%;
+            max-width: 800px;
+            height: auto;
+            display: inline-block;
+        }
+
         h2 {
             text-align: center;
-            color: #343a40;
-            font-size: 1.8rem;
-            margin-bottom: 20px;
+            color: #ffffff;
+            font-size: 2.2rem; /* Tamaño de fuente más grande */
+            margin-bottom: 30px;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 1.5px;
+            font-weight: bold;
+            text-shadow: 3px 3px 8px rgba(225, 25, 32, 0.91);
+            padding: 20px;
+            border-radius: 10px; /* Bordes redondeados */
+
         }
 
         .seat-container {
             display: grid;
-            grid-gap: 6px; /* Menos separación entre columnas */
+            grid-gap: 6px;
             justify-content: center;
             margin: 20px 0;
         }
 
         .seat {
-            width: 50px; /* Aumentar tamaño de los asientos */
-            height: 50px; /* Aumentar tamaño de los asientos */
+            width: 50px;
+            height: 50px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -64,7 +117,7 @@
             text-align: center;
             cursor: pointer;
             user-select: none;
-            font-size: 0.9rem; /* Ajustar tamaño de fuente */
+            font-size: 0.9rem;
             font-weight: bold;
         }
 
@@ -97,7 +150,7 @@
             font-size: 1.2rem;
             text-align: center;
             margin-top: 20px;
-            color: #333;
+            color: #ffffff;
         }
 
         button {
@@ -116,6 +169,7 @@
         button:hover {
             background-color: #0056b3;
         }
+
     </style>
 
     <script>
@@ -159,12 +213,21 @@
 </head>
 <body>
 
-<header>
-    <h1>WTF Cinema</h1>
+<header class="header">
+    <img src="https://res.cloudinary.com/drmjvrs2p/image/upload/Logo2_xgiikc" alt="Logo" class="logo">
+
+    <div class="nav-links">
+        <a href="/home">Home</a>
+    </div>
 </header>
 
 <div class="main-container">
+
     <h2 th:text="'Compra de tickets para ' + ${title}"></h2>
+
+    <div class="screen-container">
+        <img src="/images/Pantalla.png" alt="Pantalla" class="screen-image">
+    </div>
 
     <form th:action="@{/ticket/confirm}" method="post">
         <div class="seat-container"

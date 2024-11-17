@@ -35,10 +35,10 @@
 
 <div class="message" id="message-container" th:attr="data-message=${message}"></div>
 
-
-<h1>Mis Tickets</h1>
-
 <div>
+
+    <h1>Mis Tickets</h1>
+
     <ul>
         <th:block th:if="${bloqueInfo}">
             <li th:each="purchaseInfo : ${bloqueInfo}">

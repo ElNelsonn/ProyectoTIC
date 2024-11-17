@@ -18,11 +18,11 @@ body {
 .container {
     max-width: 550px;
     margin: 80px auto 20px;
-    background: rgba(0, 0, 0, 0.85); /* Fondo oscuro para el contenedor */
+    background: rgba(0, 0, 0, 0.85);
     border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Sombra tenue */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     overflow: hidden;
-    padding: 20px; /* Espaciado adicional */
+    padding: 20px;
 }
 
 
@@ -32,14 +32,14 @@ body {
     align-items: center;
     background-color: #000000;
     padding: 10px 15px;
-    height: 80px;
-    background-color: rgba(0, 0, 0, 0.76); /* Negro con 10% de opacidad */
+    height: 60px;
+    background-color: rgba(0, 0, 0, 0.76);
 }
 
 .logo {
     height: 60px;
     width: auto;
-    margin-right: 15px;
+    margin-left: 10px;
 }
 
 .header-links {
@@ -51,7 +51,7 @@ body {
     color: rgb(204, 204, 204);
     text-decoration: none;
     font-size: 1em;
-    font-weight: bold;
+    margin-right: 25px;
 }
 
 .header-links a:hover {
@@ -197,7 +197,7 @@ label[for="cardExpirationDate"] {
 }
 
 body {
-    background-image: url("https://res.cloudinary.com/drmjvrs2p/image/upload/fondo_mas_oscur_mocvnj");
+    background-image: url("/images/Fondo2.png");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;

@@ -35,8 +35,7 @@ h1 {
     color: #ffffff;
     text-decoration: none;
     font-size: 1em;
-    font-weight: bold;
-    margin-right: 25px;
+    margin-right: 15px;
     background-color: transparent;
 }
 
@@ -51,6 +50,24 @@ h1 {
     margin-left: 25px;
 }
 
+.header .nav-links {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    margin: 0;
+}
+
+.header .nav-links a {
+    color: #c4c4c4;
+    text-decoration: none;
+    font-size: 1em;
+    padding: 0 10px;
+    background-color: transparent;
+}
+
+.header .nav-links a:hover {
+    color: #ffffff;
+}
 
 div {
     background-color: rgba(2, 0, 0, 0.71);
