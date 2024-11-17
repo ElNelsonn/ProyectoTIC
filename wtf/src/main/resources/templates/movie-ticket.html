@@ -6,6 +6,20 @@
     <link rel="stylesheet" href="/CSS/styles/movie-ticket-style.css">
     <link rel="icon" href="/images/LogoWTF.png" type="image/png" >
 </head>
+
+<script>
+    window.onload = function() {
+
+        const messageContainer = document.getElementById('message-container');
+        const message = messageContainer.getAttribute('data-message');
+
+
+        if (message && message !== "null") {
+            alert(message);
+        }
+    };
+</script>
+
 <body>
 
 <header class="header">
@@ -55,6 +69,8 @@
 
         </form>
     </div>
+
+    <div id="message-container" th:attr="data-message=${message}"></div>
 
 </div>
 

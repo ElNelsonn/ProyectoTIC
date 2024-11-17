@@ -55,7 +55,7 @@ public class TicketPurchaseController {
                 || clientRepo.findClientByEmail(usuario.getUsername()).get().getCardExpirationDate().isBefore(LocalDate.now())) {
 
             redirectAttributes.addAttribute("title", title);
-            redirectAttributes.addAttribute("errorMessages", "Método de pago rechazado.");
+            redirectAttributes.addFlashAttribute("message", "Método de pago rechazado.");
             return "redirect:/movie/info";
         }
 
@@ -155,7 +155,7 @@ public class TicketPurchaseController {
 
             ticketPurchaseService.addTicketPurchase(usuario.getUsername(), seatArray, movieScreeningId);
 
-            redirectAttributes.addFlashAttribute("message", "Compra de tickets con exito.");
+            redirectAttributes.addFlashAttribute("message", "Compra de tickets realizada con exito.");
             return "redirect:/home";
 
         } catch (InvalidDataException | EntityNotFoundException e) {

@@ -2,10 +2,10 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Snacks | WTF </title>
-    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>Snacks | WTF</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
-    <link rel="icon" href="/images/LogoWTF.png" type="image/png" >
+    <link rel="icon" href="/images/LogoWTF.png" type="image/png">
     <style>
         h1 {
             font-family: 'Montserrat', sans-serif;
@@ -110,40 +110,43 @@
             const DOMtotal = document.querySelector('#total');
             const DOMbotonVaciar = document.querySelector('#boton-vaciar');
             const DOMbotonComprar = document.querySelector('#boton-comprar');
+            const esValido = /* Thymeleaf para pasar el valor */ [[${valido}]];
 
             function renderizarCarrito() {
                 DOMcarrito.textContent = '';
-                const carritoSinDuplicados = [...new Set(carrito.map(item => item.id))]; // Obtener solo los IDs únicos
+                const carritoSinDuplicados = [...new Set(carrito.map(item => item.id))];
                 carritoSinDuplicados.forEach((id) => {
                     const item = carrito.find(item => item.id === id);
                     const numeroUnidadesItem = carrito.reduce((total, itemId) => {
                         return itemId.id === id ? total + 1 : total;
                     }, 0);
                     const miNodo = document.createElement('li');
-                    miNodo.classList.add('list-group-item', 'd-flex', 'justify-content-between', 'align-items-center'); // Flexbox para alinear
-
+                    miNodo.classList.add('list-group-item', 'd-flex', 'justify-content-between', 'align-items-center');
                     miNodo.textContent = `${numeroUnidadesItem} x ${item.name} - ${item.price}${divisa}`;
                     const miBoton = document.createElement('button');
                     miBoton.classList.add('btn', 'btn-danger', 'btn-sm');
                     miBoton.textContent = 'X';
                     miBoton.addEventListener('click', () => borrarItemCarrito(item.id));
-
                     miNodo.appendChild(miBoton);
                     DOMcarrito.appendChild(miNodo);
                 });
                 DOMtotal.textContent = calcularTotal();
             }
+
             function calcularTotal() {
                 return carrito.reduce((total, item) => total + item.price, 0).toFixed(2);
             }
+
             function borrarItemCarrito(id) {
                 carrito = carrito.filter(item => item.id !== id);
                 renderizarCarrito();
             }
+
             function anyadirProductoAlCarrito(snack) {
                 carrito.push(snack);
                 renderizarCarrito();
             }
+
             document.querySelectorAll('.add-to-cart').forEach(button => {
                 button.addEventListener('click', () => {
                     const id = parseInt(button.dataset.id);
@@ -153,22 +156,24 @@
                     anyadirProductoAlCarrito(snack);
                 });
             });
+
             DOMbotonVaciar.addEventListener('click', () => {
                 carrito = [];
                 renderizarCarrito();
             });
 
             DOMbotonComprar.addEventListener('click', () => {
+                if (!esValido) {
+                    alert('No puedes realizar compras en este momento.');
+                    return;
+                }
                 if (carrito.length === 0) {
                     alert('El carrito está vacío. Añade snacks antes de comprar.');
                     return;
                 }
-                const url = '/snack/purchase';
-                fetch(url, {
+                fetch('/snack/purchase', {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
+                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(carrito)
                 })
                     .then(response => {
@@ -185,6 +190,7 @@
                         alert('Hubo un error al enviar la compra. Inténtalo de nuevo.');
                     });
             });
+
             renderizarCarrito();
         });
     </script>
@@ -200,7 +206,6 @@
 <div class="container main-content">
     <div class="row">
         <main id="items" class="col-sm-8 row">
-
             <div th:each="snack : ${snacks}" class="card col-sm-4">
                 <div class="card-body">
                     <img th:src="@{${snack.imageURL}}" class="img-fluid">
@@ -222,7 +227,10 @@
             <hr>
             <p class="text-right">Total: <span id="total"></span>$</p>
             <button id="boton-vaciar" class="btn btn-danger">Vaciar</button>
-            <button id="boton-comprar" class="btn btn-success">Comprar</button>
+            <button id="boton-comprar" class="btn btn-success" th:disabled="${!valido}">Comprar</button>
+            <div th:if="${!valido}" class="alert alert-warning mt-2" role="alert">
+                No puedes realizar compras en este momento. Por favor, verifica tu método de pago.
+            </div>
         </aside>
     </div>
 </div>
