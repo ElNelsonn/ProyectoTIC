@@ -1,4 +1,4 @@
-Proyecto TIC
+Proyecto TIC grupo 12
 
 - Santiago Bordone
 - Joaquín Fiorina
