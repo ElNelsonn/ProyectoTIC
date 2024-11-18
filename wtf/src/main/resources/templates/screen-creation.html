@@ -18,7 +18,7 @@
     </div>
 
     <div class="formulario_input">
-        <label for="cinemaSelection"> Cinema </label>
+        <label for="cinemaSelection"> Cine </label>
         <select name="cinemaName" id="cinemaSelection" required>
             <option value="" disabled selected>Seleccione un cine</option>
             <option th:each="cinemaName : ${allCinemasNames}" th:value="${cinemaName}" th:text="${cinemaName}"></option>
