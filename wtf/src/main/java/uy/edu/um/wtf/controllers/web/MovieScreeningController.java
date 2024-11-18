@@ -20,6 +20,7 @@ import uy.edu.um.wtf.services.MovieScreeningService;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -50,7 +51,7 @@ public class MovieScreeningController {
             return "redirect:/home";
         }
 
-        model.addAttribute("todayDate", LocalDateTime.now());
+        model.addAttribute("todayDate", LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm")));
         model.addAttribute("screensCinemas", screenAndCinema);
         model.addAttribute("moviesTitle", movieTitle);
         return "moviescreening-creation";

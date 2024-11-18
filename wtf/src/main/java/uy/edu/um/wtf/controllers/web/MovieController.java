@@ -19,6 +19,7 @@ import uy.edu.um.wtf.repository.MovieScreeningRepository;
 import uy.edu.um.wtf.services.MovieService;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
@@ -116,7 +117,7 @@ public class MovieController {
 
         Movie movie = movieOp.get();
 
-        List<MovieScreening> allMovieScreeningForMovie = movieScreeningRepo.findMovieScreeningsByMovie(movie);
+        List<MovieScreening> allMovieScreeningForMovie = movieScreeningRepo.findMovieScreeningsByDateAfterAndMovie(LocalDateTime.now(), movie);
 
         List<String> infoMovieScreening = new LinkedList<>();
 
