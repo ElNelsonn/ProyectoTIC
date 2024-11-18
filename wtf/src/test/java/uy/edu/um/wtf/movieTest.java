@@ -76,8 +76,6 @@ public class movieTest {
 
         assertEquals("Seven", savedMovie.getTitle());
         verify(movieRepo).save(any(Movie.class));
-
-
     }
 }
 
