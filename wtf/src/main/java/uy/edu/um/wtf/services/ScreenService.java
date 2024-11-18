@@ -32,20 +32,17 @@ public class ScreenService {
 
     public Screen addScreen(String name, String cinemaName, Integer columns, Integer rows) throws InvalidDataException, EntityNotFoundException, EntityAlreadyExistsException {
 
-        // Verificar existencia de entidades
         Optional<Cinema> cinemaOptional = cinemaRepo.findCinemaByName(cinemaName);
         if (cinemaOptional.isEmpty()) {
             throw new EntityNotFoundException("No se encontró un cine con ese nombre.");
         }
         Cinema cinema = cinemaOptional.get();
 
-        // Control de duplicados
         Optional<Screen> screenOptional = screenRepo.findScreenByNameAndCinema(name, cinema);
         if (screenOptional.isPresent()) {
             throw new EntityAlreadyExistsException("Ya exsite una sala con ese nombre");
         }
 
-        // Crear un nuevo MovieScreening
         Screen newScreen = Screen.builder().
                 name(name).
                 cinema(cinema).
@@ -53,10 +50,8 @@ public class ScreenService {
                 columns(columns).
                 build();
 
-        // Validaciones
         ValidationUtil.validate(newScreen, validator);
 
-        // Agregar screen
         return screenRepo.save(newScreen);
     }
 

@@ -35,7 +35,6 @@ SnackPurchaseService {
 
     public SnackPurchase addSnackPurchase(List<Snack> snacks, Client client, LocalDateTime date) throws InvalidDataException, EntityNotFoundException {
 
-        // Control de existencias
         if (clientRepo.findClientByIdentityCard(client.getIdentityCard()).isEmpty()) {
             throw new EntityNotFoundException("Cliente no encontrado.");
         }
@@ -49,7 +48,6 @@ SnackPurchaseService {
             price += snack.getPrice();
         }
 
-        // Crear snack purchase
         SnackPurchase newSnackPurchase = SnackPurchase.builder().
                 snackList(snacks).
                 client(client).
@@ -57,10 +55,8 @@ SnackPurchaseService {
                 totalPrice(price).
                 build();
 
-        // Validaciones
         ValidationUtil.validate(newSnackPurchase, validator);
 
-        // Save new snack purchase
         return snackPurchaseRepo.save(newSnackPurchase);
     }
 

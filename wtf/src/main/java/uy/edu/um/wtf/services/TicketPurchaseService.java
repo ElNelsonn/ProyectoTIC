@@ -38,7 +38,6 @@ public class TicketPurchaseService {
 
     public TicketPurchase addTicketPurchase(String email, String[] seatsSelected, Long moviescreeningId) throws InvalidDataException, EntityNotFoundException {
 
-        // Verificar existencia de entidades
         Optional<Client> clientOptional = clientRepo.findClientByEmail(email);
         if (clientOptional.isEmpty()) {
 
@@ -70,7 +69,6 @@ public class TicketPurchaseService {
             seatsComprados.add(number);
         }
 
-
         List<Seat> seatDef = new LinkedList<>();
 
         for (Seat seat: seatsFuncion) {
@@ -86,7 +84,6 @@ public class TicketPurchaseService {
             }
         }
 
-
         LocalDate fechaGratisHasta = LocalDate.of(2025, 5, 16);
         int price = 300;
 
@@ -94,8 +91,6 @@ public class TicketPurchaseService {
             price = 0;
         }
 
-
-        // Crear nuevo TicketPurchase
         TicketPurchase newTicketPurchase = TicketPurchase.builder().
                 client(client).
                 movieScreening(movieScreening).
@@ -104,19 +99,16 @@ public class TicketPurchaseService {
                 totalPrice((long) (seatDef.size() * price)).
                 build();
 
-        // Validaciones
         ValidationUtil.validate(newTicketPurchase, validator);
 
         movieScreening.setSeats(seatsFuncion);
         movieScreeningRepo.save(movieScreening);
 
-        // Save new ticketPurchase
         return ticketPurchaseRepo.save(newTicketPurchase);
 
     }
 
     public List<TicketPurchase> purchasesByClient(String email) throws EntityNotFoundException {
-
 
         Optional<Client> clientOptional = clientRepo.findClientByEmail(email);
         if (clientOptional.isEmpty()) {

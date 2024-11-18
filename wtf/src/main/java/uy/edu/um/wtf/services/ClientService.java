@@ -88,10 +88,6 @@ public class ClientService {
 
 
 
-
-
-
-
     public Optional<Client> findClientByEmail(String email) {
 
         return clientRepo.findClientByEmail(email);

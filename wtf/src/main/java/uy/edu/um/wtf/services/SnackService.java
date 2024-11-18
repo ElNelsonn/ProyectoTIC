@@ -22,28 +22,22 @@ public class SnackService {
 
     public Snack addSnack(String name, Long price, String imageURL) throws InvalidDataException, EntityAlreadyExistsException {
 
-        // Control de duplicados
         if (snackRepo.findSnackByName(name).isPresent()) {
             throw new EntityAlreadyExistsException("Ya existe ese snack.");
         }
 
-        // Crear nuevo snack
         Snack newSnack = Snack.builder().
                 name(name).
                 price(price).
                 imageURL(imageURL).
                 build();
 
-        // Validaciones
         ValidationUtil.validate(newSnack, validator);
 
-        // Save new snack
         return snackRepo.save(newSnack);
     }
 
 
     public List<Snack> allSnacks(){return snackRepo.findAll();}
-
-
 
 }
